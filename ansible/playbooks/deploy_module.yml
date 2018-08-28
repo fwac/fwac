@@ -1,0 +1,12 @@
+---
+- hosts: awx
+  connection: local
+  tasks:
+  - name: Copy PPTX Modules to lib  
+    copy:
+      src: modules/pptx_file.py
+      dest: /usr/lib/python2.7/site-packages/ansible/modules/files/pptx_file.py
+      owner: root
+      group: root
+      mode: 0644
+    become: yes

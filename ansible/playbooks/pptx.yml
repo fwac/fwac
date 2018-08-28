@@ -1,0 +1,18 @@
+---
+- hosts: awx
+  connection: local
+  tasks:
+  - name: Create PPTX with Title page
+    pptx_file: 
+      filename: /tmp/scott.pptx
+      title: "Ansible Club"
+      subtitle: "This is what you want to do"
+    
+  - name: Copy PPTX Modules to lib  
+    copy:
+      src: modules/pptx_file.py
+      dest: /usr/lib/python2.7/site-packages/ansible/modules/files/pptx_file.py
+      owner: root
+      group: root
+      mode: 0644
+    become: yes

@@ -1,0 +1,5 @@
+[awx]
+localhost
+
+[awx:vars]
+
