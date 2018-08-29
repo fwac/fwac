@@ -1,26 +1,28 @@
 ---
 - hosts: awx
+  vars:
+    filename: files/pptx/scott.pptx
   connection: local
   tasks:
   - name: Create PPTX with Title page
     pptx_create: 
-      filename: /tmp/scott.pptx
+      filename: "{{ filename }}"
       title: "Ansible Club"
       subtitle: "This is what you want to do"
 
   - name: Create Bar Charts
     pptx_chart:
-      filename: /tmp/scott.pptx
+      filename: "{{ filename }}"
       categories: ['Yes',No']
       series_name: "Use Ansible"
-      series_values: [5,10,15,20,25,30]
+      series_values: [5,10]
       chart_type: bar
 
   - name: Create Pie Charts
     pptx_chart:
-      filename: /tmp/scott.pptx
+      filename: "{{ filename }}"
       categories: ['Yes',No']
       series_name: "Use Ansible"
-      series_values: [5,10,15,20,25,30]
+      series_values: [5,10]
       chart_type: pie
 
