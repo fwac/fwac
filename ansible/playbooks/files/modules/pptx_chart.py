@@ -76,8 +76,8 @@ def main():
     chartmp.save(filename)
     module.exit_json(changed=True)
   except:
-    #module.fail_json(msg=sys.exc_info()[0])
-    module.fail_json(msg="error")
+    module.fail_json(msg=sys.exc_info()[0])
+    #module.fail_json(msg="error")
 
 from ansible.module_utils.basic import *
 main()

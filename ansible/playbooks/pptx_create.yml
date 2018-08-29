@@ -1,7 +1,7 @@
 ---
 - hosts: awx
   vars:
-    filename: files/pptx/scott.pptx
+    filename: /tmp/scott.pptx
   connection: local
   tasks:
   - name: Create PPTX with Title page
@@ -25,4 +25,8 @@
       series_name: "Use Ansible"
       series_values: [5,10]
       chart_type: pie
+
+  - name: Transfer file to Google Drive
+    local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
+
 
