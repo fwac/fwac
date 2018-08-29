@@ -4,9 +4,13 @@
   tasks:
   - name: Copy PPTX Modules to lib  
     copy:
-      src: modules/pptx_file.py
-      dest: /usr/lib/python2.7/site-packages/ansible/modules/files/pptx_file.py
+      src: "{{ item }}"
+      dest: /usr/lib/python2.7/site-packages/ansible/modules/files/
       owner: root
       group: root
       mode: 0644
     become: yes
+    with_items:
+      - "modules/pptx_file.py"
+      - "modules/pptx_create.py"
+      - "modules/pptx_chart.py"

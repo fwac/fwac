@@ -3,7 +3,24 @@
   connection: local
   tasks:
   - name: Create PPTX with Title page
-    pptx_file: 
+    pptx_create: 
       filename: /tmp/scott.pptx
       title: "Ansible Club"
       subtitle: "This is what you want to do"
+
+  - name: Create Bar Charts
+    pptx_chart:
+      filename: /tmp/scott.pptx
+      categories: ['Yes',No']
+      series_name: "Use Ansible"
+      series_values: [5,10,15,20,25,30]
+      chart_type: bar
+
+  - name: Create Pie Charts
+    pptx_chart:
+      filename: /tmp/scott.pptx
+      categories: ['Yes',No']
+      series_name: "Use Ansible"
+      series_values: [5,10,15,20,25,30]
+      chart_type: pie
+
