@@ -13,7 +13,7 @@
   - name: Create Bar Charts
     pptx_chart:
       filename: "{{ filename }}"
-      categories: ['Yes',No']
+      categories: ['Yes','No']
       series_name: "Use Ansible"
       series_values: [5,10]
       chart_type: bar
@@ -21,7 +21,7 @@
   - name: Create Pie Charts
     pptx_chart:
       filename: "{{ filename }}"
-      categories: ['Yes',No']
+      categories: ['Yes','No']
       series_name: "Use Ansible"
       series_values: [5,10]
       chart_type: pie

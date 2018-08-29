@@ -2,6 +2,7 @@
 from pptx import Presentation
 from pptx.chart.data import ChartData
 from pptx.enum.chart import XL_CHART_TYPE
+from pptx.enum.chart import XL_LEGEND_POSITION
 from pptx.util import Inches
 import sys
 
@@ -29,7 +30,7 @@ class Chart:
       chart_data = ChartData()
       chart_data.categories = categories
       chart_data.add_series(series_name, series_values)
-  
+      x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(4.5) 
       chart = slide.shapes.add_chart(
           XL_CHART_TYPE.PIE, x, y, cx, cy, chart_data
       ).chart
@@ -43,6 +44,7 @@ class Chart:
       data_labels.number_format = '0%'
       data_labels.position = XL_LABEL_POSITION.OUTSIDE_END
     except:
+      #module.fail_json(msg=sys.exc_info()[0])
       pass
 
   def save(self,filename):
