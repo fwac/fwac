@@ -1,0 +1,21 @@
+---
+- hosts: awx
+  connection: local
+  tasks:
+  - name: Test Rest
+    uri:
+      url: http://127.0.0.1:8080/db/coll
+      return_content: yes
+    register: coll
+
+  - name: debug
+    debug: var=item
+    with_items: "{{coll.json._embedded}}"
+
+  - set_fact:
+        experience: "{{ experience|default(0)|int + item.experience|int }}"
+        ops: "{{ ops|default(0)|int + item.ops|int }}"
+    with_items: "{{coll.json._embedded}}"
+
+  - debug: var=experience
+  - debug: var=ops

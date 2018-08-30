@@ -33,7 +33,7 @@ wc = WordCloud(background_color="black", max_words=2000, mask=ansible_mask,stopw
 wc.generate(text)
 
 # store to file
-wc.to_file(path.join(d, "ansible.png"))
-os.system('convert ansible_mask.png ansible.png ansible_negate.png -composite ansible_cloud.png')
+wc.to_file(path.join(d, "wordcloud.png"))
+os.system('convert ansible_mask.png wordcloud.png ansible_negate.png -composite ansible_cloud.png')
 os.system('gdrive upload ansible_cloud.png')
 
