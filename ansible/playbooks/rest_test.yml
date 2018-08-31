@@ -7,6 +7,11 @@
       return_content: yes
     register: coll
 
+  - name: Display all variables/facts known for a host
+    debug:
+      var: hostvars[inventory_hostname]
+      verbosity: 4
+
   - set_fact:
         experience: "{{ experience|default(0)|int + item.experience|int }}"
         ops: "{{ ops|default(0)|int + item.ops|int }}"
