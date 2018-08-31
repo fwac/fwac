@@ -27,6 +27,7 @@
 
   - name: Transfer file to Google Drive
     #local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
-    local_action: "command aws s3 cp {{ filename }} s3://ansible.club/slides/ --acl public-read"
+    command: aws s3 cp {{ filename }} s3://ansible.club/slides/ --acl public-read"
+    become: no
 
 
