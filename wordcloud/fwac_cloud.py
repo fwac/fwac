@@ -35,5 +35,6 @@ wc.generate(text)
 # store to file
 wc.to_file(path.join(d, "wordcloud.png"))
 os.system('convert ansible_mask.png wordcloud.png ansible_negate.png -composite ansible_cloud.png')
-os.system('gdrive upload ansible_cloud.png')
+#os.system('gdrive upload ansible_cloud.png')
+os.system('aws s3 cp ansible_cloud.png s3://ansible.club/images/ --acl public-read')
 

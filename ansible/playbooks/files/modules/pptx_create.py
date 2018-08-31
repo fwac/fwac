@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/bin/env python
 from pptx import Presentation
 import sys
 from pptx import Presentation

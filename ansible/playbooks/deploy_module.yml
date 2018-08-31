@@ -5,7 +5,7 @@
   - name: Copy PPTX Modules to lib  
     copy:
       src: "{{ item }}"
-      dest: /usr/lib/python2.7/site-packages/ansible/modules/files/
+      dest: /usr/local/lib/python2.7/site-packages/ansible/modules/files/
       owner: root
       group: root
       mode: 0644

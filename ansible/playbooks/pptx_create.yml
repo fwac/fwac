@@ -1,8 +1,7 @@
 ---
 - hosts: awx
   vars:
-    filename: /tmp/scott.pptx
-  connection: local
+    filename: /tmp/fwac.pptx
   tasks:
   - name: Create PPTX with Title page
     pptx_create: 
@@ -27,6 +26,7 @@
       chart_type: pie
 
   - name: Transfer file to Google Drive
-    local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
+    #local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
+    local_action: "command aws s3 cp {{ filename }} s3://ansible.club/slides/ --acl public-read"
 
 
