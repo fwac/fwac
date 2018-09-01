@@ -46,11 +46,11 @@
         challenge_cloud: "{{ challenge_cloud }} {{ item.challenge_cloud }}"
         club: "{{ club|default([]) + item.club }}"
         facilitate: "{{ item.facilitate }}"
-        meetings: "{{ meetings|default([]).append(item.meetings) }}"
+        meetings: "{{ meetings|default([]) + item.meetings }}"
         reason_cloud: "{{ reason_cloud }} {{ item.reason_cloud  }}"
-        role: "{{ role|default([]).append(item.role) }}"
-        topic: "{{ topic|default([]).append(item.topic) }}"
-        tower: "{{ tower|default([]).apend(item.tower) }}"
+        role: "{{ role|default([]) + item.role }}"
+        topic: "{{ topic|default([]) + item.topic }}"
+        tower: "{{ tower|default([]) + item.tower }}"
     with_items: "{{coll.json._embedded}}"
 
   - debug: var=currently
