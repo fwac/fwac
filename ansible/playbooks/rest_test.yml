@@ -30,21 +30,16 @@
                }
 
     survey: {    
-      role_ss: Test Engineer
-      currently_ss: 'Yes'
-      inops_ss: 'No'
-      project_text: IAM
-      tower_ms:
-        - Engine
-      club_ms:
-        - Learn
-        - Have Fun/Socialize
-      facilitate_ss: 'No'
-      meetings_ss: Bi-Monthly
-      reason_cloud_text: >-
-        Automation Easy Idempotent Configuration Management Changes 
-        deployment integration devops CM
-      challenge_cloud_text: Policy Environments Ops Requirements SSM CM Test
+      role_ss: 'Test Engineer',
+      currently_ss: 'Yes',
+      inops_ss: 'No',
+      project_text: 'IAM',
+      tower_ms: ['Engine'],
+      club_ms: ['Learn','Have Fun/Socialize'],
+      facilitate_ss: 'No',
+      meetings_ss: 'Bi-Monthly',
+      reason_cloud_text: 'Automation Easy Idempotent Configuration Management Changes deployment integration devops CM',
+      challenge_cloud_text: 'Policy Environments Ops Requirements SSM CM Test',
       topic_text: ''
       }
 
