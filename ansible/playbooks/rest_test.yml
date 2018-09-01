@@ -41,8 +41,8 @@
     register: coll
 
   - set_fact:
-        currently: "{{ currently|default(0)|int + item.currently|int }}"
-        inops: "{{ inops|default(0)|int + item.inops|int }}"
+        currently: "{{ currently|default(0)|int + item.currently|boolean|int }}"
+        inops: "{{ inops|default(0)|int + item.inops|boolean|int }}"
     with_items: "{{coll.json._embedded}}"
 
   - debug: var=currently
