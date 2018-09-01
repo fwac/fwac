@@ -19,7 +19,7 @@
                  "club": ["Learn","Have Fun/Socialize","Read/Write/Run Playbooks","Demos/Workshops","Establish Playbook Standards"],
                  "currently": "Yes",
                  "facilitate": "Yes",
-                 "inops": "Yes",
+                 "inops": "No",
                  "meetings": "Weekly",
                  "reason_cloud": "Automation Easy Idempotent Configuration Management Changes deployment integration devops CM",
                  "role": "Developer/Engineer",
@@ -60,3 +60,5 @@
   - debug: var=club
   - debug: var=facilitate
   - debug: var=meetings
+  - debug: var=tower
+
