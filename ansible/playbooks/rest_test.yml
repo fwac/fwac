@@ -43,11 +43,11 @@
   - set_fact:
         currently: "{{ currently|default(0)|int + item.currently|bool|int }}"
         inops: "{{ inops|default(0)|int + item.inops|bool|int }}"
-        challenge_cloud: "{{ challenge_cloud~" "~item.challenge_cloud }}"
+        challenge_cloud: "{{ challenge_cloud~' '~item.challenge_cloud }}"
         club: "{{ club.append(item.club) }}"
         facilitate: "{{ facilitate }}"
         meetings: "{{ meetings.append(item.meetings) }}"
-        reason_cloud: "{{ reason_cloud~" "~item.reason_cloud  }}"
+        reason_cloud: "{{ reason_cloud~' '~item.reason_cloud  }}"
         role: "{{ role.append(item.role) }}"
         topic: "{{ topic.append(item.topic) }}"
         tower: "{{ tower.apend(item.tower) }}"
