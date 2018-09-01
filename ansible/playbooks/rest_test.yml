@@ -41,9 +41,9 @@
     register: coll
 
   - set_fact:
-        experience: "{{ experience|default(0)|int + item.experience|int }}"
-        ops: "{{ ops|default(0)|int + item.ops|int }}"
+        currently: "{{ currently|default(0)|int + item.currently|int }}"
+        inops: "{{ inops|default(0)|int + item.inops|int }}"
     with_items: "{{coll.json._embedded}}"
 
-  - debug: var=experience
-  - debug: var=ops
+  - debug: var=currently
+  - debug: var=inops
