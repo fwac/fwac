@@ -66,7 +66,7 @@
       chart_type: pie
 
   - name: Transfer file to Google Drive
-    command: "aws s3 cp {{ filename }} s3://ansible.club/slides/ --acl public-read"
+    command: "aws s3 cp {{ filename }} s3://s3.fwac.us/slides/ --acl public-read"
     become: no
 
 
