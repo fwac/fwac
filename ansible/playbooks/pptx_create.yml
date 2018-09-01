@@ -123,19 +123,51 @@
       series_answers: "{{ meetings }}"
       chart_type: "bar"
       
+  # reason cloud      
   - name: Create reason cloud
     wordcount:
       filename: "{{ reason_filename }}"
       words: "{{ reason_cloud }}"
       
+  - name: Put reason_cloud up on S3
+    aws_s3:
+      bucket: s3.fwac.us
+      object: /slides/{{ reason_filename | basename }}
+      src: {{ reason_filename }}
+      mode: put
+      permission: public-read
+      
+  - name: Add reason_cloud to pptx
+    pptx_image:
+      title: "Why we love Ansible <3"
+      filename: "{{ reason_filename }}"
+      
+  #challenge cloud
   - name: Create challenge cloud
     wordcount:
       filename: "{{ challenge_filename }}"
       words: "{{ challenge_cloud }}"
-           
-  - name: Transfer file to S3 Bucket
-    command: "aws s3 cp {{ filename }} s3://s3.fwac.us/slides/ --acl public-read"
-    become: no
-
+      
+  - name: Put challenge_cloud up on S3
+    aws_s3:
+      bucket: s3.fwac.us
+      object: /slides/{{ challenge_filename | basename }}
+      src: {{ challenge_filename }}
+      mode: put
+      permission: public-read
+      
+  - name: Add challenge_cloud to pptx
+    pptx_image:
+      title: "Challenges we face"
+      filename: "{{ challenge_filename }}"
+      
+  # put it all up on S3    
+  - name: Put slides up on S3
+    aws_s3:
+      bucket: s3.fwac.us
+      object: /slides/{{ pptx_filename | basename }}
+      src: {{ pptx_filename }}
+      mode: put
+      permission: public-read
 
 #local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
