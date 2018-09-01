@@ -43,7 +43,7 @@
 
   - set_fact:
       currently_yes: "{{ currently|default(0)|int + item.currently|bool|int }}"
-      currently: "{{ currently|default([]) + item.currently|list }}"
+      currently: "{{ currently|default([]).append(item.currently) }}"
       inops_yes: "{{ inops|default(0)|int + item.inops|bool|int }}"
       inops: "{{ inops|default([]) + item.inops|list }}"
       challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud }}"
