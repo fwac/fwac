@@ -28,14 +28,14 @@
   tasks:
   - name: Put response in Mongo
     uri:
-      url: "http://127.0.0.1:8080/db/coll"
+      url: "http://172.31.16.159:8080/db/coll"
       body_format: "json"
       method: "POST"
       body: "{{hard_fwac}}"
 
   - name: Test Rest
     uri:
-      url: http://127.0.0.1:8080/db/coll
+      url: http://172.31.16.159::8080/db/coll
       return_content: yes
     register: coll
 
