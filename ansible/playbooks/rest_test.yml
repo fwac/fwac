@@ -36,13 +36,9 @@
 
   - name: Test Rest
     uri:
-      url: http://172.31.16.159::8080/db/coll
+      url: http://172.31.16.159:8080/db/coll
       return_content: yes
     register: coll
-
-  - name: Display all variables/facts known for a host
-    debug:
-      var: hostvars[inventory_hostname]
 
   - set_fact:
         experience: "{{ experience|default(0)|int + item.experience|int }}"
