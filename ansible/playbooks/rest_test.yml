@@ -1,7 +1,7 @@
 ---
 - hosts: awx
   vars:
-    collection: coll2
+    collection: coll3
     fwac: { 
             challenge_cloud: '{{challenge_cloud}}', 
             club: '{{club}}', 
@@ -14,7 +14,9 @@
             topic: '{{topic}}', 
             tower: '{{tower}}' 
           }
-    hard_fwac: { 
+
+    hard_fwac: {
+
                  "challenge_cloud": "Policy Environments Ops Requirements SSM CM Test",
                  "club": ["Learn","Have Fun/Socialize","Read/Write/Run Playbooks","Demos/Workshops","Establish Playbook Standards"],
                  "currently": "Yes",
@@ -26,17 +28,34 @@
                  "topic": "none",
                  "tower": ["Tower","Engine"]
                }
+
+    survey: {    
+      role_ss: Test Engineer
+      currently_ss: 'Yes'
+      inops_ss: 'No'
+      project_text: IAM
+      tower_ms:
+        - Engine
+      club_ms:
+        - Learn
+        - Have Fun/Socialize
+      facilitate_ss: 'No'
+      meetings_ss: Bi-Monthly
+      reason_cloud_text: >-
+        Automation Easy Idempotent Configuration Management Changes 
+        deployment integration devops CM
+      challenge_cloud_text: Policy Environments Ops Requirements SSM CM Test
+      topic_text: ''
+      }
+
   tasks:
   - name: Put response in Mongo
     uri:
       url: "http://{{ restheart }}/db/{{ collection }}"
       body_format: "json"
       method: "POST"
-      body: "{{hard_fwac}}"
+      body: "{{survey}}"
       status_code: 201
-
-  - set_fact:
-      currently: []
 
   - name: Test Rest
     uri:
@@ -45,19 +64,19 @@
     register: coll
 
   - set_fact:
-      currently_yes: "{{ currently|default(0)|int + item.currently|bool|int }}"
-      currently: "{{ currently|default([]) + [item.currently]|list }}"
-      inops_yes: "{{ inops|default(0)|int + item.inops|bool|int }}"
-      inops: "{{ inops|default([]) + [item.inops]|list }}"
-      challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud }}"
-      club: "{{ club|default([]) + [item.club]|list }}"
-      facilitate: "{{ facilitate|default([]) + [item.facilitate] }}"
-      facilitate_yes: "{{ facilitate|default(0)|int  + item.facilitate|bool|int }}"
-      meetings: "{{ meetings|default([]) + [item.meetings] }}"
-      reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud  }}"
-      role: "{{ role|default([]) + [item.role] }}"
-      topic: "{{ topic|default([]) + [item.topic] }}"
-      tower: "{{ tower|default([]) + [item.tower] }}"
+      currently_yes: "{{ currently|default(0)|int + item.currently_ss|bool|int }}"
+      currently: "{{ currently|default([]) + [item.currently_ss] }}"
+      inops_yes: "{{ inops|default(0)|int + item.inops_ss|bool|int }}"
+      inops: "{{ inops|default([]) + [item.inops_ss] }}"
+      challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud_text }}"
+      club: "{{ club|default([]) + item.club_ms }}"
+      facilitate: "{{ facilitate|default([]) + [item.facilitate_ss] }}"
+      facilitate_yes: "{{ facilitate|default(0)|int  + item.facilitate_ss|bool|int }}"
+      meetings: "{{ meetings|default([]) + [item.meetings_ss] }}"
+      reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }}"
+      role: "{{ role|default([]) + [item.role_ss] }}"
+      topic: "{{ topic|default([]) + [item.topic_text] }}"
+      tower: "{{ tower|default([]) + item.tower_ms }}"
       total: "{{ total|default('1')|int + '1'|int }}"
     with_items: "{{coll.json._embedded}}"
 
