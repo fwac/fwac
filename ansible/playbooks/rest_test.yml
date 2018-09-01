@@ -1,6 +1,38 @@
 ---
 - hosts: awx
+  vars:
+    fwac: { 
+            challenge_cloud: '{{challenge_cloud}}', 
+            club: '{{club}}', 
+	    currently: '{{currently}}', 
+	    facilitate: '{{facilitate}}', 
+	    inops: '{{inops}}', 
+	    meetings: '{{meetings}}', 
+	    reason_cloud: '{{reason_cloud}}', 
+	    role: '{{role}}', 
+	    topic: '{{topic}}', 
+	    tower: '{{tower}}' 
+	  }
+    hard_fwac: { 
+                 "challenge_cloud": "Policy Environments Ops Requirements SSM CM Test",
+                 "club": ["Learn","Have Fun/Socialize","Read/Write/Run Playbooks","Demos/Workshops","Establish Playbook Standards"],
+                 "currently": "Yes",
+                 "facilitate": "Yes",
+                 "inops": "Yes",
+                 "meetings": "Weekly",
+                 "reason_cloud": "Automation Easy Idempotent Configuration Management Changes deployment integration devops CM",
+                 "role": "Developer/Engineer",
+                 "topic": "none",
+                 "tower": ["Tower","Engine"]
+               }
   tasks:
+  - name: Put response in Mongo
+    uri:
+      url: "http://127.0.0.1:8080/db/coll"
+      body_format: "json"
+      method: "POST"
+      body: "{{hard_fwac}}"
+
   - name: Test Rest
     uri:
       url: http://127.0.0.1:8080/db/coll
