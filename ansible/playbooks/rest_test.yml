@@ -4,15 +4,15 @@
     fwac: { 
             challenge_cloud: '{{challenge_cloud}}', 
             club: '{{club}}', 
-	    currently: '{{currently}}', 
-	    facilitate: '{{facilitate}}', 
-	    inops: '{{inops}}', 
-	    meetings: '{{meetings}}', 
-	    reason_cloud: '{{reason_cloud}}', 
-	    role: '{{role}}', 
-	    topic: '{{topic}}', 
-	    tower: '{{tower}}' 
-	  }
+            currently: '{{currently}}', 
+            facilitate: '{{facilitate}}', 
+            inops: '{{inops}}', 
+            meetings: '{{meetings}}', 
+            reason_cloud: '{{reason_cloud}}', 
+            role: '{{role}}', 
+            topic: '{{topic}}', 
+            tower: '{{tower}}' 
+          }
     hard_fwac: { 
                  "challenge_cloud": "Policy Environments Ops Requirements SSM CM Test",
                  "club": ["Learn","Have Fun/Socialize","Read/Write/Run Playbooks","Demos/Workshops","Establish Playbook Standards"],
