@@ -32,6 +32,7 @@
       body_format: "json"
       method: "POST"
       body: "{{hard_fwac}}"
+      status_code: 201
 
   - name: Test Rest
     uri:
