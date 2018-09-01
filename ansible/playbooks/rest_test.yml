@@ -46,11 +46,11 @@
 
   - set_fact:
       currently_yes: "{{ currently|default(0)|int + item.currently|bool|int }}"
-      currently: "{{ currently + [item.currently] }}"
+      currently: "{{ currently|default([]) + [item.currently]|list }}"
       inops_yes: "{{ inops|default(0)|int + item.inops|bool|int }}"
-      inops: "{{ inops|default([]) + [item.inops] }}"
+      inops: "{{ inops|default([]) + [item.inops]|list }}"
       challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud }}"
-      club: "{{ club|default([]) + [item.club] }}"
+      club: "{{ club|default([]) + [item.club]|list }}"
       facilitate: "{{ facilitate|default([]) + [item.facilitate] }}"
       facilitate_yes: "{{ facilitate|default(0)|int  + item.facilitate|bool|int }}"
       meetings: "{{ meetings|default([]) + [item.meetings] }}"
