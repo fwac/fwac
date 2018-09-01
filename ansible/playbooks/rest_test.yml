@@ -1,6 +1,7 @@
 ---
 - hosts: awx
   vars:
+    collection: coll2
     fwac: { 
             challenge_cloud: '{{challenge_cloud}}', 
             club: '{{club}}', 
@@ -28,7 +29,7 @@
   tasks:
   - name: Put response in Mongo
     uri:
-      url: "http://172.31.16.159:8080/db/coll"
+      url: "http://172.31.16.159:8080/db/{{ collection }}"
       body_format: "json"
       method: "POST"
       body: "{{hard_fwac}}"
@@ -36,7 +37,7 @@
 
   - name: Test Rest
     uri:
-      url: http://172.31.16.159:8080/db/coll
+      url: "http://172.31.16.159:8080/db/{{ collection }}"
       return_content: yes
     register: coll
 
