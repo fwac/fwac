@@ -9,9 +9,13 @@
       return_content: yes
     register: coll
 
+  # set variables with all the answers together. the code in the module will
+  # tally the answers to create the charts
   - set_fact:
-        currently: "{{ currently|default(0)|int + item.currently|bool|int }}"
-        inops: "{{ inops|default(0)|int + item.inops|bool|int }}"
+        currently_yes: "{{ currently|default(0)|int + item.currently|bool|int }}"
+	inops_yes: "{{ inops|default(0)|int + item.inops|bool|int }}"
+        currently: "{{ currently|default('') }} {{ item.currently }}"
+        inops: "{{ inops|default('') }} {{ item.inops }}"
         challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud }}"
         club: "{{ club|default([]) + item.club }}"
         facilitate: "{{ facilitate|default('') }} {{ item.facilitate }}"
@@ -49,16 +53,48 @@
       title: "Ansible Club"
       subtitle: "This is what you want to do"
 
-  - name: Create Bar Charts
+  - name: Pie chart of why we clubbing
     pptx_chart:
+      title: "What we want from Ansible Club"
+      filename: "{{ filename }}"
+      categories: ['Yes','No']
+      series_dict: { total: '{{ currently_yes }}', part: '{{ inops_yes }}' }
+      series_name: "Use Ansible"
+      chart_type: "pie"
+
+
+
+  - name: Who uses Ansible Bar Chart
+    pptx_chart:
+      title: "Who uses Ansible?"
       filename: "{{ filename }}"
       categories: ['Yes','No']
       series_name: "Use Ansible"
-      series_values: [5,10]
-      chart_type: bar
+      series_answers: "{{ currently }}"
+      chart_type: "bar"
+
+  - name: Who uses Ansible in Ops Bar Chart
+    pptx_chart:
+      title: "Who uses Ansible in Ops?"
+      filename: "{{ filename }}"
+      categories: ['Yes','No']
+      series_name: "Use Ansible"
+      series_answers: "{{ inops }}"
+      chart_type: "bar"
+
+  - name: Pie chart of Ansible use
+    pptx_chart:
+      title: "Where Ansibe is used"
+      filename: "{{ filename }}"
+      categories: ['Yes','No']
+      series_dict: { total: '{{ currently_yes }}', part: '{{ inops_yes }}' }
+      series_name: "Use Ansible"
+      chart_type: "pie"
+
 
   - name: Create Pie Charts
     pptx_chart:
+      title: ""
       filename: "{{ filename }}"
       categories: ['Yes','No']
       series_name: "Use Ansible"
