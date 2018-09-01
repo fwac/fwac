@@ -35,6 +35,9 @@
       body: "{{hard_fwac}}"
       status_code: 201
 
+  - set_fact:
+      currently: []
+
   - name: Test Rest
     uri:
       url: "http://{{ restheart }}/db/{{ collection }}"
@@ -43,7 +46,7 @@
 
   - set_fact:
       currently_yes: "{{ currently|default(0)|int + item.currently|bool|int }}"
-      currently: "{{ currently|default([]).append(item.currently) }}"
+      currently: "{{ currently.append(item.currently) }}"
       inops_yes: "{{ inops|default(0)|int + item.inops|bool|int }}"
       inops: "{{ inops|default([]) + item.inops|list }}"
       challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud }}"
