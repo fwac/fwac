@@ -29,7 +29,7 @@
   tasks:
   - name: Put response in Mongo
     uri:
-      url: "http://172.31.16.159:8080/db/{{ collection }}"
+      url: "http://{{ restheart }}/db/{{ collection }}"
       body_format: "json"
       method: "POST"
       body: "{{hard_fwac}}"
@@ -37,7 +37,7 @@
 
   - name: Test Rest
     uri:
-      url: "http://172.31.16.159:8080/db/{{ collection }}"
+      url: "http://{{ restheart }}/db/{{ collection }}"
       return_content: yes
     register: coll
 
