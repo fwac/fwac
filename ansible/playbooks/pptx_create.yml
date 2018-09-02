@@ -233,7 +233,7 @@
   - name: Email Slides to attendees
     mail:
       host: smtp.gmail.com
-      port: 465
+      port: 587
       username: "{{ email_from }}"
       password: "{{ email_passwd }}"
       to:
@@ -244,6 +244,5 @@
         - "{{ pptx_filename }}"
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
-      from: scott.ctr.tully@faa.gov    
 
 #local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
