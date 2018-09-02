@@ -10,8 +10,8 @@ def main():
   module = AnsibleModule(
     argument_spec=dict(
       filename = dict(required=True),
-      title = dict(default=True),
-      bullet = dict(default=True),
+      title = dict(required=True),
+      bullets = dict(required=True)
       ),
       supports_check_mode=False
   )
@@ -19,19 +19,25 @@ def main():
     prs = Presentation()
     bullet_slide_layout = prs.slide_layouts[1]
     slide = prs.slides.add_slide(bullet_slide_layout)
+
     shapes = slide.shapes
     title_shape = shapes.title
-    body_shape = module.params['title']
+    body_shape = shapes.placeholders[1]
+    title_shape.text = module.params['title']
+    bullets = module.params['bullets']
     tf = body_shape.text_frame
     tf.text = 'Topics for discussion'
-    for topic in bullet:
+    for topic in bullets:
       p = tf.add_paragraph()
       p.text = topic
       p.level = 1
     prs.save(module.params['filename'])
     module.exit_json(changed=True)
   except:
-    module.fail_json(msg=sys.exc_info()[0])
+    pass
+    #print sys.exc_info()[0]
+    #raise
+    #module.fail_json(msg=sys.exc_info()[0])
 
 from ansible.module_utils.basic import *
 main()

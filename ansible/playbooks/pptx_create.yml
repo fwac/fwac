@@ -38,28 +38,39 @@
       total: "{{ total|default('1')|int + '1'|int }}"
     with_items: "{{documents.json._embedded}}"
     
-  - debug: var=currently
-    verbosity: 2
-  - debug: var=inops
-    verbosity: 2
-  - debug: var=challenge_cloud
-    verbosity: 2
-  - debug: var=club
-    verbosity: 2
-  - debug: var=facilitate
-    verbosity: 2
-  - debug: var=meetings
-    verbosity: 2
-  - debug: var=reason_cloud
-    verbosity: 2
-  - debug: var=role
-    verbosity: 2
-  - debug: var=topic
-    verbosity: 2
-  - debug: var=tower
-    verbosity: 2
-  - debug: var=total
-    verbosity: 2
+  - debug: 
+      var: currently
+      verbosity: 2
+  - debug: 
+      var: inops
+      verbosity: 2
+  - debug: 
+      var: challenge_cloud
+      verbosity: 2
+  - debug: 
+      var: club
+      verbosity: 2
+  - debug: 
+      var: facilitate
+      verbosity: 2
+  - debug: 
+      var: meetings
+      verbosity: 2
+  - debug: 
+      var: reason_cloud
+      verbosity: 2
+  - debug: 
+      var: role
+      verbosity: 2
+  - debug: 
+      var: topic
+      verbosity: 2
+  - debug: 
+      var: tower
+      verbosity: 2
+  - debug: 
+      var: total
+      verbosity: 2
     
   - name: Create PPTX with Title page
     pptx_create: 
@@ -184,14 +195,15 @@
     pptx_image:
       title: "Challenges we face"
       image: "{{ challenge_image_file }}"
-      ilename: "{{ pptx_filename }}"
+      filename: "{{ pptx_filename }}"
       
  # add topics   
   - name: Topics for discussion
-    pptx_chart:
+    pptx_bullet:
       title: "Discussion"
       filename: "{{ pptx_filename }}"
       bullets: "{{ topic }}"
+    when: "topic|length > 0"
 
   # put it all up on S3    
   - name: Put slides up on S3
