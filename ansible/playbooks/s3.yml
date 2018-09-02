@@ -1,0 +1,12 @@
+- hosts: awx
+  tasks:
+  - name: Get list off slides from s3
+    aws_s3:
+      bucket: s3.fwac.us
+      prefix: slides/
+      mode: list
+    register: slides
+
+  - name: print
+    debug: var=slides.s3_keys
+
