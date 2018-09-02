@@ -224,7 +224,7 @@
     aws_s3:
       bucket: s3.fwac.us
       object: "/index.html"
-      src: "/tmp/index.html
+      src: "/tmp/index.html"
       permission: public-read    
 
   - debug: 
