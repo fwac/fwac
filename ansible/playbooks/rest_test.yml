@@ -38,7 +38,7 @@
       inops: "{{ inops|default([]) + [item.inops_ss] }}"
       challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud_text }}"
       club: "{{ club|default([]) + item.club_ms }}"
-      emails: "{{ emails|default([]) + [item.email_text] }}"
+      emails: "{{ emails|default([]) + [item.email_text]|list }}"
       meetings: "{{ meetings|default([]) + [item.meetings_ss] }}"
       reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }}"
       role: "{{ role|default([]) + [item.role_ss] }}"
