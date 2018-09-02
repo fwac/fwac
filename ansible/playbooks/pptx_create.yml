@@ -157,10 +157,11 @@
       mode: put
       permission: public-read
       
-#  - name: Add reason_cloud to pptx
-#    pptx_image:
-#      title: "Why we love Ansible <3"
-#      filename: "{{ reason_cloud_file }}"
+  - name: Add reason_cloud to pptx
+    pptx_image:
+      title: "Why we love Ansible <3"
+      image: "{{ reason_cloud_file }}"
+      filename: "{{ pptx_filename }}"
       
   #challenge cloud =================================================
   - name: Create word file for challenge cloud
@@ -179,10 +180,11 @@
       mode: put
       permission: public-read
       
-#  - name: Add challenge_cloud to pptx
-#    pptx_image:
-#      title: "Challenges we face"
-#      filename: "{{ challenge_image_file }}"
+  - name: Add challenge_cloud to pptx
+    pptx_image:
+      title: "Challenges we face"
+      image: "{{ challenge_image_file }}"
+      ilename: "{{ pptx_filename }}"
       
  # add topics   
   - name: Topics for discussion

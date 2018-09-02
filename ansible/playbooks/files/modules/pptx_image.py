@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from pptx import Presentation
+from pptx.util import Inches
 import sys
 
 
@@ -7,19 +8,20 @@ def main():
   module = AnsibleModule(
     argument_spec=dict(
       filename = dict(required=True),
-      title = dict(default=True),
-      subtitle = dict(default=True),
+      title = dict(required=True),
+      image = dict(required=True)
       ),
       supports_check_mode=False
   )
   try:
     prs = Presentation()
-    title_slide_layout = prs.slide_layouts[0]
-    slide = prs.slides.add_slide(title_slide_layout)
+    blank_slide_layout = prs.slide_layouts[6]
+    slide = prs.slides.add_slide(blank_slide_layout)
     title = slide.shapes.title
-    subtitle = slide.placeholders[1]
     title.text = module.params['title']
-    subtitle.text = module.params['subtitle']
+    img_path = module.params['image']
+    left = top = Inches(1)
+    pic = slide.shapes.add_picture(img_path, left, top)    
     prs.save(module.params['filename'])
     module.exit_json(changed=True)
   except:
