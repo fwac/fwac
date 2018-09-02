@@ -11,15 +11,16 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      bullets = dict(required=True)
+      bullets = dict(required=True, type='list')
       ),
       supports_check_mode=False
   )
   try:
-    prs = Presentation()
+    filename = module.params['filename']
+    prs = Presentation(filename)
+    
     bullet_slide_layout = prs.slide_layouts[1]
     slide = prs.slides.add_slide(bullet_slide_layout)
-
     shapes = slide.shapes
     title_shape = shapes.title
     body_shape = shapes.placeholders[1]
@@ -27,11 +28,13 @@ def main():
     bullets = module.params['bullets']
     tf = body_shape.text_frame
     tf.text = 'Topics for discussion'
+    
     for topic in bullets:
       p = tf.add_paragraph()
       p.text = topic
       p.level = 1
-    prs.save(module.params['filename'])
+      
+    prs.save(filename)
     module.exit_json(changed=True)
   except:
     pass

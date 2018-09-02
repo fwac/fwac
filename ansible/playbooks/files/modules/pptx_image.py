@@ -14,7 +14,9 @@ def main():
       supports_check_mode=False
   )
   try:
-    prs = Presentation()
+    filename = module.params['filename']
+    prs = Presentation(filename)
+    
     blank_slide_layout = prs.slide_layouts[6]
     slide = prs.slides.add_slide(blank_slide_layout)
 
@@ -23,7 +25,7 @@ def main():
     img_path = module.params['image']
     left = top = Inches(1)
     pic = slide.shapes.add_picture(img_path, left, top)    
-    prs.save(module.params['filename'])
+    prs.save(filename)
     module.exit_json(changed=True)
   except:
     pass
