@@ -214,7 +214,7 @@
       mode: put
       permission: public-read
       
-   - debug: 
-      msg: "http://s3.fwac.us/"
+  - debug: 
+     msg: "http://s3.fwac.us/"
 
 #local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
