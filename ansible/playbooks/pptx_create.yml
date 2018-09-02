@@ -227,9 +227,6 @@
       mode: "put"
       permission: public-read    
 
-  - debug: 
-    msg: "http://s3.fwac.us/"
-
   - name: Email Slides to attendees
     mail:
       host: smtp.gmail.com
@@ -245,5 +242,13 @@
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
     when: "email_passwd is defined and emails is defined"
+ 
+  - name: Update fwac.github.io
+      git:
+        repo: git@github.com:fwac/fwac.github.io.git
+        dest: /home/ec2-user/fwac.github.io
+        update: yes
+        version: master 
 
+        
 #local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
