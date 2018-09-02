@@ -2,33 +2,6 @@
 - hosts: awx
   vars:
     collection: coll3
-    fwac: { 
-            challenge_cloud: '{{challenge_cloud}}', 
-            club: '{{club}}', 
-            currently: '{{currently}}', 
-            facilitate: '{{facilitate}}', 
-            inops: '{{inops}}', 
-            meetings: '{{meetings}}', 
-            reason_cloud: '{{reason_cloud}}', 
-            role: '{{role}}', 
-            topic: '{{topic}}', 
-            tower: '{{tower}}' 
-          }
-
-    hard_fwac: {
-
-                 "challenge_cloud": "Policy Environments Ops Requirements SSM CM Test",
-                 "club": ["Learn","Have Fun/Socialize","Read/Write/Run Playbooks","Demos/Workshops","Establish Playbook Standards"],
-                 "currently": "Yes",
-                 "facilitate": "Yes",
-                 "inops": "No",
-                 "meetings": "Weekly",
-                 "reason_cloud": "Automation Easy Idempotent Configuration Management Changes deployment integration devops CM",
-                 "role": "Developer/Engineer",
-                 "topic": "none",
-                 "tower": ["Tower","Engine"]
-               }
-
     survey: {    
       role_ss: 'Test Engineer',
       currently_ss: 'Yes',
@@ -36,11 +9,11 @@
       project_text: 'IAM',
       tower_ms: ['Engine'],
       club_ms: ['Learn','Have Fun/Socialize'],
-      facilitate_ss: 'No',
+      email_text: 'scott.tully@gmail.com',
       meetings_ss: 'Bi-Monthly',
       reason_cloud_text: 'Automation Easy Idempotent Configuration Management Changes deployment integration devops CM',
       challenge_cloud_text: 'Policy Environments Ops Requirements SSM CM Test',
-      topic_text: ''
+      topic_text: 'Show and tell'
       }
 
   tasks:

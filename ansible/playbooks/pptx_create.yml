@@ -17,6 +17,7 @@
     uri:
       url: "http://{{restheart}}/db/{{ collection }}"
       method: PUT
+      status_code: "201,200"
     
   - name: RESTHeart for collections
     uri:
