@@ -12,13 +12,15 @@ class Chart:
     self.prs = Presentation(filename)
 
   def 
-  def bar_chart(self,categories,series_name,series_values):
+  def bar_chart(self,categories,series_name,series_values,title):
     try:
       count_items = []
       for cat in categories:
         count_items.append(series_values.count(cat))
         
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
+      title = slide.shapes.title
+      title.text = title
       chart_data = ChartData()
       chart_data.categories = categories      
       chart_data.add_series(series_name,count_items)
@@ -29,7 +31,7 @@ class Chart:
     except:
       pass
 
-  def pie_chart(self,categories,series_name,series_values,build):
+  def pie_chart(self,categories,series_name,series_values,build,title):
     try:
       count_items = []
       if build:
@@ -38,6 +40,7 @@ class Chart:
       else:
         count_items = series_values
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
+      title = slide.shapes.title
       chart_data = ChartData()
       chart_data.categories = categories
       chart_data.add_series(series_name, count_items)
@@ -72,6 +75,7 @@ def main():
       series_name = dict(required=True),
       series_build = dict(required=False, type='bool', default=True),
       series_values = dict(required=True, type='list'),
+      title = dict(required=True, type='str'),
       chart_type = dict(required=True, type='str', choices=['bar', 'pie']),
       ),
       supports_check_mode=False
@@ -79,14 +83,15 @@ def main():
   filename = module.params['filename']
   categories = module.params['categories'] #list
   series_name = module.params['series_name'] 
+  title = module.params['title'] 
   series_values = tuple(module.params['series_values']) #list to tuple
   chart_type = module.params['chart_type']
   try:
     chartmp = Chart(filename)
     if chart_type == 'bar':
-      chartmp.bar_chart(categories,series_name,series_values)
+      chartmp.bar_chart(categories,series_name,series_values,title)
     elif chart_type == 'pie':
-      chartmp.pie_chart(categories,series_name,series_values,series_build)
+      chartmp.pie_chart(categories,series_name,series_values,series_build,title)
     chartmp.save(filename)
     module.exit_json(changed=True)
   except:
