@@ -213,7 +213,20 @@
       src: "{{ pptx_filename }}"
       mode: put
       permission: public-read
-      
+
+  - name: Make index.html for S3 
+     template:
+        src: index.html.j2
+        dest: /tmp/index.html
+    delegate_to: localhost
+
+  - name: Put slides up on S3
+    aws_s3:
+      bucket: s3.fwac.us
+      object: "/index.html"
+      src: "/tmp/index.html
+      permission: public-read    
+
   - debug: 
      msg: "http://s3.fwac.us/"
 
