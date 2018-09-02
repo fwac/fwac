@@ -31,7 +31,7 @@
       return_content: yes
     register: coll
     
-  - debug: var=survey
+  - debug: var=coll
   
   - set_fact:
       currently_yes: "{{ currently|default(0)|int + item.currently_ss|bool|int }}"
