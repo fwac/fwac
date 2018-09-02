@@ -248,6 +248,7 @@
       repo: git@github.com:fwac/fwac.github.io.git
       dest: /home/ec2-user/fwac.github.io
       update: yes
+      force: yes
       version: master 
 
   - name: Get list off slides from s3
