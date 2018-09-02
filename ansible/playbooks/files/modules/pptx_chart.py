@@ -11,7 +11,6 @@ class Chart:
   def __init__(self,filename):
     self.prs = Presentation(filename)
 
-  def 
   def bar_chart(self,categories,series_name,series_values,title):
     try:
       count_items = []
