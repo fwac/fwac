@@ -215,7 +215,7 @@
       permission: public-read
 
   - name: Make index.html for S3 
-     template:
+    template:
         src: index.html.j2
         dest: /tmp/index.html
     delegate_to: localhost
@@ -228,6 +228,6 @@
       permission: public-read    
 
   - debug: 
-     msg: "http://s3.fwac.us/"
+    msg: "http://s3.fwac.us/"
 
 #local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
