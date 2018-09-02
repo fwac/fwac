@@ -263,7 +263,7 @@
         dest: /home/ec2-user/fwac.github.io/README.md
         
   - name: Push README
-    shell: "cd /home/ec2-user/fwac.github.io && push"  
+    shell: "cd /home/ec2-user/fwac.github.io && /home/ec2-user/bin/push"  
       
  
 #local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
