@@ -1,7 +1,7 @@
 ---
 - hosts: awx
   vars:
-    collection: coll3
+    collection: meeting0
     survey: {    
       role_ss: 'Test Engineer',
       currently_ss: 'Yes',
@@ -38,8 +38,7 @@
       inops: "{{ inops|default([]) + [item.inops_ss] }}"
       challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud_text }}"
       club: "{{ club|default([]) + item.club_ms }}"
-      facilitate: "{{ facilitate|default([]) + [item.facilitate_ss] }}"
-      facilitate_yes: "{{ facilitate|default(0)|int  + item.facilitate_ss|bool|int }}"
+      emails: "{{ emails|default([]) + [item.email_text] }}"
       meetings: "{{ meetings|default([]) + [item.meetings_ss] }}"
       reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }}"
       role: "{{ role|default([]) + [item.role_ss] }}"
