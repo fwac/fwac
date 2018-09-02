@@ -3,10 +3,11 @@ from pptx import Presentation
 from pptx.chart.data import ChartData
 from pptx.enum.chart import XL_CHART_TYPE
 from pptx.enum.chart import XL_LEGEND_POSITION
+from pptx.enum.chart import XL_LABEL_POSITION
 from pptx.util import Inches
 import sys
 
-class Chart:
+class FWChart:
 
   def __init__(self,filename):
     self.prs = Presentation(filename)
@@ -18,8 +19,8 @@ class Chart:
         count_items.append(series_values.count(cat))
         
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
-      title = slide.shapes.title
-      title.text = title
+      slide_title = slide.shapes.title
+      slide_title.text = title
       chart_data = ChartData()
       chart_data.categories = categories      
       chart_data.add_series(series_name,count_items)
@@ -39,7 +40,8 @@ class Chart:
       else:
         count_items = series_values
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
-      title = slide.shapes.title
+      slide_title = slide.shapes.title
+      slide_title.text = title
       chart_data = ChartData()
       chart_data.categories = categories
       chart_data.add_series(series_name, count_items)
@@ -57,8 +59,8 @@ class Chart:
       data_labels.number_format = '0%'
       data_labels.position = XL_LABEL_POSITION.OUTSIDE_END
     except:
-      #module.fail_json(msg=sys.exc_info()[0])
-      pass
+      print sys.exc_info()[0]
+      raise
 
   def save(self,filename):
     try:
@@ -75,7 +77,7 @@ def main():
       series_build = dict(required=False, type='bool', default=True),
       series_values = dict(required=True, type='list'),
       title = dict(required=True, type='str'),
-      chart_type = dict(required=True, type='str', choices=['bar', 'pie']),
+      chart_type = dict(required=True, type='str', choices=['bar', 'pie'])
       ),
       supports_check_mode=False
   )
@@ -83,10 +85,11 @@ def main():
   categories = module.params['categories'] #list
   series_name = module.params['series_name'] 
   title = module.params['title'] 
-  series_values = tuple(module.params['series_values']) #list to tuple
+  series_build = module.params['series_build']
+  series_values = module.params['series_values'] #list to tuple
   chart_type = module.params['chart_type']
   try:
-    chartmp = Chart(filename)
+    chartmp = FWChart(filename)
     if chart_type == 'bar':
       chartmp.bar_chart(categories,series_name,series_values,title)
     elif chart_type == 'pie':
@@ -94,7 +97,10 @@ def main():
     chartmp.save(filename)
     module.exit_json(changed=True)
   except:
-    module.fail_json(msg=sys.exc_info()[0])
+    print sys.exc_info()[0]
+    raise
+    #pass
+    #module.fail_json(msg=sys.exc_info()[0])
     #module.fail_json(msg="error")
 
 from ansible.module_utils.basic import *

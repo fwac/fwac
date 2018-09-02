@@ -84,7 +84,7 @@
       series_values: "{{ role }}"
       series_name: "Who we are"
       chart_type: "pie"
-      
+     
   - name: Who uses Ansible Bar Chart
     pptx_chart:
       title: "Who uses Ansible?"
