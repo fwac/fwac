@@ -238,7 +238,7 @@
       port: 587
       username: "{{ email_from }}"
       password: "{{ email_passwd }}"
-      to: "{{ emails }}"
+      to: "{{ item }}"
       subject: FWAC Meeting Slides
       from: scott.ctr.tully@faa.gov
       body: Slides attached
@@ -247,6 +247,7 @@
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
     when: "email_passwd is defined and emails is defined"
+    with_items:  "{{ emails }}"
  
   - name: Update fwac.github.io
     git:
