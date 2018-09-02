@@ -236,13 +236,14 @@
       port: 587
       username: "{{ email_from }}"
       password: "{{ email_passwd }}"
-      to:
-        - scott.tully@gmail.com
+      to: emails
       subject: FWAC Meeting Slides
+      from: scott.ctr.tully@faa.gov
       body: Slides attached
       attach:
         - "{{ pptx_filename }}"
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
+    when: "email_passwd is defined and emails is defined"
 
 #local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
