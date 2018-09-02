@@ -110,7 +110,8 @@
       title: "How we use Ansible"
       filename: "{{ pptx_filename }}"
       categories: ['Total','Using Ansible','Ops']
-      series_dict: { total: '{{ total }}', currently: '{{ currently_yes }}', part: '{{ inops_yes }}' }
+      series_values: ['{{ total }}','{{ currently_yes }}','{{ inops_yes }}']
+      series_build: False
       series_name: "Ansible Use"
       chart_type: "pie"
       

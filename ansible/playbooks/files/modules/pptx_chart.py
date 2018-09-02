@@ -11,12 +11,17 @@ class Chart:
   def __init__(self,filename):
     self.prs = Presentation(filename)
 
+  def 
   def bar_chart(self,categories,series_name,series_values):
     try:
+      count_items = []
+      for cat in categories:
+        count_items.append(series_values.count(cat))
+        
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
       chart_data = ChartData()
-      chart_data.categories = categories
-      chart_data.add_series(series_name,series_values)
+      chart_data.categories = categories      
+      chart_data.add_series(series_name,count_items)
       x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(4.5)
       slide.shapes.add_chart(
           XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data
@@ -24,12 +29,18 @@ class Chart:
     except:
       pass
 
-  def pie_chart(self,categories,series_name,series_values):
+  def pie_chart(self,categories,series_name,series_values,build):
     try:
+      count_items = []
+      if build:
+        for cat in categories:
+          count_items.append(series_values.count(cat))
+      else:
+        count_items = series_values
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
       chart_data = ChartData()
       chart_data.categories = categories
-      chart_data.add_series(series_name, series_values)
+      chart_data.add_series(series_name, count_items)
       x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(4.5) 
       chart = slide.shapes.add_chart(
           XL_CHART_TYPE.PIE, x, y, cx, cy, chart_data
@@ -59,6 +70,7 @@ def main():
       filename = dict(required=True),
       categories = dict(required=True, type='list'),
       series_name = dict(required=True),
+      series_build = dict(required=False, type='bool', default=True),
       series_values = dict(required=True, type='list'),
       chart_type = dict(required=True, type='str', choices=['bar', 'pie']),
       ),
@@ -74,7 +86,7 @@ def main():
     if chart_type == 'bar':
       chartmp.bar_chart(categories,series_name,series_values)
     elif chart_type == 'pie':
-      chartmp.pie_chart(categories,series_name,series_values)
+      chartmp.pie_chart(categories,series_name,series_values,series_build)
     chartmp.save(filename)
     module.exit_json(changed=True)
   except:
