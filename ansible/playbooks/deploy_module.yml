@@ -1,6 +1,5 @@
 ---
-- hosts: docker
-  connection: local
+- hosts: awx
   tasks:
   - name: Copy PPTX Modules to lib  
     copy:
