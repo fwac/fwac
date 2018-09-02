@@ -5,13 +5,11 @@
     collection: coll3
     
     reason_image_file: "/tmp/reason_cloud.png"
-    reason_mask_file: "/tmp/reason_mask.png"
-    reason_negative_file: "/tmp/reason_mask.png"   
+    reason_mask_file: "/tmp/reason_mask.png" 
+    reason_negative_file: "/tmp/reason_negate.png"   
     reason_cloud_file: "/tmp/reasons.png"      
     reason_word_file: "/tmp/reason_word.txt"
-    
     challenge_image_file: "/tmp/challenge_cloud.png"
-    challenge_mask_file: "/tmp/challenge_mask.png" 
     challenge_cloud_file: "/tmp/challenges.png"  
     challenge_word_file: "/tmp/challenge_word.txt"
   tasks:
@@ -136,10 +134,8 @@
   - name: Copy cloud files to remote
     copy: src={{ item.src }} dest={{ item.dest }}
     with_items:
-      - { src: '{{ reason_image_file|basename }}', dest: '{{ reason_image_file }}' }
+      - { src: '{{ reason_negative_file|basename }}', dest: '{{ reason_negative_file }}' }
       - { src: '{{ reason_mask_file|basename }}', dest: '{{ reason_mask_file }}' }
-      - { src: '{{ challenge_image_file|basename }}', dest: '{{ challenge_image_file }}' }
-      - { src: '{{ challenge_mask_file|basename }}', dest: '{{ challenge_mask_file }}' }      
       
   # reason cloud ===================================================     
   - name: Create word file for reason cloud
@@ -148,10 +144,7 @@
       content:  "{{ reason_cloud }}"
       
   - name: Create reason cloud
-    word_cloud:
-      image_file: "{{ reason_image_file }}"
-      mask_file: "{{ reason_mask_file }}"
-      word_file: "{{ reason_word_file }}"    
+    command: "wordcloud_cli --text {{ reason_word_file }} --mask {{ reason_mask_file }} --width 300 --height 300  --background black --contour_color white --imagefile {{ reason_image_file }}"  
       
   - name: Merge files with Magick
     command: "convert {{ reason_mask_file }} {{ reason_image_file }} {{ reason_negative_file }} -composite {{ reason_cloud_file }}"
@@ -159,8 +152,8 @@
   - name: Put reason_cloud up on S3
     aws_s3:
       bucket: s3.fwac.us
-      object: /slides/{{ reason_cloud_file | basename }}
-      src: {{ reason_cloud_file }}
+      object: "/slides/{{ reason_cloud_file | basename }}"
+      src: "{{ reason_cloud_file }}"
       mode: put
       permission: public-read
       
@@ -176,16 +169,13 @@
       content:  "{{ challenge_cloud }}"
       
   - name: Create challenge cloud
-    word_cloud:
-      image_file: "{{ challenge_image_file }}"
-      mask_file: "{{ challenge_mask_file }}"
-      word_file: "{{ challenge_word_file }}"  
+    command: "wordcloud_cli --text {{ challenge_word_file }} --width 800 --height 400  --background white --imagefile {{ challenge_image_file }}"
       
   - name: Put challenge_cloud up on S3
     aws_s3:
       bucket: s3.fwac.us
-      object: /slides/{{ challenge_image_file| basename }}
-      src: {{ challenge_image_file }}
+      object: "/slides/{{ challenge_image_file| basename }}"
+      src: "{{ challenge_image_file }}"
       mode: put
       permission: public-read
       
@@ -205,8 +195,8 @@
   - name: Put slides up on S3
     aws_s3:
       bucket: s3.fwac.us
-      object: /slides/{{ pptx_filename | basename }}
-      src: {{ pptx_filename }}
+      object: "/slides/{{ pptx_filename | basename }}"
+      src: "{{ pptx_filename }}"
       mode: put
       permission: public-read
 
