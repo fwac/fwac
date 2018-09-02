@@ -225,6 +225,7 @@
       bucket: s3.fwac.us
       object: "/index.html"
       src: "/tmp/index.html"
+      mode: put
       permission: public-read    
 
   - debug: 
