@@ -2,4 +2,4 @@
 localhost
 
 [awx:vars]
-
+restheart=172.31.16.159:8080
