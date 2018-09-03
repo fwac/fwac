@@ -121,6 +121,17 @@
         - ['{{ inops_yes|int }}','{{ total|int - inops_yes|int }}']
       chart_type: "bar"
 
+  - name: Who uses Ansible in dev
+    pptx_chart:
+      title: "Do you use Ansible in Dev?"
+      filename: "{{ pptx_filename }}"
+      categories: "{{ currently|unique|list }}"
+      series_name: 
+       - "Use Ansible"
+      series_values: "{{ currently }}"
+      chart_type: "bar"
+
+      
   - name: Who uses Ansible in Ops Bar Chart
     pptx_chart:
       title: "Do you use Ansible in Ops?"
