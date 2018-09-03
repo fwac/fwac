@@ -64,8 +64,8 @@ class FWChart:
       data_labels.position = XL_LABEL_POSITION.OUTSIDE_END
     except:
       #print sys.exc_info()[0]
-      #raise
-      pass
+      raise
+      #pass
 
   def save(self,filename):
     try:
@@ -102,9 +102,9 @@ def main():
     chartmp.save(filename)
     module.exit_json(changed=True)
   except:
-    #print sys.exc_info()[0]
+    print sys.exc_info()[0]
     #raise
-    pass
+    #pass
     #module.fail_json(msg=series_values)
 
 from ansible.module_utils.basic import *
