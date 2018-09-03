@@ -26,8 +26,8 @@ class FWChart:
           count_items.append(float(series_values.count(cat)))
         chart_data.add_series(series_name,count_items) 
       elif isinstance(series_name,list):
-        for name,value in zip(series_name,series_values):              
-          chart_data.add_series(name,value)
+        for i in xrange(len(series_name)):            
+          chart_data.add_series(series_name[i],series_values[i])
       else:
         chart_data.add_series(series_name,series_values) 
         
