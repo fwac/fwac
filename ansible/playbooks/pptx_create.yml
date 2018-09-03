@@ -112,12 +112,8 @@
       title: "Do you use Ansible?"
       filename: "{{ pptx_filename }}"
       series_build: False
-      categories: 
-        - "Development"
-        - "Operations"      
-      series_name: 
-        - "Yes"
-        - "No"
+      categories: ['Development','Operations'] 
+      series_name: ['Yes','No']
       series_values: 
         - ['{{ currently_yes|int }}','{{ total|int - currently_yes|int }}']
         - ['{{ inops_yes|int }}','{{ total|int - inops_yes|int }}']
