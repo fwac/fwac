@@ -111,7 +111,7 @@
     pptx_chart:
       title: "Do you use Ansible?"
       filename: "{{ pptx_filename }}"
-      build: False
+      series_build: False
       categories: 
         - "Development"
         - "Operations"      
