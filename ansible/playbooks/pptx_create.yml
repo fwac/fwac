@@ -188,7 +188,8 @@
       title: "Why we love Ansible <3"
       image: "{{ reason_cloud_file }}"
       filename: "{{ pptx_filename }}"
-      left_inches: 3
+      top_inches: .5
+      left_inches: 3.2
       
   #challenge cloud =================================================
   - name: Create word file for challenge cloud
@@ -197,7 +198,7 @@
       content:  "{{ challenge_cloud }}"
       
   - name: Create challenge cloud
-    command: "wordcloud_cli --text {{ challenge_word_file }} --width 800 --height 400  --background white --imagefile /tmp/challenge_temp_cloud.png "
+    command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background white --imagefile /tmp/challenge_temp_cloud.png "
   
   - name: Transparent file with Magick
     command: "convert /tmp/challenge_temp_cloud.png -transparent white {{ challenge_image_file }}"    
