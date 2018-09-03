@@ -38,7 +38,7 @@ class FWChart:
         for cat in categories:
           count_items.append(float(series_values.count(cat)))
       else:
-        count_items = series_values
+        count_items = [float(x) for x in series_values]
       # convert to percentages  
       total_count = sum(count_items)  
       percent_items = (round(x/total_count,2) for x in count_items)
