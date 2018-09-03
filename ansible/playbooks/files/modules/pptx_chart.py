@@ -28,12 +28,7 @@ class FWChart:
       else:
         for i in xrange(len(series_name)):            
           chart_data.add_series(series_name[i],series_values[i])
-      #else:
-      #isinstance(series_name,list):
-       # print "too far"
-        #raise 
-        #chart_data.add_series(series_name,series_values) 
-        
+          
       x, y, cx, cy = Inches(2.5), Inches(2), Inches(7), Inches(4.5)
       slide.shapes.add_chart(
           XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data
@@ -52,7 +47,9 @@ class FWChart:
         count_items = [float(x) for x in series_values]
       # convert to percentages  
       total_count = sum(count_items)  
-      percent_items = (round(x/total_count,2) for x in count_items)
+      percent_items = 0.0
+      if total_count:
+        percent_items = (round(x/total_count,2) for x in count_items)
       
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
       slide_title = slide.shapes.title

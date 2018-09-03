@@ -30,3 +30,25 @@ survey: {
   challenge_cloud_text: 'Policy Environments Ops Requirements SSM CM Test',
   topic_text: 'Show and tell'
 }
+
+
+  - name: Who uses Ansible in dev
+    pptx_chart:
+      title: "Do you use Ansible in Dev?"
+      filename: "{{ pptx_filename }}"
+      categories: "{{ currently|unique|list }}"
+      series_name: 
+       - "Use Ansible"
+      series_values: "{{ currently }}"
+      chart_type: "bar"
+
+      
+  - name: Who uses Ansible in Ops Bar Chart
+    pptx_chart:
+      title: "Do you use Ansible in Ops?"
+      filename: "{{ pptx_filename }}"
+      categories: "{{ inops|unique|list }}"
+      series_name: 
+       - "Use Ansible"
+      series_values: "{{ inops }}"
+      chart_type: "bar"

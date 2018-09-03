@@ -40,7 +40,7 @@
       role: "{{ role|default([]) + [item.role_ss] }}" #
       topic: "{{ topic|default([]) + [item.topic_text] }}"
       tower: "{{ tower|default([]) + item.tower_ms }}" #
-      total: "{{ total|default('1')|int + '1'|int }}"
+      total: "{{ total|default('0')|int + '1'|int }}"
     with_items: "{{documents.json._embedded}}"
     
   - debug: 
@@ -111,7 +111,7 @@
      
   - name: Are we using Ansible Bar Chart
     pptx_chart:
-      title: "Do you use Ansible?"
+      title: "Where do you use Ansible?"
       filename: "{{ pptx_filename }}"
       series_build: False
       categories: ['Development','Operations'] 
@@ -121,30 +121,9 @@
         - ['{{ total|int - currently_yes|int }}','{{ total|int - inops_yes|int }}']
       chart_type: "bar"
 
-  - name: Who uses Ansible in dev
-    pptx_chart:
-      title: "Do you use Ansible in Dev?"
-      filename: "{{ pptx_filename }}"
-      categories: "{{ currently|unique|list }}"
-      series_name: 
-       - "Use Ansible"
-      series_values: "{{ currently }}"
-      chart_type: "bar"
-
-      
-  - name: Who uses Ansible in Ops Bar Chart
-    pptx_chart:
-      title: "Do you use Ansible in Ops?"
-      filename: "{{ pptx_filename }}"
-      categories: "{{ inops|unique|list }}"
-      series_name: 
-       - "Use Ansible"
-      series_values: "{{ inops }}"
-      chart_type: "bar"
-
   - name: Pie chart of DevOps
     pptx_chart:
-      title: "Ansible in just Dev vs DevOps"
+      title: "DevOps or just Dev"
       filename: "{{ pptx_filename }}"
       categories: ['Dev','Ops']
       series_values: ['{{ currently_yes|int - inops_yes|int }}','{{ inops_yes }}']
@@ -155,7 +134,7 @@
       
   - name: Who uses Tower vs Engine
     pptx_chart:
-      title: "Breakdown of how we use Ansible"
+      title: "How we use Ansible"
       filename: "{{ pptx_filename }}"
       categories: "{{ tower|unique|list }}"
       series_name: 
