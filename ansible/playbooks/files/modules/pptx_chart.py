@@ -36,12 +36,12 @@ class FWChart:
       count_items = []
       if build:
         for cat in categories:
-          count_items.append(series_values.count(float(cat)))
+          count_items.append(float(series_values.count(cat)))
       else:
         count_items = series_values
       # convert to percentages  
       total_count = sum(count_items)  
-      percent_items = (x/total_count for x in count_items)
+      percent_items = (round(x/total_count,2) for x in count_items)
       
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
       slide_title = slide.shapes.title
