@@ -119,7 +119,7 @@
       series_values: "{{ inops }}"
       chart_type: "bar"
 
-  - name: Pie chart of Ansible use
+  - name: Pie chart of DevOps
     pptx_chart:
       title: "Ansible in just Dev vs DevOps"
       filename: "{{ pptx_filename }}"

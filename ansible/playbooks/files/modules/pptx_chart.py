@@ -102,10 +102,10 @@ def main():
     chartmp.save(filename)
     module.exit_json(changed=True)
   except:
-    print sys.exc_info()[0]
-    raise
-    #pass
-    module.fail_json(msg=series_values)
+    #print sys.exc_info()[0]
+    #raise
+    pass
+    #module.fail_json(msg=series_values)
 
 from ansible.module_utils.basic import *
 main()
