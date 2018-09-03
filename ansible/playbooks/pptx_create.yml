@@ -170,10 +170,10 @@
     command: "wordcloud_cli --text {{ reason_word_file }} --mask {{ reason_mask_file }} --background black --contour_color white --imagefile {{ reason_image_file }}"  
       
   - name: Merge files with Magick
-    command: "convert {{ reason_mask_file }} {{ reason_image_file }} {{ reason_negative_file }} -composite /tmp/temp_cloud.png"
+    command: "convert {{ reason_mask_file }} {{ reason_image_file }} {{ reason_negative_file }} -composite /tmp/reason_temp_cloud.png"
     
   - name: Transparent file with Magick
-    command: "convert /tmp/temp_cloud.png -transparent white {{ reason_cloud_file }}"    
+    command: "convert /tmp/reason_temp_cloud.png -transparent white {{ reason_cloud_file }}"    
     
   - name: Put reason_cloud up on S3
     aws_s3:
@@ -197,8 +197,11 @@
       content:  "{{ challenge_cloud }}"
       
   - name: Create challenge cloud
-    command: "wordcloud_cli --text {{ challenge_word_file }} --width 800 --height 400  --background transparent --imagefile {{ challenge_image_file }}"
-      
+    command: "wordcloud_cli --text {{ challenge_word_file }} --width 800 --height 400  --background white --imagefile /tmp/challenge_temp_cloud.png "
+  
+  - name: Transparent file with Magick
+    command: "convert /tmp/challenge_temp_cloud.png -transparent white {{ challenge_cloud_file }}"    
+          
   - name: Put challenge_cloud up on S3
     aws_s3:
       bucket: s3.fwac.us
