@@ -95,7 +95,8 @@
       filename: "{{ pptx_filename }}"
       categories: "{{ club|unique|list }}"
       series_values: "{{ club }}"
-      series_name: "Reasons we are here"
+      series_name: 
+       - "Reasons we are here"
       chart_type: "pie"
 
   - name: Who we are 
@@ -104,7 +105,8 @@
       filename: "{{ pptx_filename }}"
       categories: "{{ role|unique|list }}"
       series_values: "{{ role }}"
-      series_name: "Who we are"
+      series_name: 
+       - "Who we are"
       chart_type: "pie"
      
   - name: Are we using Ansible Bar Chart
@@ -124,7 +126,8 @@
       title: "Do you use Ansible in Ops?"
       filename: "{{ pptx_filename }}"
       categories: "{{ inops|unique|list }}"
-      series_name: "Use Ansible"
+      series_name: 
+       - "Use Ansible"
       series_values: "{{ inops }}"
       chart_type: "bar"
 
@@ -135,7 +138,8 @@
       categories: ['Dev','Ops']
       series_values: ['{{ currently_yes|int - inops_yes|int }}','{{ inops_yes }}']
       series_build: False
-      series_name: "Dev or DevOps"
+      series_name: 
+       - "Dev or DevOps"
       chart_type: "pie"
       
   - name: Who uses Tower vs Engine
@@ -143,7 +147,8 @@
       title: "Breakdown of how we use Ansible"
       filename: "{{ pptx_filename }}"
       categories: "{{ tower|unique|list }}"
-      series_name: "Tower vs Engine"
+      series_name: 
+       - "Tower vs Engine"
       series_values: "{{ tower }}"
       chart_type: "bar"
       
@@ -152,7 +157,8 @@
       title: "How often we want to meet"
       filename: "{{ pptx_filename }}"
       categories: "{{ meetings|unique|list }}"
-      series_name: "Meeting interval"
+      series_name: 
+       - "Meeting interval"
       series_values: "{{ meetings }}"
       chart_type: "bar"
 

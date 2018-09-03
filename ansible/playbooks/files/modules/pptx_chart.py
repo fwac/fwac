@@ -20,11 +20,11 @@ class FWChart:
       chart_data = ChartData()
       chart_data.categories = categories
 
-      if build:
+      if build and len(series_name) == 1:
         count_items = []
         for cat in categories:
           count_items.append(float(series_values.count(cat)))
-        chart_data.add_series(series_name,count_items) 
+        chart_data.add_series(series_name[0],count_items) 
       else:
         for i in xrange(len(series_name)):            
           chart_data.add_series(series_name[i],series_values[i])
@@ -60,7 +60,7 @@ class FWChart:
       chart_data = ChartData()
       chart_data.categories = categories
 
-      chart_data.add_series(series_name, percent_items)
+      chart_data.add_series(series_name[0], percent_items)
       x, y, cx, cy = Inches(3), Inches(2), Inches(7), Inches(4.5) 
       
       chart = slide.shapes.add_chart(
@@ -100,7 +100,7 @@ def main():
   )
   filename = module.params['filename']
   categories = module.params['categories'] #list
-  series_name = module.params['series_name'] 
+  series_name = module.params['series_name']  #list for multiseries charts 
   title = module.params['title'] 
   series_build = module.params['series_build']
   series_values = module.params['series_values'] #list to tuple
