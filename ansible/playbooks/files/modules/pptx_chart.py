@@ -63,7 +63,7 @@ class FWChart:
       data_labels.number_format = '0%'
       data_labels.position = XL_LABEL_POSITION.OUTSIDE_END
     except:
-      #print sys.exc_info()[0]
+      print sys.exc_info()[0]
       raise
       #pass
 
@@ -102,7 +102,7 @@ def main():
     chartmp.save(filename)
     module.exit_json(changed=True)
   except:
-    print sys.exc_info()[0]
+    #print sys.exc_info()[0]
     #raise
     #pass
     #module.fail_json(msg=series_values)
