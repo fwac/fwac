@@ -28,9 +28,9 @@
   # set variables with all the answers together. the code in the module will
   # tally the answers to create the charts. Needs to provide a list
   - set_fact:
-      currently_yes: "{{ currently|default(0)|int + item.currently_ss|bool|int }}" #
+      currently_yes: "{{ currently_yes|default(0)|int + item.currently_ss|bool|int }}" #
       currently: "{{ currently|default([]) + [item.currently_ss] }}" #
-      inops_yes: "{{ inops|default(0)|int + item.inops_ss|bool|int }}" #
+      inops_yes: "{{ inops_yes|default(0)|int + item.inops_ss|bool|int }}" #
       inops: "{{ inops|default([]) + [item.inops_ss] }}" #
       challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud_text }}" #
       club: "{{ club|default([]) + item.club_ms }}" #
