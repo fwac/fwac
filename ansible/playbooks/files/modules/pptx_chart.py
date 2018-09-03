@@ -12,25 +12,24 @@ class FWChart:
   def __init__(self,filename):
     self.prs = Presentation(filename)
 
-  def bar_chart(self,categories,series_name,series_values,title):
+  def bar_chart(self,categories,series_name,series_values,build,title):
     try: 
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
       slide_title = slide.shapes.title
       slide_title.text = title
       chart_data = ChartData()
       chart_data.categories = categories
-      
-      if isinstance(series_name,list):
-        for name,value in zip(series_name,series_values):
-          count_items = []
-          for cat in categories:
-            count_items.append(value.count(cat))           
-          chart_data.add_series(name,count_items)
-      else:    
+
+      if build:
         count_items = []
         for cat in categories:
-          count_items.append(series_values.count(cat))           
+          count_items.append(float(series_values.count(cat)))
         chart_data.add_series(series_name,count_items) 
+      elif isinstance(series_name,list):
+        for name,value in zip(series_name,series_values):              
+          chart_data.add_series(name,value)
+      else:
+        chart_data.add_series(series_name,series_values) 
         
       x, y, cx, cy = Inches(2.5), Inches(2), Inches(7), Inches(4.5)
       slide.shapes.add_chart(
@@ -106,7 +105,7 @@ def main():
   try:
     chartmp = FWChart(filename)
     if chart_type == 'bar':
-      chartmp.bar_chart(categories,series_name,series_values,title)
+      chartmp.bar_chart(categories,series_name,series_values,series_build,title)
     elif chart_type == 'pie':
       chartmp.pie_chart(categories,series_name,series_values,series_build,title)
     chartmp.save(filename)
