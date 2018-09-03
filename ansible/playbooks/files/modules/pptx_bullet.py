@@ -30,9 +30,10 @@ def main():
     tf.text = 'Topics for discussion'
     
     for topic in bullets:
-      p = tf.add_paragraph()
-      p.text = topic
-      p.level = 1
+      if topic: 
+        p = tf.add_paragraph()
+        p.text = topic
+        p.level = 1
       
     prs.save(filename)
     module.exit_json(changed=True)
