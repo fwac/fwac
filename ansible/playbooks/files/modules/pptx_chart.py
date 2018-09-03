@@ -24,13 +24,13 @@ class FWChart:
         for name,value in zip(series_name,series_values):
           count_items = []
           for cat in categories:
-            count_items.append(values.count(cat))           
+            count_items.append(value.count(cat))           
           chart_data.add_series(name,count_items)
       else:    
         count_items = []
         for cat in categories:
-          count_items.append(values.count(cat))           
-        chart_data.add_series(name,count_items) 
+          count_items.append(series_values.count(cat))           
+        chart_data.add_series(series_name,count_items) 
         
       x, y, cx, cy = Inches(2.5), Inches(2), Inches(7), Inches(4.5)
       slide.shapes.add_chart(
