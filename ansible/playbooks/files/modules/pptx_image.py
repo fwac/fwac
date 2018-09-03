@@ -9,8 +9,8 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      top_inches = dict(required=False, type='int', default='1'),
-      left_inches = dict(required=False, type='int', default='1'),      
+      top_inches = dict(required=False, type='float', default='.7'),
+      left_inches = dict(required=False, type='float', default='1.0'),      
       image = dict(required=True)
       ),
       supports_check_mode=False
