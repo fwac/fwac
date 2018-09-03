@@ -11,7 +11,8 @@ def main():
       title = dict(required=True),
       top_inches = dict(required=False, type='float', default='.6'),
       left_inches = dict(required=False, type='float', default='1.0'),      
-      image = dict(required=True)
+      image = dict(required=True),
+      bg_image = dict(required=False)
       ),
       supports_check_mode=False
   )
@@ -23,11 +24,13 @@ def main():
     left_inches = module.params['left_inches']
     blank_slide_layout = prs.slide_layouts[6]
     slide = prs.slides.add_slide(blank_slide_layout)
-    #slide_title = slide.shapes.title
-    #slide_title.text = module.params['title']
-    img_path = module.params['image']
+    
     top = Inches(top_inches)
     left = Inches(left_inches)
+    if bg_filename:
+      img_path = module.params['bg_image']
+      pic = slide.shapes.add_picture(img_path, left, top)   
+    img_path = module.params['image']
     pic = slide.shapes.add_picture(img_path, left, top)    
     prs.save(filename)
     module.exit_json(changed=True)

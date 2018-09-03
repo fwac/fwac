@@ -8,6 +8,7 @@
     reason_image_file: "/tmp/reason_cloud.png"
     reason_mask_file: "/tmp/reason_mask.png" 
     reason_negative_file: "/tmp/reason_negate.png"   
+    reason_bg_file: "/tmp/reason_bg.png"   
     reason_cloud_file: "/tmp/reasons.png"      
     reason_word_file: "/tmp/reason_word.txt"
     challenge_image_file: "/tmp/challenge_cloud.png"
@@ -37,7 +38,7 @@
       club: "{{ club|default([]) + item.club_ms }}" #
       emails: "{{ emails|default([]) + [item.email_text] }}"
       meetings: "{{ meetings|default([]) + [item.meetings_ss] }}" #
-      reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }}" #
+      reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }} {{ item.project_text }}" #
       role: "{{ role|default([]) + [item.role_ss] }}" #
       topic: "{{ topic|default([]) + [item.topic_text] }}"
       tower: "{{ tower|default([]) + item.tower_ms }}" #
@@ -159,6 +160,7 @@
     with_items:
       - { src: '{{ reason_negative_file|basename }}', dest: '{{ reason_negative_file }}' }
       - { src: '{{ reason_mask_file|basename }}', dest: '{{ reason_mask_file }}' }
+      - { src: '{{ reason_bg_file|basename }}', dest: '{{ reason_bg_file }}' }
       
   # reason cloud ===================================================     
   - name: Create word file for reason cloud
@@ -187,6 +189,7 @@
     pptx_image:
       title: "Why we love Ansible <3"
       image: "{{ reason_cloud_file }}"
+      bg_image: "{{ reason_bg_file }}"
       filename: "{{ pptx_filename }}"
       top_inches: .4
       left_inches: 3.2
