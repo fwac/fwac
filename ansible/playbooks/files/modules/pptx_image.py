@@ -19,11 +19,12 @@ def main():
     
     blank_slide_layout = prs.slide_layouts[6]
     slide = prs.slides.add_slide(blank_slide_layout)
-
+image.left = (prs.slide_width - image.width) / 2
     #slide_title = slide.shapes.title
     #slide_title.text = module.params['title']
     img_path = module.params['image']
-    left = top = Inches(1)
+    top = Inches(1)
+    left = (prs.slide_width - image_path.width) / 2
     pic = slide.shapes.add_picture(img_path, left, top)    
     prs.save(filename)
     module.exit_json(changed=True)
