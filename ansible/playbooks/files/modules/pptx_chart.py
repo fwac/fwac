@@ -103,9 +103,9 @@ def main():
     module.exit_json(changed=True)
   except:
     #print sys.exc_info()[0]
-    #raise
+    raise
     #pass
-    #module.fail_json(msg=series_values)
+    module.fail_json(msg=series_values)
 
 from ansible.module_utils.basic import *
 main()
