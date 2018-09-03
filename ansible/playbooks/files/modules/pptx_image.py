@@ -22,6 +22,8 @@ def main():
     
     top_inches = module.params['top_inches']
     left_inches = module.params['left_inches']
+    bg_image = module.params['bg_image']
+    
     blank_slide_layout = prs.slide_layouts[6]
     slide = prs.slides.add_slide(blank_slide_layout)
     
@@ -35,9 +37,9 @@ def main():
     prs.save(filename)
     module.exit_json(changed=True)
   except:
-    #pass
-    print sys.exc_info()[0]
-    raise
+    pass
+    #print sys.exc_info()[0]
+    #raise
 
 from ansible.module_utils.basic import *
 main()
