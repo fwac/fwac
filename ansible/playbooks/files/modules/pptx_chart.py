@@ -29,6 +29,8 @@ class FWChart:
         for i in xrange(len(series_name)):            
           chart_data.add_series(series_name[i],series_values[i])
       else:
+        print "too far"
+        raise 
         chart_data.add_series(series_name,series_values) 
         
       x, y, cx, cy = Inches(2.5), Inches(2), Inches(7), Inches(4.5)
