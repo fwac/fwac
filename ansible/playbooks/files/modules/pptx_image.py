@@ -9,6 +9,8 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
+      top_inches = dict(required=False, type='int', default='1'),
+      left_inches = dict(required=False, type='int', default='1'),      
       image = dict(required=True)
       ),
       supports_check_mode=False
@@ -17,14 +19,15 @@ def main():
     filename = module.params['filename']
     prs = Presentation(filename)
     
+    top_inches = module.params['top_inches']
+    left_inches = module.params['left_inches']
     blank_slide_layout = prs.slide_layouts[6]
     slide = prs.slides.add_slide(blank_slide_layout)
-image.left = (prs.slide_width - image.width) / 2
     #slide_title = slide.shapes.title
     #slide_title.text = module.params['title']
     img_path = module.params['image']
-    top = Inches(1)
-    left = (prs.slide_width - image_path.width) / 2
+    top = Inches(top_inches)
+    left = Inches(left_inches)
     pic = slide.shapes.add_picture(img_path, left, top)    
     prs.save(filename)
     module.exit_json(changed=True)

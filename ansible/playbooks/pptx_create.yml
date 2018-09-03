@@ -178,6 +178,7 @@
       title: "Why we love Ansible <3"
       image: "{{ reason_cloud_file }}"
       filename: "{{ pptx_filename }}"
+      left_inches: 2
       
   #challenge cloud =================================================
   - name: Create word file for challenge cloud
