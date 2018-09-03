@@ -175,7 +175,7 @@
     command: "convert {{ reason_mask_file }} {{ reason_image_file }} {{ reason_negative_file }} -composite /tmp/reason_temp_cloud.png"
     
   - name: Transparent file with Magick
-    command: "convert /tmp/reason_temp_cloud.png -transparent white {{ reason_cloud_file }}"    
+    command: "convert /tmp/reason_temp_cloud.png -transparent white -fuzz 20% {{ reason_cloud_file }}"    
     
   - name: Put reason_cloud up on S3
     aws_s3:
@@ -204,7 +204,7 @@
     command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background white --imagefile /tmp/challenge_temp_cloud.png "
   
   - name: Transparent file with Magick
-    command: "convert /tmp/challenge_temp_cloud.png -transparent white {{ challenge_image_file }}" 
+    command: "convert /tmp/challenge_temp_cloud.png -transparent -fuzz 20% white {{ challenge_image_file }}" 
           
   - name: Put challenge_cloud up on S3
     aws_s3:
