@@ -94,16 +94,16 @@
 
   - name: Who we are 
     pptx_chart:
-      title: "Who we are"
+      title: "Who we are..."
       filename: "{{ pptx_filename }}"
       categories: "{{ role|unique|list }}"
       series_values: "{{ role }}"
       series_name: "Who we are"
       chart_type: "pie"
      
-  - name: Who uses Ansible Bar Chart
+  - name: Are we using Ansible Bar Chart
     pptx_chart:
-      title: "Who uses Ansible?"
+      title: "Do you use Ansible?"
       filename: "{{ pptx_filename }}"
       categories: "{{ currently|unique|list }}"
       series_name: "Use Ansible"
@@ -112,7 +112,7 @@
 
   - name: Who uses Ansible in Ops Bar Chart
     pptx_chart:
-      title: "Who uses Ansible in Ops?"
+      title: "Do you use Ansible in Ops?"
       filename: "{{ pptx_filename }}"
       categories: "{{ inops|unique|list }}"
       series_name: "Use Ansible"
@@ -121,12 +121,12 @@
 
   - name: Pie chart of Ansible use
     pptx_chart:
-      title: "How we use Ansible"
+      title: "Ansible in just Dev vs DevOps"
       filename: "{{ pptx_filename }}"
-      categories: ['Total','Using Ansible','Ops']
-      series_values: ['{{ total }}','{{ currently_yes }}','{{ inops_yes }}']
+      categories: ['Dev','Ops']
+      series_values: ['{{ currently_yes|int - inops_yes|int }}','{{ inops_yes }}']
       series_build: False
-      series_name: "Ansible Use"
+      series_name: "Dev or DevOps"
       chart_type: "pie"
       
   - name: Who uses Tower vs Engine
