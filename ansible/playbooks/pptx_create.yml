@@ -188,7 +188,7 @@
       title: "Why we love Ansible <3"
       image: "{{ reason_cloud_file }}"
       filename: "{{ pptx_filename }}"
-      top_inches: .5
+      top_inches: .4
       left_inches: 3.2
       
   #challenge cloud =================================================
@@ -201,7 +201,7 @@
     command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background white --imagefile /tmp/challenge_temp_cloud.png "
   
   - name: Transparent file with Magick
-    command: "convert /tmp/challenge_temp_cloud.png -transparent white {{ challenge_image_file }}"    
+    command: "convert /tmp/challenge_temp_cloud.png -transparent white {{ challenge_image_file }}" 
           
   - name: Put challenge_cloud up on S3
     aws_s3:
