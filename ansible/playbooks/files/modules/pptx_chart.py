@@ -36,15 +36,19 @@ class FWChart:
       count_items = []
       if build:
         for cat in categories:
-          count_items.append(series_values.count(cat))
+          count_items.append(series_values.count(float(cat)))
       else:
         count_items = series_values
+      # convert to percentages  
+      total_count = sum(count_items)  
+      percent_items = (x/total_count for x in count_items)
+      
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
       slide_title = slide.shapes.title
       slide_title.text = title
       chart_data = ChartData()
       chart_data.categories = categories
-      chart_data.add_series(series_name, count_items)
+      chart_data.add_series(series_name, percent_items)
       x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(4.5) 
       chart = slide.shapes.add_chart(
           XL_CHART_TYPE.PIE, x, y, cx, cy, chart_data
