@@ -11,7 +11,7 @@
     reason_cloud_file: "/tmp/reasons.png"      
     reason_word_file: "/tmp/reason_word.txt"
     challenge_image_file: "/tmp/challenge_cloud.png"
-    challenge_cloud_file: "/tmp/challenges.png"  
+    #challenge_cloud_file: "/tmp/challenges.png"  
     challenge_word_file: "/tmp/challenge_word.txt"
   tasks:
   - name: RESTHeart PUT collection
@@ -200,7 +200,7 @@
     command: "wordcloud_cli --text {{ challenge_word_file }} --width 800 --height 400  --background white --imagefile /tmp/challenge_temp_cloud.png "
   
   - name: Transparent file with Magick
-    command: "convert /tmp/challenge_temp_cloud.png -transparent white {{ challenge_cloud_file }}"    
+    command: "convert /tmp/challenge_temp_cloud.png -transparent white {{ challenge_image_file }}"    
           
   - name: Put challenge_cloud up on S3
     aws_s3:
