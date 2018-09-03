@@ -34,7 +34,8 @@ class FWChart:
           XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data
       )
     except:
-      pass
+      print sys.exc_info()[0]
+      raise
 
   def pie_chart(self,categories,series_name,series_values,build,title):
     try:
