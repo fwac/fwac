@@ -20,14 +20,17 @@ class FWChart:
       chart_data = ChartData()
       chart_data.categories = categories
       
-      # force variable to be a list for series
-      if not isinstance(series_name,list):
-        series_name = [series_name]
-      for name,value in zip(series_name,series_values):
+      if isinstance(series_name,list):
+        for name,value in zip(series_name,series_values):
+          count_items = []
+          for cat in categories:
+            count_items.append(values.count(cat))           
+          chart_data.add_series(name,count_items)
+      else:    
         count_items = []
         for cat in categories:
           count_items.append(values.count(cat))           
-        chart_data.add_series(name,count_items)
+        chart_data.add_series(name,count_items) 
         
       x, y, cx, cy = Inches(2.5), Inches(2), Inches(7), Inches(4.5)
       slide.shapes.add_chart(

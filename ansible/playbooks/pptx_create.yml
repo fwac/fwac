@@ -112,7 +112,9 @@
       title: "Do you use Ansible?"
       filename: "{{ pptx_filename }}"
       categories: "{{ currently|unique|list }}"
-      series_name: ['Development','Operations']
+      series_name: 
+        - "Development"
+        - "Operations"
       series_values: 
         - "{{ currently }}"
         - "{{ inops }}"
