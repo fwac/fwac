@@ -13,17 +13,22 @@ class FWChart:
     self.prs = Presentation(filename)
 
   def bar_chart(self,categories,series_name,series_values,title):
-    try:
-      count_items = []
-      for cat in categories:
-        count_items.append(series_values.count(cat))
-        
+    try: 
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
       slide_title = slide.shapes.title
       slide_title.text = title
       chart_data = ChartData()
-      chart_data.categories = categories      
-      chart_data.add_series(series_name,count_items)
+      chart_data.categories = categories
+      
+      # force variable to be a list for series
+      if not isinstance(series_name,list):
+        series_name = [series_name]
+      for name,value in zip(series_name,series_values):
+        count_items = []
+        for cat in categories:
+          count_items.append(values.count(cat))           
+        chart_data.add_series(name,count_items)
+        
       x, y, cx, cy = Inches(2.5), Inches(2), Inches(7), Inches(4.5)
       slide.shapes.add_chart(
           XL_CHART_TYPE.COLUMN_CLUSTERED, x, y, cx, cy, chart_data
@@ -48,12 +53,13 @@ class FWChart:
       slide_title.text = title
       chart_data = ChartData()
       chart_data.categories = categories
+
       chart_data.add_series(series_name, percent_items)
       x, y, cx, cy = Inches(3), Inches(2), Inches(7), Inches(4.5) 
+      
       chart = slide.shapes.add_chart(
           XL_CHART_TYPE.PIE, x, y, cx, cy, chart_data
       ).chart
-
       chart.has_legend = True
       chart.legend.position = XL_LEGEND_POSITION.BOTTOM
       chart.legend.include_in_layout = False
