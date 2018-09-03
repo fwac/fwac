@@ -2,6 +2,7 @@
 - hosts: awx
   vars:
     pptx_filename: "/tmp/fwac.pptx"
+    pptx_template: "/tmp/Presentation.pptx"
     collection: coll3
     
     reason_image_file: "/tmp/reason_cloud.png"
@@ -76,9 +77,15 @@
   - debug: 
       var: total
       verbosity: 2
+ 
+  - name: Copy template
+    copy: 
+      src: "{{ pptx_template|basename }}"
+      dest: "{{ pptx_template }}"
     
   - name: Create PPTX with Title page
     pptx_create: 
+      template: "{{ pptx_template }}"
       filename: "{{ pptx_filename }}"
       title: "Ansible Club"
       subtitle: "This is what you want to do"

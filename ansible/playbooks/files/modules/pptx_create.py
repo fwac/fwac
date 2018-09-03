@@ -10,13 +10,18 @@ def main():
   module = AnsibleModule(
     argument_spec=dict(
       filename = dict(required=True),
+      template = dict(required=False),
       title = dict(default=True),
       subtitle = dict(default=True),
       ),
       supports_check_mode=False
   )
   try:
-    prs = Presentation()
+    template = module.params['template']
+    if template:
+      prs = Presentation(template)
+    else:
+      prs = Presentation()
     title_slide_layout = prs.slide_layouts[0]
     slide = prs.slides.add_slide(title_slide_layout)
     title = slide.shapes.title
