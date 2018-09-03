@@ -41,7 +41,7 @@ class FWChart:
         count_items = series_values
       # convert to percentages  
       total_count = sum(count_items)  
-      percent_items = [round(x/total_count,2) for x in count_items]
+      percent_items = (round(x/total_count,2) for x in count_items)
       
       slide = self.prs.slides.add_slide(self.prs.slide_layouts[5])
       slide_title = slide.shapes.title
@@ -63,8 +63,9 @@ class FWChart:
       data_labels.number_format = '0%'
       data_labels.position = XL_LABEL_POSITION.OUTSIDE_END
     except:
-      print sys.exc_info()[0]
-      raise
+      #print sys.exc_info()[0]
+      #raise
+      pass
 
   def save(self,filename):
     try:
