@@ -27,7 +27,7 @@ def main():
     
     top = Inches(top_inches)
     left = Inches(left_inches)
-    if bg_filename:
+    if bg_image:
       img_path = module.params['bg_image']
       pic = slide.shapes.add_picture(img_path, left, top)   
     img_path = module.params['image']
