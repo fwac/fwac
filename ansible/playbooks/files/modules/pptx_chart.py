@@ -90,7 +90,7 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       categories = dict(required=True, type='list'),
-      series_name = dict(required=True),
+      series_name = dict(required=True, type='list'),
       series_build = dict(required=False, type='bool', default=True),
       series_values = dict(required=True, type='list'),
       title = dict(required=True, type='str'),
