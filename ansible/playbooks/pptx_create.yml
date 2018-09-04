@@ -174,7 +174,7 @@
 #  - name: Transparent file with Magick
 #   command: "convert /tmp/reason_temp_cloud.png -transparent white -fuzz 90% {{ reason_cloud_file }}"    
   - name: Transparent file with Magick
-    command: "convert /tmp/reason_temp_cloud.png reason_negate.png -alpha off -compose copy_opacity -composite transparent.png {{ reason_cloud_file }}"    
+    command: "convert /tmp/reason_temp_cloud.png {{ reason_negative_file }} -alpha off -compose copy_opacity -composite transparent.png {{ reason_cloud_file }}"    
 
   - name: Put reason_cloud up on S3
     aws_s3:
