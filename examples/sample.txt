@@ -16,6 +16,19 @@ survey: {
 }
 
 
+survey: {
+    email_text: 'scotttull.y@gmail.com',
+    role_ss: 'Test Engineer',
+    currently_ss: 'Yes',
+    inops_ss: 'Yes',
+    project_text: 'IAM',
+    tower_ms: ['Engine'],
+    club_ms:['Read/Write/Run Playbooks'],
+    meetings_ss: 'Bi-Monthly',
+    reason_cloud_text: 'Automation deployment integration devops',
+    challenge_cloud_text: 'challenge_cloud: Policy Environments Ops Requirements SSM CM Test Understand',
+    topic_text: ''
+}
 
 survey: {    
   role_ss: 'Test Engineer',
@@ -30,6 +43,24 @@ survey: {
   challenge_cloud_text: 'Policy Environments Ops Requirements SSM CM Test',
   topic_text: 'Show and tell'
 }
+
+challenge_cloud_text: Policy Environments Ops Requirements
+club_ms:
+  - Learn
+  - Demos/Workshops
+currently_ss: 'Yes'
+email_text: dayna.tully@gmail.com
+inops_ss: 'No'
+meetings_ss: Monthly
+project_text: TFMS
+reason_cloud_text: >-
+  Automation Easy Idempotent Configuration Management Changes deployment
+  integration devops CM work
+role_ss: Configuration Management
+topic_text: I like turtles
+tower_ms:
+  - Tower
+  - Engine
 
 
   - name: Who uses Ansible in dev
