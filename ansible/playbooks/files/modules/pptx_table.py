@@ -38,7 +38,7 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 10, 'left': 1.0 , 'top': 2.0, 'width': 8.0, 'height': 0.8 }),
+      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 20, 'left': 1.0 , 'top': 2.0, 'width': 8.0, 'height': 0.8 }),
       table_data = dict(required=True, type='list'),
       table_header = dict(required=False, type='dict', default={'Name': 2.0, 'Project': 1.0, 'Role': 2.0 , 'Ansible': 1.0, 'Email': 2.0 })
       ),
@@ -54,7 +54,7 @@ def main():
 
     prs = Presentation(filename)   
     #for i in range(0, len(table_data), rows):
-    #  table_create(prs,position,title_text,table_header,table_data[i:i + rows])
+      #table_create(prs,position,title_text,table_header,table_data[i:i + rows])
     table_create(prs,position,title_text,table_header,table_data)
     prs.save(filename)
     module.exit_json(changed=True)
