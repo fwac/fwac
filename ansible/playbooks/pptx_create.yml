@@ -40,7 +40,7 @@
       reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }} {{ item.project_text }}" #
       role: "{{ role|default([]) + [item.role_ss] }}" #
       topic: "{{ topic|default([]) + [item.topic_text] }}"
-      name: "{{ name|default([]) + [item.name_text] }}"
+      name: "{{ name|default([]) + [item.name_text|default('None')] }}"
       table_data: "{{ table_data|default([]) + [item.name_text|default('None'),item.project_text|default('None'),item.role_ss|default('None'),item.tower_ms|default('None'),item.email_text|default('None')]}}" 
       tower: "{{ tower|default([]) + item.tower_ms }}" #
       total: "{{ total|default('0')|int + '1'|int }}"
