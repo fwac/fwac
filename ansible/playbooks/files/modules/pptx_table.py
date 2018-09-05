@@ -27,7 +27,7 @@ def table_create(prs,position,title_text,table_header,table_data):
       x += 1
     
     for y in xrange(1, len(table_data)):
-      for x in xrange(0, len(cols)):
+      for x in xrange(0, cols):
         table.cell(y, x).text = data[x]
   except:
     print sys.exc_info()[0]
