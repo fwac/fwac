@@ -21,7 +21,7 @@ def table_create(prs,position,title_text,table_header,table_data):
     table = shapes.add_table(rows, cols, left, top, width, height).table
   
     x = 0
-    for key,value in table_header:
+    for key,value in table_header.iteritems():
       table.columns[x].width = Inches(value)
       table.cell(0, x).text = key
       x += 1
