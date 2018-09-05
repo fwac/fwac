@@ -27,7 +27,7 @@ def table_create(prs,position,title_text,table_header,table_data):
       x += 1
     
     #  start y at zero for list of lists
-    for y in xrange(0, len(table_data)):
+    for y in xrange(0, len(table_data)-1):
       for x in xrange(0, cols):
         # first row is header
         table.cell(y+1, x).text = table_data[y][x]
