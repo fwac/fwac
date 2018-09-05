@@ -47,7 +47,7 @@
     with_items: "{{documents.json._embedded}}"
 
   - set_fact:
-    table_data: [item[0]|default('None'),item[1]|default('None'),item[2]|default('None'),item[3]|default('None'),item[4]|default('None')]
+    table_data: "[item[0]|default('None'),item[1]|default('None'),item[2]|default('None'),item[3]|default('None'),item[4]|default('None')]"
     with_nested: 
       - "{{documents.json._embedded.name_text}}"
       - "{{documents.json._embedded.project_text}}"
