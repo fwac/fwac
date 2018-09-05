@@ -36,10 +36,12 @@
       club: "{{ club|default([]) + item.club_ms }}" #
       emails: "{{ emails|default([]) + [item.email_text] }}"
       meetings: "{{ meetings|default([]) + [item.meetings_ss] }}" #
+      project: "{{ project|default([]) + [item.project_text] }}"
       reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }} {{ item.project_text }}" #
       role: "{{ role|default([]) + [item.role_ss] }}" #
       topic: "{{ topic|default([]) + [item.topic_text] }}"
       name: "{{ name|default([]) + [item.name_text] }}"
+      table_data: "{{ table_data|default([]) + [item.name_text,item.project_text,item.role_ss,item.tower_ms,item.email_text]}}" 
       tower: "{{ tower|default([]) + item.tower_ms }}" #
       total: "{{ total|default('0')|int + '1'|int }}"
     with_items: "{{documents.json._embedded}}"
@@ -258,7 +260,7 @@
       title: "Attendance"
       image: "{{ challenge_image_file }}"
       filename: "{{ pptx_filename }}"      
-      table_data = rows from mongo
+      table_data: "{{ table_data }}"
     
   - name: Email Slides to attendees
     mail:
