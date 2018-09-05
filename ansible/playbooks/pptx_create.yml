@@ -76,6 +76,9 @@
   - debug: 
       var: tower
       verbosity: 2
+  - debug:
+      var: table_data
+      verbosity: 2
   - debug: 
       var: total
       verbosity: 2
