@@ -245,6 +245,14 @@
       bullets: "{{ topic }}"
     when: "topic|length > 0"
 
+
+  - name: Add Attendance table to pptx
+    pptx_table:
+      title: "Attendance"
+      filename: "{{ pptx_filename }}"
+      table_data: "{{ table_data }}"
+
+
   # put it all up on S3    
   - name: Put slides up on S3
     aws_s3:
@@ -267,12 +275,6 @@
       mode: "put"
       permission: public-read    
 
-  - name: Add Attendance table to pptx
-    pptx_table:
-      title: "Attendance"
-      filename: "{{ pptx_filename }}"      
-      table_data: "{{ table_data }}"
-    
   - name: Email Slides to attendees
     mail:
       host: smtp.gmail.com
