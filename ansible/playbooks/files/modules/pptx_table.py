@@ -29,7 +29,7 @@ def table_create(prs,position,title_text,table_header,table_data):
     for y in xrange(0, len(table_data)):
       for x in xrange(0, cols):
         row=y+1
-        table.cell(row, x).text = table_data[y][x].join(" ")
+        table.cell(row, x).text = " ".join(table_data[y][x])
   except:
     print sys.exc_info()[0]
     raise
