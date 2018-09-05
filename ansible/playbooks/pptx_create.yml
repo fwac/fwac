@@ -41,19 +41,19 @@
       role: "{{ role|default([]) + [item.role_ss] }}" #
       topic: "{{ topic|default([]) + [item.topic_text] }}"
       name: "{{ name|default([]) + [item.name_text|default('None')] }}"
-      #table_data: "{{ table_data|default([]) + [item.name_text|default('None'),item.project_text|default('None'),item.role_ss|default('None'),item.tower_ms|default('None'),item.email_text|default('None')]}}" 
+      table_data: "{{ table_data|default([]) + (item.name_text|default('None'),item.project_text|default('None'),item.role_ss|default('None'),item.tower_ms|default('None'),item.email_text|default('None'))}}" 
       tower: "{{ tower|default([]) + item.tower_ms }}" #
       total: "{{ total|default('0')|int + '1'|int }}"
     with_items: "{{documents.json._embedded}}"
 
-  - set_fact:
-    table_data: "[item[0]|default('None'),item[1]|default('None'),item[2]|default('None'),item[3]|default('None'),item[4]|default('None')]"
-    with_nested: 
-      - "{{documents.json._embedded.name_text|default('None')}}"
-      - "{{documents.json._embedded.project_text|default('None')}}"
-      - "{{documents.json._embedded.role_ss}}"
-      - "{{documents.json._embedded.tower_ms}}"
-      - "{{documents.json._embedded.email_text}}"
+#  - set_fact:
+#    table_data: "[item[0]|default('None'),item[1]|default('None'),item[2]|default('None'),item[3]|default('None'),item[4]|default('None')]"
+#    with_nested: 
+#      - "{{documents.json._embedded.name_text|default('None')}}"
+#      - "{{documents.json._embedded.project_text|default('None')}}"
+#      - "{{documents.json._embedded.role_ss}}"
+#      - "{{documents.json._embedded.tower_ms}}"
+#      - "{{documents.json._embedded.email_text}}"
     
   - debug: 
       var: currently
