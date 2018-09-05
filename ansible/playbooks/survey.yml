@@ -1,0 +1,26 @@
+---
+- hosts: awx
+  vars:
+    survey: {    
+      role_ss: "{{ role_ss }}",
+      currently_ss: "{{ currently_ss }}",
+      inops_ss: "{{ inops_ss }}",
+      project_text: "{{ project_text }}",
+      tower_ms: "{{ tower_ms }}",
+      club_ms: "{{ club_ms }}",
+      email_text: "{{ email_text }}",
+      meetings_ss: "{{ meetings_ss }}",
+      reason_cloud_text: "{{ reason_cloud_text }}",
+      challenge_cloud_text: "{{ challenge_cloud_text }}",
+      topic_text: "{{ topic_text }}",
+      name_text: "{{ name_text }}"
+      }
+
+  tasks:
+  - name: Put response in Mongo
+    uri:
+      url: "http://{{ restheart }}/db/{{ collection }}"
+      body_format: "json"
+      method: "POST"
+      body: "{{survey}}"
+      status_code: 201

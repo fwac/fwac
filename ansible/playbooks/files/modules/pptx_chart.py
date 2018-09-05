@@ -72,9 +72,7 @@ class FWChart:
       data_labels.number_format = '0%'
       data_labels.position = XL_LABEL_POSITION.OUTSIDE_END
     except:
-      print sys.exc_info()[0]
-      raise
-      #pass
+      pass
 
   def save(self,filename):
     try:
