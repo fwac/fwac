@@ -50,7 +50,7 @@
     table_data: "[item[0]|default('None'),item[1]|default('None'),item[2]|default('None'),item[3]|default('None'),item[4]|default('None')]"
     with_nested: 
       - "{{documents.json._embedded.name_text|default('None')}}"
-      - "{{documents.json._embedded.project_text}}"
+      - "{{documents.json._embedded.project_text|default('None')}}"
       - "{{documents.json._embedded.role_ss}}"
       - "{{documents.json._embedded.tower_ms}}"
       - "{{documents.json._embedded.email_text}}"
