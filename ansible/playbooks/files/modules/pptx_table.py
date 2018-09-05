@@ -7,28 +7,32 @@ from pptx.enum.chart import XL_CHART_TYPE
 from pptx.util import Inches
 
 def table_create(prs,position,title_text,table_header,table_data):
-  cols = position['cols']
-  rows = position['rows']
-  left = top = Inches(position['left'])
-  width = Inches(position['width'])
-  height = Inches(position['height'])
+  try: 
+    cols = position['cols']
+    rows = position['rows']
+    left = top = Inches(position['left'])
+    width = Inches(position['width'])
+    height = Inches(position['height'])
 
-  title_only_slide_layout = prs.slide_layouts[5]
-  slide = prs.slides.add_slide(title_only_slide_layout)
-  shapes = slide.shapes
-  shapes.title.text = title_text
-  table = shapes.add_table(rows, cols, left, top, width, height).table
+    title_only_slide_layout = prs.slide_layouts[5]
+    slide = prs.slides.add_slide(title_only_slide_layout)
+    shapes = slide.shapes
+    shapes.title.text = title_text
+    table = shapes.add_table(rows, cols, left, top, width, height).table
   
-  x = 0
-  for key,value in table_header:
-    table.columns[x].width = Inches(value)
-    table.cell(0, x).text = key
-    x += 1
+    x = 0
+    for key,value in table_header:
+      table.columns[x].width = Inches(value)
+      table.cell(0, x).text = key
+      x += 1
     
-  for y in xrange(1, len(table_data)):
-    for x in xrange(0, len(cols):
-      table.cell(y, x).text = data[x]
-      
+    for y in xrange(1, len(table_data)):
+      for x in xrange(0, len(cols):
+        table.cell(y, x).text = data[x]
+  except:
+    print sys.exc_info()[0]
+    raise
+
 def main():
   module = AnsibleModule(
     argument_spec=dict(
@@ -56,7 +60,8 @@ def main():
     prs.save(filename)
     module.exit_json(changed=True)
   except:
-    module.fail_json(msg=sys.exc_info()[0])
+    print sys.exc_info()[0]
+    raise
 
 from ansible.module_utils.basic import *
 main()
