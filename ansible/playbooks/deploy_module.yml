@@ -15,3 +15,4 @@
       - "modules/pptx_create.py"
       - "modules/pptx_image.py"      
       - "modules/pptx_chart.py"
+      - "modules/pptx_table.py"      

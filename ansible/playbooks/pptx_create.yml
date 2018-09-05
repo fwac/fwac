@@ -253,6 +253,13 @@
       mode: "put"
       permission: public-read    
 
+  - name: Add Attendance table to pptx
+    pptx_table:
+      title: "Attendance"
+      image: "{{ challenge_image_file }}"
+      filename: "{{ pptx_filename }}"      
+      table_data = rows from mongo
+    
   - name: Email Slides to attendees
     mail:
       host: smtp.gmail.com
