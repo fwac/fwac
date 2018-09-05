@@ -26,7 +26,7 @@ def table_create(prs,position,title_text,table_header,table_data):
       table.cell(0, x).text = key
       x += 1
     
-    for y in xrange(0, len(table_data)):
+    for y in xrange(0, len(table_data)-1):
       for x in xrange(0, cols):
         table.cell(y+1, x).text = " ".join(table_data[y][x])
   except:
