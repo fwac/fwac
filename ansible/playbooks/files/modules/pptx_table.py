@@ -27,11 +27,11 @@ def table_create(prs,position,title_text,table_header,table_data):
     
       for i in xrange(0, len(table_header)):
         table.columns[i].width = Inches(table_header[i])
-        table.cell(0, i).text = l[i]
       
+      data.insert(0,l)
       for y in xrange(0, len(data)):
         for x in xrange(0, cols):
-          table.cell(y+1, x).text = data[y][x]
+          table.cell(y, x).text = data[y][x]
   except:
     print sys.exc_info()[0]
     raise
@@ -41,7 +41,7 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 9, 'left': 0.6 , 'top': 3.0, 'width': 10.0, 'height': 0.8 }),
+      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 9, 'left': 0.6 , 'top': 2.0, 'width': 10.0, 'height': 0.8 }),
       table_data = dict(required=True, type='list'),
       table_header = dict(required=False, type='list', default=[2.5,1.5,3.0,2.0,3.0])
       ),
