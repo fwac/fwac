@@ -184,7 +184,7 @@
 #    command: "wordcloud_cli --text {{ reason_word_file }} --mask {{ reason_mask_file }} --background black --contour_color white --imagefile {{ reason_image_file }}"  
   - name: Create reason cloud
     word_cloud:
-      image_file: "{{ reason_image_file }}"
+      image_file: "{{ reason_cloud_file }}"
       word_file: "{{ reason_word_file }}"
       
       
