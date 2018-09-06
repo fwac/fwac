@@ -208,10 +208,10 @@
     pptx_image:
       title: "Why we love Ansible <3"
       image: "{{ reason_cloud_file }}"
-      bg_image: "{{ reason_bg_file }}"
+      #bg_image: "{{ reason_bg_file }}"
       filename: "{{ pptx_filename }}"
-      top_inches: .4
-      left_inches: 3.2
+      #top_inches: .4
+      #left_inches: 3.2
       
   #challenge cloud =================================================
   - name: Create word file for challenge cloud

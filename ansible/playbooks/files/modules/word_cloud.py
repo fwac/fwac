@@ -37,7 +37,7 @@ def main():
     text = open(path.join(d, word_file)).read()    
     
     #ansible_mask = np.array(Image.open(path.join(d, mask_file)))
-    wc = WordCloud(background_color=None, max_words=2000, mode=mode, height=height, width=width)
+    wc = WordCloud(background_color=None, color='prgn', max_words=2000, mode=mode, height=height, width=width)
     wc.generate(text)
     
     wc.to_file(path.join(d, image_file))
