@@ -54,6 +54,7 @@ def main():
     filename = module.params['filename']
     position = module.params['position']
     table_header = module.params['table_header']
+    cell_widths = module.params['cell_widths']
     rows = position['rows']
 
     prs = Presentation(filename)   
