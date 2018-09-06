@@ -43,8 +43,9 @@ def main():
     wc.to_file(path.join(d, image_file))
     module.exit_json(changed=True)
   except:
-    print sys.exc_info()[0]
-    raise
+    pass
+    #print sys.exc_info()[0]
+    #raise
     
 
 from ansible.module_utils.basic import *
