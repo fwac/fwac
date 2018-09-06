@@ -11,11 +11,11 @@ def main():
     argument_spec=dict(
       image_file = dict(required=True),
       mask_file = dict(required=False),
-      width = dict(required=False, type='int', default='820'),
-      height = dict(required=False, type='int', default='400'),
+      width = dict(required=False, type='int', default=820),
+      height = dict(required=False, type='int', default=400),
       background_color = dict(required=False, default='None'),
       contour_color = dict(required=False, default='white'),
-      mode = dict(required=False, type='str', default='RGBA'),
+      mode = dict(required=False, default='RGBA'),
       word_file = dict(required=True),
       ),
       supports_check_mode=False
