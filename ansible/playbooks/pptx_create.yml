@@ -215,7 +215,7 @@
       content:  "{{ challenge_cloud }}"
       
   - name: Create challenge cloud
-    command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background white --imagefile /tmp/challenge_temp_cloud.png "
+    command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background black --imagefile /tmp/challenge_temp_cloud.png "
   
   - name: Negate file with Magick
     command: "{{ item }}" 
