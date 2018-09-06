@@ -215,17 +215,15 @@
       content:  "{{ challenge_cloud }}"
       
   - name: Create challenge cloud
-    command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background black --imagefile /tmp/challenge_temp_cloud.png "
+    command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background white --imagefile /tmp/challenge_temp_cloud.png "
   
-  - name: Negate file with Magick
+  - name: Magick
     command: "{{ item }}" 
     with_items:
-      - "mogrify -alpha deactivate -negate /tmp/challenge_temp_cloud.png"
       - "convert /tmp/challenge_temp_cloud.png -negate /tmp/challenge_negative_cloud.png" 
+      - "convert /tmp/challenge_temp_cloud.png /tmp/challenge_negative_cloud.png -alpha off -compose copy_opacity -composite /tmp/challenge_temp_trans.png"
+      - "convert /tmp/challenge_temp_trans.png -colorspace HSL -channel G evaluate multiply 3 {{ challenge_image_file }}"
 
-  - name: Transparent file with Magick
-    command: "convert /tmp/challenge_temp_cloud.png /tmp/challenge_negative_cloud.png -alpha off -compose copy_opacity -colorspace HSL -channel Saturation -evaluate multiply 0.8 -colorspace RGB -composite {{ challenge_image_file }}"    
-          
   - name: Put challenge_cloud up on S3
     aws_s3:
       bucket: s3.fwac.us
