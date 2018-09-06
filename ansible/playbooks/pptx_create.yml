@@ -41,7 +41,7 @@
       role: "{{ role|default([]) + [item.role_ss] }}" #
       topic: "{{ topic|default([]) + [item.topic_text] }}"
       name: "{{ name|default([]) + [item.name_text|default('None')] }}"
-      table_data: "{{ table_data|default([['Name','Project','Role','Ansible','Email']]) + [[item.name_text|default('None'),item.project_text|default('None'),item.role_ss|default('None'),item.tower_ms|join(',')|default('None'),item.email_text|default('None')]]}}" 
+      table_data: "{{ table_data|default([]) + [[item.name_text|default('None'),item.project_text|default('None'),item.role_ss|default('None'),item.tower_ms|join(',')|default('None'),item.email_text|default('None')]]}}" 
       tower: "{{ tower|default([]) + item.tower_ms }}" #
       total: "{{ total|default('0')|int + '1'|int }}"
     with_items: "{{documents.json._embedded}}"
