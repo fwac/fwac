@@ -32,14 +32,14 @@ def main():
 
       title_shape = shapes.title
       tf = body_shape.text_frame
-      tf.text = 'Topics for discussion'
+      tf.text = data[0]
     
-      for topic in bullets:
-        if topic: 
+      for x in xrange(1, len(data)):
+        if data[x]: 
           p = tf.add_paragraph()
-          p.text = topic
+          p.text = data[x]
           p.level = 0
-      
+
     prs.save(filename)
     module.exit_json(changed=True)
   except:
