@@ -5,8 +5,8 @@ from pptx.util import Inches
 import sys
 
 def table_size(data, size):
-    for i in xrange(1, len(data), size-1):
-        yield data[0] + data[i:i + size]
+    for i in xrange(1, len(data), size):
+        yield data[i:i + size]
         
 def table_create(prs,position,title_text,table_header,table_data):
   try: 
