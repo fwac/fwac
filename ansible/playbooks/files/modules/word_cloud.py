@@ -26,6 +26,9 @@ def main():
     background_color = module.params['background_color']
     contour_color = module.params['contour_color']
     word_file = module.params['word_file']
+    height = module.params['height']
+    width = module.params['width']
+    mode = module.params['mode']
 
     # get data directory (using getcwd() is needed to support running example in generated IPython notebook)
     d = path.dirname(__file__) if "__file__" in locals() else os.getcwd()
@@ -34,7 +37,7 @@ def main():
     text = open(path.join(d, word_file)).read()    
     
     ansible_mask = np.array(Image.open(path.join(d, mask_file)))
-    wc = WordCloud(background_color=background_color, max_words=2000, mode=mode, contour_color=contour_color)
+    wc = WordCloud(background_color=background_color, max_words=2000, mode=mode, height=height, width=width, contour_color=contour_color)
     wc.generate(text)
     
     wc.to_file(path.join(d, image_file))
