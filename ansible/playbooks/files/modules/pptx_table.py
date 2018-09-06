@@ -8,12 +8,11 @@ def table_size(data, size):
     for i in xrange(1, len(data), size):
         yield data[i:i + size]
         
-def table_create(prs,position,title_text,table_header,table_data):
+def table_create(prs,position,title_text,table_header,table_data,cell_widths):
   try: 
     cols = position['cols']
     rows = position['rows']
     top = position['top']
-    l = ['Name','Project','Role','Ansible','Email']
     left = Inches(position['left'])
     width = Inches(position['width'])
     height = Inches(position['height'])
@@ -26,10 +25,10 @@ def table_create(prs,position,title_text,table_header,table_data):
       # +1 for header
       table = shapes.add_table(rows+1, cols, left, top, width, height).table
     
-      for i in xrange(0, len(table_header)):
-        table.columns[i].width = Inches(table_header[i])
+      for i in xrange(0, len(cell_widths)):
+        table.columns[i].width = Inches(cell_widths[i])
       
-      data.insert(0,l)
+      data.insert(0,table_header)
       for y in xrange(0, len(data)):
         for x in xrange(0, cols):
           table.cell(y, x).text = data[y][x]
@@ -44,7 +43,8 @@ def main():
       title = dict(required=True),
       position = dict(required=False, type='dict', default={'cols': 5, 'rows': 9, 'left': 0.6 , 'top': 4.0, 'width': 10.0, 'height': 0.8 }),
       table_data = dict(required=True, type='list'),
-      table_header = dict(required=False, type='list', default=[2.5,1.5,3.0,2.0,3.0])
+      table_header = dict(required=False, type='list', default=['Name','Project','Role','Ansible Exp','Email']),
+      cell_widths = dict(required=False, type='list', default=[2.5,1.5,3.0,2.0,3.0])
       ),
       supports_check_mode=False
   )
@@ -57,7 +57,7 @@ def main():
     rows = position['rows']
 
     prs = Presentation(filename)   
-    table_create(prs,position,title_text,table_header,table_data)
+    table_create(prs,position,title_text,table_header,table_data,cell_widths)
     prs.save(filename)
     module.exit_json(changed=True)
   except:

@@ -218,7 +218,10 @@
     command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background white --imagefile /tmp/challenge_temp_cloud.png "
   
   - name: Negate file with Magick
-    command: "convert /tmp/challenge_temp_cloud.png -negate /tmp/challenge_negative_cloud.png" 
+    command: "{{ item }}" 
+    with_items:
+      - "mogrify -alpha deactivate -negate /tmp/challenge_temp_cloud.png"
+      - "convert /tmp/challenge_temp_cloud.png -negate /tmp/challenge_negative_cloud.png" 
 
   - name: Transparent file with Magick
     command: "convert /tmp/challenge_temp_cloud.png /tmp/challenge_negative_cloud.png -alpha off -compose copy_opacity -colorspace HSL -channel Saturation -evaluate multiply 0.8 -colorspace RGB -composite {{ challenge_image_file }}"    
