@@ -180,16 +180,21 @@
       dest: "{{ reason_word_file }}"
       content:  "{{ reason_cloud }}"
       
+#  - name: Create reason cloud
+#    command: "wordcloud_cli --text {{ reason_word_file }} --mask {{ reason_mask_file }} --background black --contour_color white --imagefile {{ reason_image_file }}"  
   - name: Create reason cloud
-    command: "wordcloud_cli --text {{ reason_word_file }} --mask {{ reason_mask_file }} --background black --contour_color white --imagefile {{ reason_image_file }}"  
+    word_cloud:
+      image_file: "{{ reason_image_file }}"
+      word_file: "{{ reason_word_file }}"
       
-  - name: Merge files with Magick
-    command: "convert {{ reason_mask_file }} {{ reason_image_file }} {{ reason_negative_file }} -composite /tmp/reason_temp_cloud.png"
+      
+#  - name: Merge files with Magick
+#    command: "convert {{ reason_mask_file }} {{ reason_image_file }} {{ reason_negative_file }} -composite /tmp/reason_temp_cloud.png"
     
 #  - name: Transparent file with Magick
 #   command: "convert /tmp/reason_temp_cloud.png -transparent white -fuzz 90% {{ reason_cloud_file }}"    
-  - name: Transparent file with Magick
-    command: "convert /tmp/reason_temp_cloud.png {{ reason_negative_file }} -alpha off -compose copy_opacity -composite {{ reason_cloud_file }}"    
+#  - name: Transparent file with Magick
+#    command: "convert /tmp/reason_temp_cloud.png {{ reason_negative_file }} -alpha off -compose copy_opacity -composite {{ reason_cloud_file }}"    
 
   - name: Put reason_cloud up on S3
     aws_s3:
@@ -213,9 +218,14 @@
     copy:
       dest: "{{ challenge_word_file }}"
       content:  "{{ challenge_cloud }}"
-      
-  - name: Create challenge cloud
-    command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background None --imagefile {{ challenge_image_file }}"
+
+  - name: Create reason cloud
+    word_cloud:
+      image_file: "{{ challenge_image_file }}"
+      word_file: "{{ challenge_word_file }}"
+     
+#  - name: Create challenge cloud
+#    command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background None --imagefile {{ challenge_image_file }}"
 
 #/tmp/challenge_temp_cloud.png "
   
