@@ -23,6 +23,7 @@ def table_create(prs,position,title_text,table_header,table_data):
       slide = prs.slides.add_slide(title_only_slide_layout)
       shapes = slide.shapes
       shapes.title.text = title_text
+      # +1 for header
       table = shapes.add_table(rows+1, cols, left, top, width, height).table
     
       for i in xrange(0, len(table_header)):
@@ -41,7 +42,7 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 9, 'left': 0.6 , 'top': 2.0, 'width': 10.0, 'height': 0.8 }),
+      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 9, 'left': 0.6 , 'top': 4.0, 'width': 10.0, 'height': 0.8 }),
       table_data = dict(required=True, type='list'),
       table_header = dict(required=False, type='list', default=[2.5,1.5,3.0,2.0,3.0])
       ),
