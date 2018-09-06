@@ -43,9 +43,9 @@ def main():
     prs.save(filename)
     module.exit_json(changed=True)
   except:
-    pass
-    #print sys.exc_info()[0]
-    #raise
+    #pass
+    print sys.exc_info()[0]
+    raise
     #module.fail_json(msg=sys.exc_info()[0])
 
 from ansible.module_utils.basic import *

@@ -33,8 +33,9 @@ def table_create(prs,position,title_text,table_header,table_data,cell_widths):
         for x in xrange(0, cols):
           table.cell(y, x).text = data[y][x]
   except:
-    print sys.exc_info()[0]
-    raise
+    pass
+    #print sys.exc_info()[0]
+    #raise
 
 def main():
   module = AnsibleModule(
@@ -62,8 +63,9 @@ def main():
     prs.save(filename)
     module.exit_json(changed=True)
   except:
-    print sys.exc_info()[0]
-    raise
+    pass
+    #print sys.exc_info()[0]
+    #raise
 
 from ansible.module_utils.basic import *
 main()
