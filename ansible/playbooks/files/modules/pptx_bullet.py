@@ -21,9 +21,7 @@ def main():
     filename = module.params['filename']
     prs = Presentation(filename)
     
-    title_shape.text = module.params['title']
     bullets = module.params['bullets']
-
     for data in bullet_size(bullets,count):
       bullet_slide_layout = prs.slide_layouts[1]
       slide = prs.slides.add_slide(bullet_slide_layout)
@@ -31,6 +29,7 @@ def main():
       body_shape = shapes.placeholders[1]
 
       title_shape = shapes.title
+      title_shape.text = module.params['title']
       tf = body_shape.text_frame
       tf.text = data[0]
     
