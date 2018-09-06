@@ -23,7 +23,7 @@ def table_create(prs,position,title_text,table_header,table_data):
       slide = prs.slides.add_slide(title_only_slide_layout)
       shapes = slide.shapes
       shapes.title.text = title_text
-      table = shapes.add_table(rows, cols, left, top, width, height).table
+      table = shapes.add_table(rows+1, cols, left, top, width, height).table
     
       for i in xrange(0, len(table_header)):
         table.columns[i].width = Inches(table_header[i])
