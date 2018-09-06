@@ -38,7 +38,7 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 5, 'left': 0.8 , 'top': 2.0, 'width': 10.0, 'height': 0.8 }),
+      position = dict(required=False, type='dict', default={'cols': 8, 'rows': 10, 'left': 0.6 , 'top': 4.0, 'width': 10.0, 'height': 0.8 }),
       table_data = dict(required=True, type='list'),
       table_header = dict(required=False, type='list', default=[2.5,1.5,3.0,2.0,3.0])
       ),
