@@ -41,10 +41,10 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 9, 'left': 0.6 , 'top': 2.3, 'width': 10.0, 'height': 0.8 }),
+      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 9, 'left': 0.6 , 'top': 2.3, 'width': 10.5, 'height': 0.8 }),
       table_data = dict(required=True, type='list'),
       table_header = dict(required=False, type='list', default=['Name','Project','Role','Ansible Exp','Email']),
-      cell_widths = dict(required=False, type='list', default=[2.5,1.5,3.0,2.0,3.0])
+      cell_widths = dict(required=False, type='list', default=[2.0,2.0,3.0,2.0,3.0])
       ),
       supports_check_mode=False
   )
