@@ -1,11 +1,11 @@
 #!/bin/env python
+# this module should be called lalaloopy
 from pptx import Presentation
 from pptx.util import Inches
 import sys
 
-
 def table_size(data, size):
-    for i in range(0, len(data), size):
+    for i in xrange(0, len(data), size):
         yield data[i:i + size]
         
 def table_create(prs,position,title_text,table_header,table_data):
@@ -38,10 +38,9 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 20, 'left': 1.0 , 'top': 2.0, 'width': 8.0, 'height': 0.8 }),
+      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 20, 'left': 0.8 , 'top': 2.0, 'width': 10.0, 'height': 0.8 }),
       table_data = dict(required=True, type='list'),
-      table_header = dict(required=False, type='list', default=[2.0,1.0,2.0,1.0,2.0])
-      #table_header = dict(required=False, type='dict', default={'Name': 2.0, 'Project': 1.0, 'Role': 2.0 , 'Ansible': 1.0, 'Email': 2.0 })
+      table_header = dict(required=False, type='list', default=[2.5,1.5,3.0,2.0,3.0])
       ),
       supports_check_mode=False
   )
@@ -54,8 +53,6 @@ def main():
     rows = position['rows']
 
     prs = Presentation(filename)   
-    #for i in xrange(0, len(table_data), rows):
-    #  table_create(prs,position,title_text,table_header,table_data[i:i + rows])
     table_create(prs,position,title_text,table_header,table_data)
     prs.save(filename)
     module.exit_json(changed=True)
