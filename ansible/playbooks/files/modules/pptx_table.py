@@ -5,13 +5,14 @@ from pptx.util import Inches
 import sys
 
 def table_size(data, size):
-    for i in xrange(0, len(data), size):
-        yield data[i:i + size]
+    for i in xrange(1, len(data), size-1):
+        yield data[0] + data[i:i + size]
         
 def table_create(prs,position,title_text,table_header,table_data):
   try: 
     cols = position['cols']
     rows = position['rows']
+    top = position['top']
     left = top = Inches(position['left'])
     width = Inches(position['width'])
     height = Inches(position['height'])
@@ -38,7 +39,7 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 10, 'left': 0.6 , 'top': 4.0, 'width': 10.0, 'height': 0.8 }),
+      position = dict(required=False, type='dict', default={'cols': 5, 'rows': 10, 'left': 0.6 , 'top': 2.0, 'width': 10.0, 'height': 0.8 }),
       table_data = dict(required=True, type='list'),
       table_header = dict(required=False, type='list', default=[2.5,1.5,3.0,2.0,3.0])
       ),
