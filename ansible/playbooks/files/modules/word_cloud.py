@@ -27,6 +27,7 @@ def main():
     background_color = module.params['background_color']
     contour_color = module.params['contour_color']
     word_file = module.params['word_file']
+    words = module.params['words']
     height = module.params['height']
     width = module.params['width']
     mode = module.params['mode']
