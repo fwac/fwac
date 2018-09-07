@@ -23,6 +23,6 @@
     uri:
       url: "http://{{ restheart }}/db/{{ collection }}"
       body_format: "json"
-      method: "PUT"
+      method: "POST"
       body: "{{survey}}"
       status_code: 200,201
