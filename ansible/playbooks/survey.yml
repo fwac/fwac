@@ -32,3 +32,18 @@
       method: "POST"
       body: "{{survey}}"
       status_code: 200,201
+
+  - name: Email Notification
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: "{{ email_from }}"
+      password: "{{ email_passwd }}"
+      to: "scott.ctr.tully@faa.gov"
+      subject: FWAC Survey Submitted
+      from: scott.ctr.tully@faa.gov
+      body: "{{ name_text }} ({{ email_text }}) submitted a survey"
+      headers:
+        - Reply-To=scott.ctr.tully@faa.gov
+    when: "email_passwd is defined and emails is defined"
+
