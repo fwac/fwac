@@ -25,20 +25,6 @@ survey: {
  ],
  "why_text": "Security Safety"
 }
-#    survey: {    
-#      role_ss: "{{ role_ss }}",
-#      currently_ss: "{{ currently_ss }}",
-#      inops_ss: "{{ inops_ss }}",
-#      project_text: "{{ project_text }}",
-#      tower_ms: "{{ tower_ms }}",
-#      club_ms: "{{ club_ms }}",
-#      _id: "{{ email_text }}",
-#      meetings_ss: "{{ meetings_ss }}",
-#      reason_cloud_text: "{{ reason_cloud_text }}",
-#      challenge_cloud_text: "{{ challenge_cloud_text }}",
-#      topic_text: "{{ topic_text }}",
-#      name_text: "{{ name_text }}"
-#      }
 
   tasks:
   - name: Put response in Mongo
