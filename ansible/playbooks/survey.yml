@@ -45,5 +45,5 @@
       body: "{{ name_text }} ({{ email_text }}) submitted a survey"
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
-    when: "email_passwd is defined and emails is defined"
+    when: "email_passwd is defined"
 
