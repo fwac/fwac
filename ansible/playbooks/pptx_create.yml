@@ -237,7 +237,7 @@
       src: "/tmp/index.html"
       mode: "put"
       permission: public-read  
-    when: index_html|changed
+    when: index_html is changed
 
   - name: Email Slides to attendees
     mail:
