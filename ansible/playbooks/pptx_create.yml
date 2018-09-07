@@ -204,6 +204,7 @@
       title: "Discussion"
       filename: "{{ pptx_filename }}"
       bullets: "{{ topic }}"
+      count: 2
     when: "topic|length > 0"
 
 
