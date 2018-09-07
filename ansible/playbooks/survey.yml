@@ -2,21 +2,19 @@
 - hosts: awx
   vars:
     survey: {
- "challenge_cloud_text": "Bureaucracy Policy Environments Ops Requirements FAA Policy Environments Ops Requirements SSM CM Test",
- "club_ms": [ "Learn",  "Demos/Workshops", "Establish Playbook Standards" ],
- "collection": "meeting00",
- "currently_ss": "Yes",
- "_id": "scott.tully@gmail.com",
- "inops_ss": "Yes",
- "meetings_ss": "Weekly",
- "name_text": "Scott Tully",
- "project_text": "IAM",
- "reason_cloud_text": "Automation fast easy fun Automation Easy Configuration Management Changes deployment integration python",
- "role_ss": "Developer/Engineer",
- "topic_text": "I like turtles",
- "tower_ms": [ "Tower", "Engine" ],
- "why_text": "Security Safety"
-}
+      role_ss: "{{ role_ss }}",
+      currently_ss: "{{ currently_ss }}",
+      inops_ss: "{{ inops_ss }}",
+      project_text: "{{ project_text }}",
+      tower_ms: "{{ tower_ms }}",
+      club_ms: "{{ club_ms }}",
+      _id: "{{ email_text }}",
+      meetings_ss: "{{ meetings_ss }}",
+      reason_cloud_text: "{{ reason_cloud_text }}",
+      challenge_cloud_text: "{{ challenge_cloud_text }}",
+      topic_text: "{{ topic_text }}",
+      name_text: "{{ name_text }}"
+      }
 
   tasks:
   - name: Put response in Mongo

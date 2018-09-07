@@ -1,47 +1,21 @@
 ---
 ---
 collection: meeting0
-survey: {
-    email_text: 'scott.tully@gmail.com',
-    role_ss: 'Developer/Engineer',
-    currently_ss: 'Yes',
-    inops_ss: 'No',
-    project_text: 'NCR',
-    tower_ms: ['Tower', 'Engine'],
-    club_ms:['Learn', 'Have Fun/Socialize', 'Read/Write/Run Playbooks', 'Demos/Workshops', 'Establish Playbook Standards'],
-    meetings_ss: 'Weekly',
-    reason_cloud_text: 'Automation Easy Idempotent Configuration Management Changes deployment integration devops CM',
-    challenge_cloud_text: 'challenge_cloud: Policy Environments Ops Requirements SSM CM Test',
-    topic_text: 'Can we get Chido Burrito?'
-}
-
-
-survey: {
-    email_text: 'scotttull.y@gmail.com',
-    role_ss: 'Test Engineer',
-    currently_ss: 'Yes',
-    inops_ss: 'Yes',
-    project_text: 'IAM',
-    tower_ms: ['Engine'],
-    club_ms:['Read/Write/Run Playbooks'],
-    meetings_ss: 'Bi-Monthly',
-    reason_cloud_text: 'Automation deployment integration devops',
-    challenge_cloud_text: 'challenge_cloud: Policy Environments Ops Requirements SSM CM Test Understand',
-    topic_text: ''
-}
-
-survey: {    
-  role_ss: 'Test Engineer',
-  currently_ss: 'Yes',
-  inops_ss: 'No',
-  project_text: 'IAM',
-  tower_ms: ['Engine'],
-  club_ms: ['Learn','Have Fun/Socialize'],
-  email_text: ['scott.tully@gmail.com'],
-  meetings_ss: 'Bi-Monthly',
-  reason_cloud_text: 'Automation Easy Idempotent Configuration Management Changes deployment integration devops CM',
-  challenge_cloud_text: 'Policy Environments Ops Requirements SSM CM Test',
-  topic_text: 'Show and tell'
+    survey: {
+ "challenge_cloud_text": "Bureaucracy Policy Environments Ops Requirements FAA Policy Environments Ops Requirements SSM CM Test",
+ "club_ms": [ "Learn",  "Demos/Workshops", "Establish Playbook Standards" ],
+ "collection": "meeting00",
+ "currently_ss": "Yes",
+ "_id": "scott.tully@gmail.com",
+ "inops_ss": "Yes",
+ "meetings_ss": "Weekly",
+ "name_text": "Scott Tully",
+ "project_text": "IAM",
+ "reason_cloud_text": "Automation fast easy fun Automation Easy Configuration Management Changes deployment integration python",
+ "role_ss": "Developer/Engineer",
+ "topic_text": "I like turtles",
+ "tower_ms": [ "Tower", "Engine" ],
+ "why_text": "Security Safety"
 }
 
 challenge_cloud_text: Policy Environments Ops Requirements
