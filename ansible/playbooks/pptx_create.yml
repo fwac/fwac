@@ -3,15 +3,10 @@
   vars:
     pptx_filename: "/tmp/fwac.pptx"
     pptx_template: "/tmp/Presentation.pptx"
-    
     reason_image_file: "/tmp/reason_cloud.png"
-    reason_mask_file: "/tmp/reason_mask.png" 
-    reason_negative_file: "/tmp/reason_negate.png"   
-    reason_bg_file: "/tmp/reason_bg.png"   
-    reason_cloud_file: "/tmp/reasons.png"      
-    reason_word_file: "/tmp/reason_word.txt"
     challenge_image_file: "/tmp/challenge_cloud.png"
-    challenge_word_file: "/tmp/challenge_word.txt"
+    why_image_file: "/tmp/why_cloud.png"
+
   tasks:
   - name: RESTHeart PUT collection
     uri:
@@ -33,6 +28,7 @@
       inops_yes: "{{ inops_yes|default(0)|int + item.inops_ss|bool|int }}" #
       inops: "{{ inops|default([]) + [item.inops_ss] }}" #
       challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud_text }}" #
+      why_cloud: "{{ why_cloud|default('') }} {{ item.why_text }}" #      
       club: "{{ club|default([]) + item.club_ms }}" #
       emails: "{{ emails|default([]) + [item._id] }}"
       meetings: "{{ meetings|default([]) + [item.meetings_ss] }}" #
@@ -166,79 +162,48 @@
       - { src: '{{ reason_bg_file|basename }}', dest: '{{ reason_bg_file }}' }
       
   # reason cloud ===================================================     
-  - name: Create word file for reason cloud
-    copy:
-      dest: "{{ reason_word_file }}"
-      content:  "{{ reason_cloud }}"
-      
-#  - name: Create reason cloud
-#    command: "wordcloud_cli --text {{ reason_word_file }} --mask {{ reason_mask_file }} --background black --contour_color white --imagefile {{ reason_image_file }}"  
   - name: Create reason cloud
     word_cloud:
-      image_file: "{{ reason_cloud_file }}"
+      image_file: "{{ reason_image_file }}"
       words: "{{ reason_cloud }}"
-      
-      
-#  - name: Merge files with Magick
-#    command: "convert {{ reason_mask_file }} {{ reason_image_file }} {{ reason_negative_file }} -composite /tmp/reason_temp_cloud.png"
-    
-#  - name: Transparent file with Magick
-#   command: "convert /tmp/reason_temp_cloud.png -transparent white -fuzz 90% {{ reason_cloud_file }}"    
-#  - name: Transparent file with Magick
-#    command: "convert /tmp/reason_temp_cloud.png {{ reason_negative_file }} -alpha off -compose copy_opacity -composite {{ reason_cloud_file }}"    
-
-#  - name: Put reason_cloud up on S3
-#    aws_s3:
-#      bucket: s3.fwac.us
-#      object: "/images/{{ reason_cloud_file | basename }}"
-#      src: "{{ reason_cloud_file }}"
-#      mode: put
-#      permission: public-read
-      
+      colormap: 'autumn'
+      mode: 'RGBA'
+  
   - name: Add reason_cloud to pptx
     pptx_image:
       title: "Why we love Ansible <3"
-      image: "{{ reason_cloud_file }}"
-      #bg_image: "{{ reason_bg_file }}"
+      image: "{{ reason_image_file }}"
       filename: "{{ pptx_filename }}"
-      #top_inches: .4
-      #left_inches: 3.2
       
   #challenge cloud =================================================
-  - name: Create word file for challenge cloud
-    copy:
-      dest: "{{ challenge_word_file }}"
-      content:  "{{ challenge_cloud }}"
 
-  - name: Create reason cloud
+  - name: Create challenge cloud
     word_cloud:
       image_file: "{{ challenge_image_file }}"
       words: "{{ challenge_cloud }}"
+      colormap: 'summer'
+      mode: 'RGBA'      
      
-#  - name: Create challenge cloud
-#    command: "wordcloud_cli --text {{ challenge_word_file }} --width 820 --height 400  --background None --imagefile {{ challenge_image_file }}"
-
-#/tmp/challenge_temp_cloud.png "
-  
-#  - name: Magick
-#    command: "{{ item }}" 
-#    with_items:
-#      - "convert /tmp/challenge_temp_cloud.png -negate /tmp/challenge_negative_cloud.png" 
-#      - "convert /tmp/challenge_temp_cloud.png /tmp/challenge_negative_cloud.png -alpha off -normalize -compose copy_opacity -composite {{ challenge_image_file }}"
-
-#  - name: Put challenge_cloud up on S3
-#    aws_s3:
-#      bucket: s3.fwac.us
-#      object: "/images/{{ challenge_image_file| basename }}"
-#      src: "{{ challenge_image_file }}"
-#      mode: put
-#      permission: public-read
-      
   - name: Add challenge_cloud to pptx
     pptx_image:
       title: "Challenges we face"
       image: "{{ challenge_image_file }}"
       filename: "{{ pptx_filename }}"
+
+  #why cloud =================================================
+
+  - name: Create why cloud
+    word_cloud:
+      image_file: "{{ why_image_file }}"
+      words: "{{ why_cloud }}"
+      colormap: 'Wistia'
+      mode: 'RGBA'      
+     
+  - name: Add why_cloud to pptx
+    pptx_image:
+      title: "Challenges we face"
+      image: "{{ why_image_file }}"
+      filename: "{{ pptx_filename }}"      
       
  # add topics   
   - name: Topics for discussion
@@ -269,6 +234,7 @@
     template:
         src: index.html.j2
         dest: /tmp/index.html
+    register: index_html
 
   - name: Put index up on S3
     aws_s3:
@@ -276,7 +242,8 @@
       object: "/index.html"
       src: "/tmp/index.html"
       mode: "put"
-      permission: public-read    
+      permission: public-read  
+    when: index_html|changed
 
   - name: Email Slides to attendees
     mail:
@@ -318,5 +285,3 @@
   - name: Push README
     shell: "cd /home/ec2-user/fwac.github.io && /home/ec2-user/bin/push"  
       
- 
-#local_action: "command gdrive upload --parent 1Ua_JEkk2GQh8KyiYchwpJWe5Bcob9T_E --mime application/vnd.openxmlformats-officedocument.presentationml.presentation --delete {{ filename }}"
