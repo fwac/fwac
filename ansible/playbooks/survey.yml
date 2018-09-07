@@ -4,11 +4,7 @@
 
 survey: {
  "challenge_cloud_text": "Bureaucracy Policy Environments Ops Requirements FAA Policy Environments Ops Requirements SSM CM Test",
- "club_ms": [
-  "Learn",
-  "Demos/Workshops",
-  "Establish Playbook Standards"
- ],
+ "club_ms": [ "Learn",  "Demos/Workshops", "Establish Playbook Standards" ],
  "collection": "meeting00",
  "currently_ss": "Yes",
  "_id": "scott.tully@gmail.com",
@@ -19,10 +15,7 @@ survey: {
  "reason_cloud_text": "Automation fast easy fun Automation Easy Configuration Management Changes deployment integration python",
  "role_ss": "Developer/Engineer",
  "topic_text": "I like turtles",
- "tower_ms": [
-  "Tower",
-  "Engine"
- ],
+ "tower_ms": [ "Tower", "Engine" ],
  "why_text": "Security Safety"
 }
 
