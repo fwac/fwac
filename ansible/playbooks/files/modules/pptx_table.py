@@ -2,6 +2,7 @@
 # this module should be called lalaloopy
 from pptx import Presentation
 from pptx.util import Inches
+from pptx.util import Pt
 import sys
 
 def table_size(data, size):
@@ -32,6 +33,7 @@ def table_create(prs,position,title_text,table_header,table_data,cell_widths):
       for y in xrange(0, len(data)):
         for x in xrange(0, cols):
           table.cell(y, x).text = data[y][x]
+          table.cell(y, x).text_frame.paragraphs[0].font.size = Pt(10)
   except:
     pass
     #print sys.exc_info()[0]
