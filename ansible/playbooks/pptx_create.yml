@@ -164,7 +164,7 @@
       
   #challenge cloud =================================================
 
-  - name: Create challenge cloud
+  - name: Create Challenge Cloud
     word_cloud:
       image_file: "{{ challenge_image_file }}"
       words: "{{ challenge_cloud }}"
@@ -173,7 +173,7 @@
      
   - name: Add challenge_cloud to pptx
     pptx_image:
-      title: "Challenges we face"
+      title: "DevOps Challenges"
       image: "{{ challenge_image_file }}"
       filename: "{{ pptx_filename }}"
 
@@ -188,7 +188,7 @@
      
   - name: Add why_cloud to pptx
     pptx_image:
-      title: "Challenges we face"
+      title: "Polices and Procedures"
       image: "{{ why_image_file }}"
       filename: "{{ pptx_filename }}"      
       

@@ -9,7 +9,7 @@ def main():
     argument_spec=dict(
       filename = dict(required=True),
       title = dict(required=True),
-      top_inches = dict(required=False, type='float', default='.6'),
+      top_inches = dict(required=False, type='float', default='1.8'),
       left_inches = dict(required=False, type='float', default='1.0'),      
       image = dict(required=True),
       bg_image = dict(required=False)
@@ -24,7 +24,7 @@ def main():
     left_inches = module.params['left_inches']
     bg_image = module.params['bg_image']
     
-    blank_slide_layout = prs.slide_layouts[6]
+    blank_slide_layout = prs.slide_layouts[5]
     slide = prs.slides.add_slide(blank_slide_layout)
     
     top = Inches(top_inches)
