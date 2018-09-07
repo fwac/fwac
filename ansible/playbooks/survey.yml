@@ -1,8 +1,7 @@
 ---
 - hosts: awx
   vars:
-
-survey: {
+    survey: {
  "challenge_cloud_text": "Bureaucracy Policy Environments Ops Requirements FAA Policy Environments Ops Requirements SSM CM Test",
  "club_ms": [ "Learn",  "Demos/Workshops", "Establish Playbook Standards" ],
  "collection": "meeting00",
