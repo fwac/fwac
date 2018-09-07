@@ -19,6 +19,7 @@ def main():
   )
   try:
     filename = module.params['filename']
+    count = module.params['count']
     prs = Presentation(filename)
     
     bullets = module.params['bullets']
