@@ -8,7 +8,7 @@
       project_text: "{{ project_text }}",
       tower_ms: "{{ tower_ms }}",
       club_ms: "{{ club_ms }}",
-      email_text: "{{ email_text }}",
+      _id: "{{ email_text }}",
       meetings_ss: "{{ meetings_ss }}",
       reason_cloud_text: "{{ reason_cloud_text }}",
       challenge_cloud_text: "{{ challenge_cloud_text }}",
@@ -21,6 +21,6 @@
     uri:
       url: "http://{{ restheart }}/db/{{ collection }}"
       body_format: "json"
-      method: "POST"
+      method: "PUT"
       body: "{{survey}}"
       status_code: 201
