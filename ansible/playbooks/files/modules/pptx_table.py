@@ -33,7 +33,7 @@ def table_create(prs,position,title_text,table_header,table_data,cell_widths):
       for y in xrange(0, len(data)):
         for x in xrange(0, cols):
           table.cell(y, x).text = data[y][x]
-          table.cell(y, x).text_frame.paragraphs[0].font.size = Pt(10)
+          table.cell(y, x).text_frame.paragraphs[0].font.size = Pt(12)
   except:
     pass
     #print sys.exc_info()[0]
