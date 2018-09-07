@@ -198,15 +198,8 @@
       title: "Discussion"
       filename: "{{ pptx_filename }}"
       bullets: "{{ topic }}"
-      count: 2
+      count: 4
     when: "topic|length > 0"
-
-
-  - name: Add Attendance table to pptx
-    pptx_table:
-      title: "Attendance"
-      filename: "{{ pptx_filename }}"
-      table_data: "{{ table_data }}"
 
 
   # put it all up on S3    
@@ -232,6 +225,12 @@
       mode: "put"
       permission: public-read  
     when: index_html is changed
+
+  - name: Add Attendance table to pptx for email
+    pptx_table:
+      title: "Attendance"
+      filename: "{{ pptx_filename }}"
+      table_data: "{{ table_data }}"
 
   - name: Email Slides to attendees
     mail:
