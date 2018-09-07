@@ -153,13 +153,6 @@
        - "Meeting interval"
       series_values: "{{ meetings }}"
       chart_type: "bar"
-
-  - name: Copy cloud files to remote
-    copy: src={{ item.src }} dest={{ item.dest }}
-    with_items:
-      - { src: '{{ reason_negative_file|basename }}', dest: '{{ reason_negative_file }}' }
-      - { src: '{{ reason_mask_file|basename }}', dest: '{{ reason_mask_file }}' }
-      - { src: '{{ reason_bg_file|basename }}', dest: '{{ reason_bg_file }}' }
       
   # reason cloud ===================================================     
   - name: Create reason cloud
