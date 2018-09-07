@@ -25,4 +25,4 @@
       body_format: "json"
       method: "PUT"
       body: "{{survey}}"
-      status_code: 201
+      status_code: 200,201
