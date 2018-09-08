@@ -158,7 +158,7 @@
   
   - name: Add reason_cloud to pptx
     pptx_image:
-      title: "Why we love Ansible <3"
+      title: "Why we love Ansible"
       image: "{{ reason_image_file }}"
       filename: "{{ pptx_filename }}"
       
