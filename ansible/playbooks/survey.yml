@@ -42,7 +42,7 @@
       to: "scott.ctr.tully@faa.gov"
       subject: FWAC Survey Submitted
       from: scott.ctr.tully@gmail.com
-      body: "{{ name_text }} ({{ email_text }}) submitted a survey\n\n {{survey|yaml}}"
+      body: "{{ name_text }} ({{ email_text }}) submitted a survey\n\n {{survey|to_nice_yaml}}"
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
     when: "email_passwd is defined"
