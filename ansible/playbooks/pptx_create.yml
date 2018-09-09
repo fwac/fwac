@@ -148,29 +148,6 @@
       series_values: "{{ meetings }}"
       chart_type: "bar"
 
-  # silos 
-  - name: Copy Silo Image
-    copy: 
-      src: "silo.png"
-      dest: "/tmp/sideways_silo.png"      
-
-  - name: Silo Convert
-    command: "convert /tmp/sideways_silo.png -gravity Center -fill white -size 200x20 -pointsize 26 -annotate +0-10 '{{ item }}' -rotate 90  /tmp/silo_temp{{ idx }}.png"
-    loop: "{{ project|unique }}"
-    loop_control:
-      index_var: idx
-    when: "idx < 19"
-       
-  - name: Silo Montage
-    raw: "montage /tmp/silo_temp{{'{1..' ~ project|unique|length ~ '}'}}.png -resize 70% -background none -tile 6x3 -geometry +0+0 /tmp/silosout.png"
-     
-  - name: Add Silos to PPTX
-    pptx_image:
-      title: ""
-      image: "/tmp/silosout.png"
-      filename: "{{ pptx_filename }}"
-      top_inches: 0.5
-      left_inches: 0.5
      
   # reason cloud ===================================================     
   - name: Create reason cloud
@@ -215,6 +192,30 @@
       title: "Polices and Procedures"
       image: "{{ why_image_file }}"
       filename: "{{ pptx_filename }}"      
+
+  # silos 
+  - name: Copy Silo Image
+    copy: 
+      src: "silo.png"
+      dest: "/tmp/sideways_silo.png"      
+
+  - name: Silo Convert
+    command: "convert /tmp/sideways_silo.png -gravity Center -fill white -size 200x20 -pointsize 26 -annotate +0-10 '{{ item }}' -rotate 90  /tmp/silo_temp{{ idx }}.png"
+    loop: "{{ project|unique }}"
+    loop_control:
+      index_var: idx
+    when: "idx < 19"
+       
+  - name: Silo Montage
+    raw: "montage /tmp/silo_temp{{'{1..' ~ project|unique|length ~ '}'}}.png -resize 70% -background none -tile 6x3 -geometry +0+0 /tmp/silosout.png"
+     
+  - name: Add Silos to PPTX
+    pptx_image:
+      title: None
+      image: "/tmp/silosout.png"
+      filename: "{{ pptx_filename }}"
+      top_inches: 0.5
+      left_inches: 0.7
       
  # add topics   
   - name: Topics for discussion
