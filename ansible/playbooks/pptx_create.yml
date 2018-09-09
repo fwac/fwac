@@ -160,10 +160,10 @@
     loop_control:
       index_var: idx
     when: "idx < 16"
-    register: silo_count|length
+    register: silo_count
        
   - name: Silo Montage
-    command: "montage /tmp/silo_temp{{'{1..' ~ silo_count ~ '}'}}.png -background none -tile 5x3 -geometry +0+0 /tmp/silosout.png"
+    command: "montage /tmp/silo_temp{{'{1..' ~ silo_count|length ~ '}'}}.png -background none -tile 5x3 -geometry +0+0 /tmp/silosout.png"
      
   - name: Add Silos to PPTX
     pptx_image:
