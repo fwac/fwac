@@ -109,7 +109,7 @@
     when: "idx < 22"
        
   - name: Silo Montage
-    raw: "montage /tmp/silo/temp{{'{1..' ~ project|unique|length ~ '}'}}.png -resize 60% -background none -tile 7x3 -geometry +0+0 /tmp/silo/out.png"
+    raw: "montage /tmp/silo/temp{{'{0..' ~ project|unique|length|int - 1 ~ '}'}}.png -resize 60% -background none -tile 7x3 -geometry +0+0 /tmp/silo/out.png"
      
   - name: Add Silos to PPTX
     pptx_image:
