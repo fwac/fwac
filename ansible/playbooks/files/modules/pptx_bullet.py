@@ -21,7 +21,7 @@ def main():
     count = module.params['count']
     prs = Presentation(filename)
     
-    bullets = module.params['bullets']
+    bullets = filter(None, module.params['bullets'])
     for data in bullet_size(bullets,count):
       bullet_slide_layout = prs.slide_layouts[1]
       slide = prs.slides.add_slide(bullet_slide_layout)
