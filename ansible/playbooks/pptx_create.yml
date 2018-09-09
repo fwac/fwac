@@ -159,9 +159,11 @@
     loop: "{{ project|unique }}"
     loop_control:
       index_var: idx
+    when: "idx < 16"
+    register: silo_count
        
   - name: Silo Montage
-    raw: "montage /tmp/silo_temp{1..15}.png -background none -tile 5x3 -geometry +0+0 /tmp/silosout.png"
+    raw: "montage /tmp/silo_temp{1..{{ silo_count }}}.png -background none -tile 5x3 -geometry +0+0 /tmp/silosout.png"
      
   - name: Add Silos to PPTX
     pptx_image:
