@@ -211,7 +211,6 @@
      
   - name: Add Silos to PPTX
     pptx_image:
-      title: None
       image: "/tmp/silosout.png"
       filename: "{{ pptx_filename }}"
       top_inches: 0.5
