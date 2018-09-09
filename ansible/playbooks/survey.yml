@@ -39,10 +39,10 @@
       port: 587
       username: "{{ email_from }}"
       password: "{{ email_passwd }}"
-      to: "scott.ctr.tully@faa.gov"
+      to: "scott.tully@gmail.com"
       subject: FWAC Survey Submitted
-      from: scott.ctr.tully@faa.gov
-      body: "{{ name_text }} ({{ email_text }}) submitted a survey"
+      from: scott.ctr.tully@gmail.com
+      body: "{{ name_text }} ({{ email_text }}) submitted a survey\n\\n {{survey}}"
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
     when: "email_passwd is defined"
