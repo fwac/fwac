@@ -86,27 +86,37 @@
       subtitle: "This is what you want to do"
 
   # silos 
+  - name: Clean artifact path
+    file:
+      state: absent
+      path: /tmp/silo/
+  
+  - name: Creates directory for silos
+    file: 
+      path: /tmp/silo 
+      state: directory
+  
   - name: Copy Silo Image
     copy: 
       src: "silo.png"
       dest: "/tmp/sideways_silo.png"      
 
   - name: Silo Convert
-    command: "convert /tmp/sideways_silo.png -gravity Center -fill white -size 200x20 -pointsize 26 -annotate +0-10 '{{ item }}' -rotate 90  /tmp/silo_temp{{ idx }}.png"
+    command: "convert /tmp/sideways_silo.png -gravity Center -fill white -size 200x20 -pointsize 26 -annotate +0-10 '{{ item }}' -rotate 90  /tmp/silo/temp{{ idx }}.png"
     loop: "{{ project|unique }}"
     loop_control:
       index_var: idx
     when: "idx < 22"
        
   - name: Silo Montage
-    raw: "montage /tmp/silo_temp{{'{1..' ~ project|unique|length ~ '}'}}.png -resize 60% -background none -tile 7x3 -geometry +0+0 /tmp/silosout.png"
+    raw: "montage /tmp/silo/temp{{'{1..' ~ project|unique|length ~ '}'}}.png -resize 60% -background none -tile 7x3 -geometry +0+0 /tmp/silo/out.png"
      
   - name: Add Silos to PPTX
     pptx_image:
-      image: "/tmp/silosout.png"
+      image: "/tmp/silo/out.png"
       title: "How we currently work"
       filename: "{{ pptx_filename }}"
-      top_inches: 2.5
+      top_inches: 1.5
       left_inches: 0.7
       
   - name: Pie chart of why we clubbing
