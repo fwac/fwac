@@ -13,7 +13,7 @@
       meetings_ss: "{{ meetings_ss }}",
       reason_cloud_text: "{{ reason_cloud_text }}",
       challenge_cloud_text: "{{ challenge_cloud_text }}",
-      topic_text: "{{ topic_text }}",
+      topic_text: "{{ topic_text|default('') }}",
       name_text: "{{ name_text|default('') }}",
       why_text: "{{ why_text }}"
       }
