@@ -163,7 +163,7 @@
     register: silo_count
        
   - name: Silo Montage
-    raw: "montage /tmp/silo_temp\{1..{{ silo_count }}\}.png -background none -tile 5x3 -geometry +0+0 /tmp/silosout.png"
+    shell: "montage /tmp/silo_temp{1..{{ silo_count }}?}png -background none -tile 5x3 -geometry +0+0 /tmp/silosout.png"
      
   - name: Add Silos to PPTX
     pptx_image:
