@@ -26,7 +26,7 @@
       club: "{{ club|default([]) + item.club_ms }}" #
       emails: "{{ emails|default([]) + [item._id] }}"
       meetings: "{{ meetings|default([]) + [item.meetings_ss] }}" #
-      project: "{{ project|default([]) + [item.project_text] }}"
+      project: "{{ project|default([]) + [item.project_text|upper] }}"
       reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }} {{ item.project_text }}" #
       role: "{{ role|default([]) + [item.role_ss] }}" #
       topic: "{{ topic|default([]) + [item.topic_text] }}"
@@ -147,7 +147,28 @@
        - "Meeting interval"
       series_values: "{{ meetings }}"
       chart_type: "bar"
-      
+
+  # silos 
+  - name: Copy Silo Image
+    copy: 
+      src: "silo.png"
+      dest: "/tmp/sideways_silo.png"      
+
+  - name: Silo Convert
+    command: "convert /tmp/sideways_silo.png -gravity Center -fill white -size 200x20 -pointsize 30 -annotate +0-10 '{{ item }}' -rotate 90  /tmp/silo_temp{{ idx }}.png"
+    loop: "{{ project }}"
+    loop_control:
+      index_var: idx
+       
+  - name: Silo Montage
+    command: "montage /tmp/silo_temp{1..15}.png -background none -tile 5x3 -geometry +0+0 /tmp/silosout.png"
+     
+  - name: Add Silos to PPTX
+    pptx_image:
+      title: "Why we love Ansible"
+      image: "/tmp/silosout.png"
+      filename: "{{ pptx_filename }}"
+     
   # reason cloud ===================================================     
   - name: Create reason cloud
     word_cloud:
