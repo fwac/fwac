@@ -155,14 +155,14 @@
       dest: "/tmp/sideways_silo.png"      
 
   - name: Silo Convert
-    command: "convert /tmp/sideways_silo.png -gravity Center -fill white -size 200x20 -pointsize 30 -annotate +0-10 '{{ item }}' -rotate 90  /tmp/silo_temp{{ idx }}.png"
+    command: "convert /tmp/sideways_silo.png -gravity Center -fill white -size 200x20 -pointsize 26 -annotate +0-10 '{{ item }}' -rotate 90  /tmp/silo_temp{{ idx }}.png"
     loop: "{{ project|unique }}"
     loop_control:
       index_var: idx
-    when: "idx < 16"
+    when: "idx < 19"
        
   - name: Silo Montage
-    raw: "montage /tmp/silo_temp{{'{1..' ~ project|unique|length ~ '}'}}.png -resize 75% -background none -tile 5x3 -geometry +0+0 /tmp/silosout.png"
+    raw: "montage /tmp/silo_temp{{'{1..' ~ project|unique|length ~ '}'}}.png -resize 70% -background none -tile 6x3 -geometry +0+0 /tmp/silosout.png"
      
   - name: Add Silos to PPTX
     pptx_image:
