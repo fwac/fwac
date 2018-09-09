@@ -166,9 +166,11 @@
      
   - name: Add Silos to PPTX
     pptx_image:
-      title: "Why we love Ansible"
+      title: ""
       image: "/tmp/silosout.png"
       filename: "{{ pptx_filename }}"
+      top_inches: 0.5
+      left_inches: 0.5
      
   # reason cloud ===================================================     
   - name: Create reason cloud
