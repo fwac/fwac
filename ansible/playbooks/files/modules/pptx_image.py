@@ -11,7 +11,7 @@ def main():
       top_inches = dict(required=False, type='float', default='1.8'),
       left_inches = dict(required=False, type='float', default='1.0'),      
       image = dict(required=True),
-      title = dict(required=True, type='str'),
+      title = dict(required=False, type='str'),
       bg_image = dict(required=False)
       ),
       supports_check_mode=False
@@ -27,8 +27,9 @@ def main():
     
     blank_slide_layout = prs.slide_layouts[5]
     slide = prs.slides.add_slide(blank_slide_layout)
-    slide_title = slide.shapes.title
-    slide_title.text = title
+    if title:
+      slide_title = slide.shapes.title
+      slide_title.text = title
 
     top = Inches(top_inches)
     left = Inches(left_inches)
