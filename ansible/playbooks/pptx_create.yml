@@ -116,7 +116,7 @@
       image: "/tmp/silo/out.png"
       title: "How we currently work"
       filename: "{{ pptx_filename }}"
-      top_inches: 1.6
+      top_inches: 1.7
       left_inches: 0.7
       
   - name: Pie chart of why we clubbing
