@@ -32,13 +32,20 @@
       method: "POST"
       body: "{{survey}}"
       status_code: 200,201
+      
+  - name: RESTHeart for mail
+    uri:
+      url: "http://{{restheart}}/{{ db }}/mail/{{ email_from }}"
+      return_content: yes
+    register: email_col
+    when: "email_from is defined"      
 
   - name: Email Notification
     mail:
       host: smtp.gmail.com
       port: 587
       username: "{{ email_from }}"
-      password: "{{ email_passwd }}"
+      password: "{{ email_col.passwd }}"
       to: "scott.ctr.tully@faa.gov"
       cc: "{{ email_text }}"
       subject: FWAC Survey Submitted
@@ -46,5 +53,5 @@
       body: "{{ name_text }} submitted a survey\n\n {{survey|to_nice_yaml}}"
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
-    when: "email_passwd is defined"
+    when: "email_col.passwd is defined and email_from is defined"
 
