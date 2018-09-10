@@ -27,7 +27,11 @@ def main():
     width = module.params['width']
     mode = module.params['mode']
     colormap = module.params['colormap']
-
+    
+    #make words more pretty 
+    nocommas = words.replace(',','')
+    words = nocommas.capitalize()
+    
     wc = WordCloud(background_color=background_color, colormap=colormap, max_words=2000, mode=mode, height=height, width=width)
     wc.generate(words)
     wc.to_file(image_file)
