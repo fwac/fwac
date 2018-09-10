@@ -302,7 +302,7 @@
       host: smtp.gmail.com
       port: 587
       username: "{{ email_from }}"
-      password: "{{ email_col.passwd }}"
+      password: "{{ email_col.json.passwd }}"
       to: "{{ emails }}"
       subject: FWAC Meeting Slides
       from: scott.ctr.tully@gmail.com
@@ -311,5 +311,5 @@
         - "{{ pptx_filename }}"
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
-    when: "email_col.passwd is defined and email_from is defined"
+    when: "email_col.json is defined and email_from is defined"
  
