@@ -155,11 +155,11 @@
     pptx_chart:
       title: "Just Dev or DevOps"
       filename: "{{ pptx_filename }}"
-      categories: ['Dev','DevOps']
+      categories: ['Just Dev','DevOps']
       series_values: ['{{ currently_yes|int - inops_yes|int }}','{{ inops_yes }}']
       series_build: False
       series_name: 
-       - "Dev or DevOps"
+       - "Just Dev or DevOps"
       chart_type: "pie"
       
   - name: Who uses Tower vs Engine
@@ -299,7 +299,7 @@
       to: "{{ emails }}"
       subject: FWAC Meeting Slides
       from: scott.ctr.tully@gmail.com
-      body: "Slides attached. Playbooks and source code avaialble here http://fwac.github.io/"
+      body: "Ansible has created a PowerPoint Presentation for you. The slides are attached.\n\nPlaybooks and source code available here https://github.com/fwac/fwac\n\nEnjoy!"
       attach:
         - "{{ pptx_filename }}"
       headers:
