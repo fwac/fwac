@@ -261,7 +261,7 @@
       permission: public-read  
     when: index_html is changed
 
- - name: Update fwac.github.io
+  - name: Update fwac.github.io
     git:
       repo: git@github.com:fwac/fwac.github.io.git
       dest: /home/ec2-user/fwac.github.io
@@ -306,5 +306,3 @@
         - Reply-To=scott.ctr.tully@faa.gov
     when: "email_passwd is defined and emails is defined"
  
-
-      
