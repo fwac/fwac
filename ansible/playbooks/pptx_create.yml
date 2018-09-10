@@ -17,9 +17,9 @@
   # set variables with all the answers together. the code in the module will
   # tally the answers to create the charts. Needs to provide a list
   - set_fact:
-      currently_yes: "{{ currently_yes|default(0)|int + item.currently_ss|bool|int }}" #
+      currently_yes: "{{ currently_yes|default('0')|int + item.currently_ss|bool|int }}" #
       currently: "{{ currently|default([]) + [item.currently_ss] }}" #
-      inops_yes: "{{ inops_yes|default(0)|int + item.inops_ss|bool|int }}" #
+      inops_yes: "{{ inops_yes|default('0')|int + item.inops_ss|bool|int }}" #
       inops: "{{ inops|default([]) + [item.inops_ss] }}" #
       challenge_cloud: "{{ challenge_cloud|default('') }} {{ item.challenge_cloud_text }}" #
       why_cloud: "{{ why_cloud|default('') }} {{ item.why_text }}" #      
@@ -27,7 +27,7 @@
       emails: "{{ emails|default([]) + [item._id] }}"
       meetings: "{{ meetings|default([]) + [item.meetings_ss] }}" #
       project: "{{ project|default([]) + [item.project_text|upper] }}"
-      reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }} {{ item.project_text }}" #
+      reason_cloud: "{{ reason_cloud|default('') }} {{ item.reason_cloud_text  }}" #
       role: "{{ role|default([]) + [item.role_ss] }}" #
       topic: "{{ topic|default([]) + [item.topic_text] }}"
       name: "{{ name|default([]) + [item.name_text|default('None')] }}"
@@ -153,9 +153,9 @@
 
   - name: Pie chart of DevOps
     pptx_chart:
-      title: "DevOps or just Dev"
+      title: "Just Dev or DevOps"
       filename: "{{ pptx_filename }}"
-      categories: ['Dev','Ops']
+      categories: ['Dev','DevOps']
       series_values: ['{{ currently_yes|int - inops_yes|int }}','{{ inops_yes }}']
       series_build: False
       series_name: 
