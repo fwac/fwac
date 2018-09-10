@@ -10,7 +10,7 @@
   tasks:
   - name: RESTHeart for collections
     uri:
-      url: "http://{{restheart}}/db/{{ collection }}"
+      url: "http://{{restheart}}/{{ db }}/{{ collection }}"
       return_content: yes
     register: documents
 
@@ -96,12 +96,12 @@
       path: /tmp/silo 
       state: directory
   
-  - name: Copy Silo Image
+  - name: Copy Sideways Image
     copy: 
       src: "silo.png"
       dest: "/tmp/sideways_silo.png"      
 
-  - name: Silo Convert
+  - name: Building Silos
     command: "convert /tmp/sideways_silo.png -gravity Center -fill white -size 200x20 -pointsize 26 -annotate +0-10 '{{ item }}' -rotate 90  /tmp/silo/temp{{ idx }}.png"
     loop: "{{ project|unique }}"
     loop_control:
@@ -233,7 +233,7 @@
       title: "Discussion"
       filename: "{{ pptx_filename }}"
       bullets: "{{ topic }}"
-      count: 4
+      count: 5
     when: "topic|length > 0"
 
 
@@ -261,29 +261,7 @@
       permission: public-read  
     when: index_html is changed
 
-  - name: Add Attendance table to pptx for email
-    pptx_table:
-      title: "Attendance"
-      filename: "{{ pptx_filename }}"
-      table_data: "{{ table_data }}"
-
-  - name: Email Slides to attendees
-    mail:
-      host: smtp.gmail.com
-      port: 587
-      username: "{{ email_from }}"
-      password: "{{ email_passwd }}"
-      to: "{{ emails }}"
-      subject: FWAC Meeting Slides
-      from: scott.ctr.tully@faa.gov
-      body: "Slides attached. Playbooks and source code avaialble here http://fwac.github.io/"
-      attach:
-        - "{{ pptx_filename }}"
-      headers:
-        - Reply-To=scott.ctr.tully@faa.gov
-    when: "email_passwd is defined and emails is defined"
- 
-  - name: Update fwac.github.io
+ - name: Update fwac.github.io
     git:
       repo: git@github.com:fwac/fwac.github.io.git
       dest: /home/ec2-user/fwac.github.io
@@ -298,11 +276,35 @@
       mode: list
     register: slides
     
-  - name: Make Update README 
+  - name: Update README 
     template:
         src: README.md.j2
         dest: /home/ec2-user/fwac.github.io/README.md
         
   - name: Push README
     shell: "cd /home/ec2-user/fwac.github.io && /home/ec2-user/bin/push"  
+    
+  - name: Add Attendance table to pptx for email only
+    pptx_table:
+      title: "Attendance"
+      filename: "{{ pptx_filename }}"
+      table_data: "{{ table_data }}"
+
+  - name: Email Slides to attendees
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: "{{ email_from }}"
+      password: "{{ email_passwd }}"
+      to: "{{ emails }}"
+      subject: FWAC Meeting Slides
+      from: scott.ctr.tully@gmail.com
+      body: "Slides attached. Playbooks and source code avaialble here http://fwac.github.io/"
+      attach:
+        - "{{ pptx_filename }}"
+      headers:
+        - Reply-To=scott.ctr.tully@faa.gov
+    when: "email_passwd is defined and emails is defined"
+ 
+
       

@@ -21,13 +21,13 @@
   tasks:
   - name: RESTHeart PUT collection 
     uri:
-      url: "http://{{restheart}}/db/{{ collection }}"
+      url: "http://{{restheart}}/{{ db }}/{{ collection }}"
       method: PUT
       status_code: "201,200"
 
   - name: Put answers in Mongo
     uri:
-      url: "http://{{ restheart }}/db/{{ collection }}"
+      url: "http://{{ restheart }}/{{ db }}/{{ collection }}"
       body_format: "json"
       method: "POST"
       body: "{{survey}}"
@@ -40,9 +40,10 @@
       username: "{{ email_from }}"
       password: "{{ email_passwd }}"
       to: "scott.ctr.tully@faa.gov"
+      cc: "{{ email_text }}"
       subject: FWAC Survey Submitted
       from: scott.ctr.tully@gmail.com
-      body: "{{ name_text }} ({{ email_text }}) submitted a survey\n\n {{survey|to_nice_yaml}}"
+      body: "{{ name_text }} submitted a survey\n\n {{survey|to_nice_yaml}}"
       headers:
         - Reply-To=scott.ctr.tully@faa.gov
     when: "email_passwd is defined"
