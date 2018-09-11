@@ -1,7 +1,6 @@
 ---
 - hosts: awx
   vars:
-    pptx_filename: "/tmp/fwac.pptx"
     pptx_template: "/tmp/Presentation.pptx"
     reason_image_file: "/tmp/reason_cloud.png"
     challenge_image_file: "/tmp/challenge_cloud.png"
