@@ -120,7 +120,7 @@
   - name: Add Silos to PPTX
     pptx_image:
       image: "/tmp/silo/out.png"
-      title: "How we currently work"
+      title: "We currently work in silos"
       filename: "{{ pptx_filename }}"
       top_inches: 1.7
       left_inches: 0.7
