@@ -305,7 +305,7 @@
       to: "{{ emails }}"
       subject: FWAC Meeting Slides
       from: scott.ctr.tully@gmail.com
-      body: "Ansible has created a PowerPoint Presentation for you. The slides are attached.\n\nPlaybooks and source code available here https://github.com/fwac/fwac\n\nEnjoy!"
+      body: "Ansible has created a PowerPoint Presentation for you. The slides are attached.\n\nI ran the playbook again because there was a couple more submittals.\n\n Playbooks and source code available here https://github.com/fwac/fwac\n\nThank you all for attending!\nScott"
       attach:
         - "{{ pptx_filename }}"
       headers:
