@@ -1,0 +1,107 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: install ca package
+    yum:
+      name: ca-certificates
+      state: present
+  - name: install epel package
+    yum:
+      name: epel-release
+      state: present
+
+  - name: install pip package
+    yum:
+      name: python-pip
+      state: present
+      enablerepo: epel
+
+  - name: install git package
+    yum:
+      name: git
+      state: present
+
+  - name: install haproxy package
+    yum:
+      name: haproxy
+      state: present
+
+  - name: install pypiserver
+    pip:
+      name: pypiserver
+
+# setup CA
+  - name: Create CA directory
+    file:
+      path: /opt/ca
+      state: directory
+      mode: 0755
+
+  - name: Check that myCA.key exists
+    stat:
+      path: /opt/ca/myCA.key
+    register: key_result
+
+  - name: Create the CA keyfile
+    command: openssl genrsa -des3 -out /opt/ca/myCA.key 2048
+    when: key_result.stat.exists == False 
+
+  - name: Check that myCA.pem exists
+    stat:
+      path: /opt/ca/myCA.pem
+    register: pem_result
+
+  - name: Create the CA Cert
+    command: openssl req -x509 -new -nodes -key /opt/ca/myCA.key -sha256 -days 3650 -out /opt/ca/myCA.pem
+    when: key_result.stat.exists == True and pem_result.stat.exists == False
+
+  - name: enable dynamic ca configuration on rhel6
+    shell: update-ca-trust enable
+
+  - name: copy certificate authority to trusted ca path of the os
+    copy:
+      src: /opt/ca/myCA.pem
+      dest: /etc/pki/ca-trust/source/anchors
+      owner: root
+      group: root
+      mode: 0644
+    notify:
+      - update trusted ca redhat
+
+  - name: enable dynamic ca configuration
+    shell: update-ca-trust enable
+
+  - name: Check that pypi.local key exists
+    stat:
+      path: /opt/ca/pypi.local.key
+    register: pykey_result
+
+  - name: Create the CA keyfile
+    command: openssl genrsa -out /opt/ca/pypi.local.key 2048
+    when: pykey_result.stat.exists == False
+
+  - name: Check that pypi.local CSR exists
+    stat:
+      path: /opt/ca/pypi.local.csr
+    register: pycsr_result
+
+  - name: Create the pypi.local CSR
+    command: openssl req -new -key /opt/ca/pypi.local.key -out /opt/ca/pypi.local.csr
+    when: pykey_result.stat.exists == True and pycsr_result.stat.exists == False
+
+  - name: Check that pypi.local CRT exists
+    stat:
+      path: /opt/ca/pypi.local.crt
+    register: pycrt_result
+
+  - name: Create the pypi.local CSR
+    command: >-
+             openssl x509 -req -in /opt/ca/pypi.local.csr -CA /opt/ca/myCA.pem -CAkey /opt/ca/myCA.key 
+             -CAcreateserial -out /opt/ca/pypi.local..crt -days 1825 -sha256 -extfile /opt/ca/pypi.local.ext
+    when: pycsr_result.stat.exists == True and pycrt_result.stat.exists == False
+
+  handlers:
+  - name: update trusted ca redhat
+    shell: update-ca-trust
+

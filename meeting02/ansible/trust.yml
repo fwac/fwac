@@ -1,9 +1,6 @@
 ---
 - hosts: localhost
   connection: local
-  vars:
-    ca_path: /etc/pki/ca-trust/source/anchors
-
   tasks:
   - name: install ca package on rhel systems
     yum:
@@ -15,13 +12,11 @@
 
   - name: copy certificate authority to trusted ca path of the os
     copy:
-      src: '{{ item }}'
-      dest: '{{ ca_path }}/'
+      src: /root/myCA.pem
+      dest: /etc/pki/ca-trust/source/anchors/
       owner: root
       group: root
       mode: 0644
-    with_items:
-      - /root/myCA.pem
     notify:
       - update trusted ca redhat
 
