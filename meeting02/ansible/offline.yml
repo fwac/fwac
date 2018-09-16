@@ -6,6 +6,7 @@
     yum:
       name: ca-certificates
       state: present
+
   - name: install epel package
     yum:
       name: epel-release
@@ -100,6 +101,12 @@
              openssl x509 -req -in /opt/ca/pypi.local.csr -CA /opt/ca/myCA.pem -CAkey /opt/ca/myCA.key 
              -CAcreateserial -out /opt/ca/pypi.local..crt -days 1825 -sha256 -extfile /opt/ca/pypi.local.ext
     when: pycsr_result.stat.exists == True and pycrt_result.stat.exists == False
+  
+  - name: Copy CA cert to docker build env
+    copy:
+      src: /opt/ca/myCA.pem
+      dest: /opt/fwac/meeting02/myCA.pem
+    
 
   handlers:
   - name: update trusted ca redhat
