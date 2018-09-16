@@ -12,7 +12,7 @@
 
   - name: copy certificate authority to trusted ca path of the os
     copy:
-      src: /root/myCA.pem
+      src: /opt/fwac/meeting02/myCA.pem
       dest: /etc/pki/ca-trust/source/anchors/
       owner: root
       group: root

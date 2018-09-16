@@ -5,7 +5,6 @@ RUN yum -y install python-pip && yum clean all
 RUN pip install --upgrade pip;mkdir -p /root/.pip
 
 COPY conf/pip.conf /root/.pip/pip.conf
-COPY myCA.pem /root/myCA.pem
 
 WORKDIR /opt/fwac
 
