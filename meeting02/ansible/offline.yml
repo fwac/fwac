@@ -57,10 +57,10 @@
     command: openssl req -x509 -new -nodes -key /opt/ca/myCA.key -sha256 -days 3650 -out /opt/ca/myCA.pem
     when: key_result.stat.exists == True and pem_result.stat.exists == False
 
-  - name: enable dynamic ca configuration on rhel6
+  - name: enable dynamic ca configuration
     shell: update-ca-trust enable
 
-  - name: copy certificate authority to trusted ca path of the os
+  - name: copy certificate authority to trusted ca path
     copy:
       src: /opt/ca/myCA.pem
       dest: /etc/pki/ca-trust/source/anchors
@@ -109,6 +109,6 @@
     
 
   handlers:
-  - name: update trusted ca redhat
+  - name: update trusted ca 
     shell: update-ca-trust
 
