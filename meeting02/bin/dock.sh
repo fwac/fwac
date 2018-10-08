@@ -4,7 +4,7 @@ NAME=$1
 if test $NAME
 then
   echo
-  if docker run -d -it -v /opt/fwac:/opt/fwac -e NAME=$NAME --add-host="pypi.local:$IP" --name=$NAME offline &> /tmp/$NAME
+  if docker run -d -it -v /opt/fwac:/opt/fwac -e NAME=$NAME --add-host="fwac:$IP" --add-host="pypi.local:$IP" --name=$NAME lab &> /tmp/$NAME
   then
     echo "Created new container named $NAME"
   elif docker start $NAME &>> /tmp/$NAME
