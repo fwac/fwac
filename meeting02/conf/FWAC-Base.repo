@@ -1,0 +1,26 @@
+[fwac-base]
+name=FWAC-$releasever - Base
+baseurl=http://fwac/centos/$releasever/os/$basearch/
+gpgcheck=0
+enabled=1
+#released updates
+[fwac-update]
+name=FWAC-$releasever - Updates
+baseurl=http://fwac/centos/$releasever/update/$basearch/
+gpgcheck=0
+enabled=1
+[fwac-extras]
+name=FWAC-$releasever - Extras
+baseurl=http://fwac/centos/$releasever/extras/$basearch/
+gpgcheck=0
+enabled=1
+[fwac-epel]
+name=FWAC-$releasever - EPEL
+baseurl=http://fwac/centos/$releasever/epel/$basearch/
+gpgcheck=0
+enabled=1
+[fwac-docker]
+name=FWAC-$releasever - Docker
+baseurl=http://fwac/centos/$releasever/docker-ce-stable/$basearch/
+gpgcheck=0
+enabled=1

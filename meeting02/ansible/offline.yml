@@ -34,6 +34,18 @@
       name: haproxy
       state: present
 
+  - name: copy haproxy config
+    copy:
+      src: haproxy.cfg
+      dest: /etc/haproxy/haproxy.cfg
+      mode: 0644
+
+  - name: Enable haproxy
+    service:
+      name: haproxy
+      state: started
+      enabled: yes
+
   - name: install pypiserver
     pip:
       name: pypiserver
@@ -43,6 +55,12 @@
     file:
       path: /opt/ca
       state: directory
+      mode: 0755
+
+  - name: copy dock script
+    copy:
+      src: pypi.local.ext
+      dest: /opt/ca/pypi.local.ext
       mode: 0755
 
   - name: Check that myCA.key exists
@@ -74,7 +92,7 @@
       group: root
       mode: 0644
     notify:
-      - update trusted ca redhat
+      - update trusted ca
 
   - name: enable dynamic ca configuration
     shell: update-ca-trust enable
@@ -105,7 +123,7 @@
   - name: Create the pypi.local CSR
     command: >-
              openssl x509 -req -in /opt/ca/pypi.local.csr -CA /opt/ca/myCA.pem -CAkey /opt/ca/myCA.key 
-             -CAcreateserial -out /opt/ca/pypi.local..crt -days 1825 -sha256 -extfile /opt/ca/pypi.local.ext
+             -CAcreateserial -out /opt/ca/pypi.local.crt -days 1825 -sha256 -extfile /opt/ca/pypi.local.ext
     when: pycsr_result.stat.exists == True and pycrt_result.stat.exists == False
   
   - name: Copy CA cert to docker build env
