@@ -107,7 +107,9 @@ Assuming that all goes smoothly, the next step is running minirepo. You can rese
 We will use the pypiserver to actually serve the index for pip to search for packages.  It gets a little weird here. You have options. Maybe my solution is not the one for you.  I ended up doing a nginx proxy and alias for https.  Since we are doing the entire pypi repository,  performance with pypiserver can be an issue.  Every request causes the server to rescan the directory and is a huge performance hit.  You should also use TLS/https for connections. I’m going to leave the TLS discussion out of this for now because I don’t feal like writing about it. 
 
 To run the pypi server, I use this command:
-`# pypi-server --disable-fallback -i 127.0.0.1 -p 5050 -v --log-file /var/log/pypi.log $MNT/python/packages`
+```
+# pypi-server --disable-fallback -i 127.0.0.1 -p 5050 -v --log-file /var/log/pypi.log $MNT/python/packages
+```
 
 To put a front end that support TLS connections, I use nginx with this config. The server on port 80 is actually used for my rpm repo.
 
@@ -228,5 +230,5 @@ This is the important part for the server on 443:
           root /opt/python/;
         }
 ```
-The ‘location /’ directive takes all the requests for index search and proxies them to pypiserver.  The ‘location /packages/’ directive is the performance boost.  When the client receives the url for the download, nginx will serve the file, not pypiserver.  This happens because the url has a match for the ‘/packages/’ directory. 
+The `location /` directive takes all the requests for index search and proxies them to pypiserver.  The `location /packages/` directive is the performance boost.  When the client receives the url for the download, nginx will serve the file, not pypiserver.  This happens because the url has a match for the ‘/packages/’ directory. 
 
