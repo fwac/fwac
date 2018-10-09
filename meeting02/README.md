@@ -1,9 +1,11 @@
 # Setting up an offline repository
 
-## Yum Repo
 This document will provide guidance on setting up the necessary repositories to support most environments that host Ansible, Docker, and Python installs.  I will try to provide step-by-step instructions for the important parts of the procedure, but I’m sure you will need to fill gaps. There are many ways to do this… This is one.
-Prerequisites: >=128GB thumb drive or disk, and a Linux machine that matches the flavor of the offline install media you want. You will need Internet connectivity to download the packages.  I am using CentOS here so yum will be the package manager of choice. 
-From your internet box, mount your drive to a directory.  I mounted /opt, but you can use /mnt or whatever. I will call it $MNT
+
+Prerequisites: >=128GB thumb drive or disk, and a Linux machine that matches the flavor of the offline install media you want. You will need Internet connectivity to download the packages.  
+
+## Yum Repo
+I am using CentOS here so yum will be the package manager of choice.  From your internet box, mount your drive to a directory.  I mounted /opt, but you can use /mnt or whatever. I will call it $MNT
 
 `# mount /dev/sdX $MNT`
 
