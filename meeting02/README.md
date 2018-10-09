@@ -45,9 +45,10 @@ This is it. It’s going to take a while for each reposync to complete.  But whe
 ```
 
 Okay, now that we have a copy, let’s disable those Internet repos.  
-```# yum-config-manager --disable \\*
-# yum repolist```
-
+```
+# yum-config-manager --disable \*
+# yum repolist
+```
 The repolist should confirm you have no repos enabled.
 Now use the sample yum configuration below to add your local repos.
 
@@ -85,7 +86,9 @@ enabled=1
 ```
 
 Before you can use this configuration, you must setup apache, or nginx to serve the rpms.  I used Nginx.  You can either point the document root to your $MNT directory, or like I did, create a symlink inside /usr/share/nginx/html to /opt/centos/. I did this because I thought I might use the webserver for other stuff too.
+
 `# ln –s /opt/centos /usr/share/nginx/html/centos`
+
 With this configuration in place you should be able to see your repos
 `# yum repolist`
 
@@ -93,9 +96,11 @@ With this configuration in place you should be able to see your repos
 
 The second part of this is duplicating the PyPi servers so the pip python package manager can be used offline. Believe me this will make your life better if you do not have internet access from your hosts.
 We need to install a couple things to set this up.  If you don’t have pip already you can install it using the yum package manager.
-```# yum install python-pip
+```
+# yum install python-pip
 # pip install pypiserver[cache]
-# pip install minirepo```
+# pip install minirepo
+```
 
 Assuming that all goes smoothly, the next step is running minirepo. You can research it to find out more, but I was fine with the defaults.  The first time you run it you will get a prompt for a directory to use to store the thousands of files you are about to download.  Enter something like $MNT/python/packages.  This will probably take a couple hours. 
 
@@ -139,9 +144,9 @@ http {
     include             /etc/nginx/mime.types;
     default_type        application/octet-stream;
 
-    \# Load modular configuration files from the /etc/nginx/conf.d directory.
-    \# See http://nginx.org/en/docs/ngx_core_module.html#include
-    \# for more information.
+    # Load modular configuration files from the /etc/nginx/conf.d directory.
+    # See http://nginx.org/en/docs/ngx_core_module.html#include
+    # for more information.
     include /etc/nginx/conf.d/*.conf;
 
     server {
@@ -165,7 +170,7 @@ http {
         }
     }
 
-\# Settings for a TLS enabled server.
+# Settings for a TLS enabled server.
 
     server {
         listen       443 ssl http2 default_server;
