@@ -4,21 +4,26 @@
 This document will provide guidance on setting up the necessary repositories to support most environments that host Ansible, Docker, and Python installs.  I will try to provide step-by-step instructions for the important parts of the procedure, but I’m sure you will need to fill gaps. There are many ways to do this… This is one.
 Prerequisites: >=128GB thumb drive or disk, and a Linux machine that matches the flavor of the offline install media you want. You will need Internet connectivity to download the packages.  I am using CentOS here so yum will be the package manager of choice. 
 From your internet box, mount your drive to a directory.  I mounted /opt, but you can use /mnt or whatever. I will call it $MNT
-`\# mount /dev/sdX $MNT`
+
+`# mount /dev/sdX $MNT`
+
 Let’s install some packages to get ready for some reposyncing.
-`\# yum -y install yum-utils docker-ce epel-release`
+
+`# yum -y install yum-utils docker-ce epel-release`
+
 You can now check what repos you have by running 
-`\# yum repolist`
+
+`# yum repolist`
 
 You will need to note the “repo id” in the left most column. This will be the values provided in the next steps. 
 This is it. It’s going to take a while for each reposync to complete.  But when you are done, you will have everything to install rpms offline. You should make a directory tree like this ( match your architecture) 
 
 ```
-\# mkdir –vp $MNT/centos/7/os/x86_64/CentOS/RPMS
-\# mkdir –vp $MNT/centos/7/epel/x86_64/CentOS/RPMS
-\# mkdir –vp $MNT/centos/7/update/x86_64/CentOS/RPMS
-\# mkdir –vp $MNT/centos/7/extras/x86_64/CentOS/RPMS
-\# mkdir –vp $MNT/centos/7/docker-ce-stable/x86_64/CentOS/RPMS
+# mkdir –vp $MNT/centos/7/os/x86_64/CentOS/RPMS
+# mkdir –vp $MNT/centos/7/epel/x86_64/CentOS/RPMS
+# mkdir –vp $MNT/centos/7/update/x86_64/CentOS/RPMS
+# mkdir –vp $MNT/centos/7/extras/x86_64/CentOS/RPMS
+# mkdir –vp $MNT/centos/7/docker-ce-stable/x86_64/CentOS/RPMS
 ```
 
 ```
