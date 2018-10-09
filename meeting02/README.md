@@ -27,26 +27,26 @@ This is it. It’s going to take a while for each reposync to complete.  But whe
 ```
 
 ```
-\# cd $MNT/centos
-\# reposync --repoid=base --repoid=etxra --repoid=updates --repoid=epel --repoid=docker-ce-stable
-\# mv base/Packages/* $MNT/centos/7/os/x86_64/CentOS/RPMS
-\# mv epel/Packages/* $MNT/centos/7/epel/x86_64/CentOS/RPMs
-\# mv updates/Packages/* $MNT/centos/7/update/x86_64/CentOS/RPMS
-\# mv extras/Packages/* $MNT/centos/7/extras/x86_64/CentOS/RPMS
-\# mv docker-ce-stable/Packages/* $MNT/centos/7/docker/x86_64/CentOS/RPMS
+# cd $MNT/centos
+# reposync --repoid=base --repoid=etxra --repoid=updates --repoid=epel --repoid=docker-ce-stable
+# mv base/Packages/* $MNT/centos/7/os/x86_64/CentOS/RPMS
+# mv epel/Packages/* $MNT/centos/7/epel/x86_64/CentOS/RPMs
+# mv updates/Packages/* $MNT/centos/7/update/x86_64/CentOS/RPMS
+# mv extras/Packages/* $MNT/centos/7/extras/x86_64/CentOS/RPMS
+# mv docker-ce-stable/Packages/* $MNT/centos/7/docker/x86_64/CentOS/RPMS
 ```
 
 ```
-\# createrepo $MNT/centos/7/os/x86_64
-\# createrepo $MNT/centos/7/epel/x86_64
-\# createrepo $MNT/centos/7/update/x86_64
-\# createrepo $MNT/centos/7/extras/x86_64
-\# createrepo $MNT/centos/7/docker-ce-stable/x86_64
+# createrepo $MNT/centos/7/os/x86_64
+# createrepo $MNT/centos/7/epel/x86_64
+# createrepo $MNT/centos/7/update/x86_64
+# createrepo $MNT/centos/7/extras/x86_64
+# createrepo $MNT/centos/7/docker-ce-stable/x86_64
 ```
 
 Okay, now that we have a copy, let’s disable those Internet repos.  
-```\# yum-config-manager --disable \\*
-\# yum repolist```
+```# yum-config-manager --disable \\*
+# yum repolist```
 
 The repolist should confirm you have no repos enabled.
 Now use the sample yum configuration below to add your local repos.
@@ -85,38 +85,38 @@ enabled=1
 ```
 
 Before you can use this configuration, you must setup apache, or nginx to serve the rpms.  I used Nginx.  You can either point the document root to your $MNT directory, or like I did, create a symlink inside /usr/share/nginx/html to /opt/centos/. I did this because I thought I might use the webserver for other stuff too.
-`\# ln –s /opt/centos /usr/share/nginx/html/centos`
+`# ln –s /opt/centos /usr/share/nginx/html/centos`
 With this configuration in place you should be able to see your repos
-`\# yum repolist`
+`# yum repolist`
 
 ## PyPi Repo
 
 The second part of this is duplicating the PyPi servers so the pip python package manager can be used offline. Believe me this will make your life better if you do not have internet access from your hosts.
 We need to install a couple things to set this up.  If you don’t have pip already you can install it using the yum package manager.
-```\# yum install python-pip
-\# pip install pypiserver[cache]
-\# pip install minirepo```
+```# yum install python-pip
+# pip install pypiserver[cache]
+# pip install minirepo```
 
 Assuming that all goes smoothly, the next step is running minirepo. You can research it to find out more, but I was fine with the defaults.  The first time you run it you will get a prompt for a directory to use to store the thousands of files you are about to download.  Enter something like $MNT/python/packages.  This will probably take a couple hours. 
 
 We will use the pypiserver to actually serve the index for pip to search for packages.  It gets a little weird here. You have options. Maybe my solution is not the one for you.  I ended up doing a nginx proxy and alias for https.  Since we are doing the entire pypi repository,  performance with pypiserver can be an issue.  Every request causes the server to rescan the directory and is a huge performance hit.  You should also use TLS/https for connections. I’m going to leave the TLS discussion out of this for now because I don’t feal like writing about it. 
 
 To run the pypi server, I use this command:
-`\# pypi-server --disable-fallback -i 127.0.0.1 -p 5050 -v --log-file /var/log/pypi.log $MNT/python/packages`
+`# pypi-server --disable-fallback -i 127.0.0.1 -p 5050 -v --log-file /var/log/pypi.log $MNT/python/packages`
 
 To put a front end that support TLS connections, I use nginx with this config. The server on port 80 is actually used for my rpm repo.
 
 ```
-\# For more information on configuration, see:
-\#   * Official English Documentation: http://nginx.org/en/docs/
-\#   * Official Russian Documentation: http://nginx.org/ru/docs/
+# For more information on configuration, see:
+#   * Official English Documentation: http://nginx.org/en/docs/
+#   * Official Russian Documentation: http://nginx.org/ru/docs/
 
 user nginx;
 worker_processes auto;
 error_log /var/log/nginx/error.log;
 pid /run/nginx.pid;
 
-\# Load dynamic modules. See /usr/share/nginx/README.dynamic.
+# Load dynamic modules. See /usr/share/nginx/README.dynamic.
 include /usr/share/nginx/modules/*.conf;
 
 events {
