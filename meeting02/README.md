@@ -9,9 +9,13 @@ I am using CentOS here so yum will be the package manager of choice.  From your 
 
 `# mount /dev/sdX $MNT`
 
-Let’s install some packages to get ready for some reposyncing.
+Let’s install some packages to get ready for some reposyncing. On RHEL docker is in the extras repo. 
 
 `# yum -y install yum-utils docker-ce epel-release`
+
+You can also use the following if epel-release is not available
+`wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm`
+
 
 You can now check what repos you have by running 
 
