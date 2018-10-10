@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: offline
   connection: local
   tasks:
   - name: install ca package on rhel systems

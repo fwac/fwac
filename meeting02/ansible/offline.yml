@@ -1,11 +1,11 @@
 ---
-- hosts: localhost
+- hosts: offline
   connection: local
   tasks:
   - name: copy dock script
     copy:
       src: /opt/fwac/meeting02/bin/dock.sh
-      dest: /usr/local/bin/2dock
+      dest: /usr/local/bin/lab
       mode: 0755
 
   - name: install ca package
