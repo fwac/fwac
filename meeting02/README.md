@@ -9,9 +9,13 @@ I am using CentOS here so yum will be the package manager of choice.  From your 
 
 `# mount /dev/sdX $MNT`
 
-Let’s install some packages to get ready for some reposyncing.
+Let’s install some packages to get ready for some reposyncing. On RHEL docker is in the extras repo. 
 
 `# yum -y install yum-utils docker-ce epel-release`
+
+You can also use the following if epel-release is not available
+`wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm`
+
 
 You can now check what repos you have by running 
 
@@ -44,6 +48,15 @@ This is it. It’s going to take a while for each reposync to complete.  But whe
 # createrepo $MNT/centos/7/update/x86_64
 # createrepo $MNT/centos/7/extras/x86_64
 # createrepo $MNT/centos/7/docker-ce-stable/x86_64
+```
+If you are running RHEL you can do something like this instead. You will need to check the subscriptions you have available. The example below includes OpenShift.
+```
+for repo in rhel-7-server-rpms rhel-7-server-extras-rpms rhel-7-fast-datapath-rpms rhel-7-server-ansible-2.4-rpms rhel-7-server-ose-3.9-rpms
+do   
+  reposync --gpgcheck -lm --repoid=${repo} --download_path=$MNT;   
+  createrepo -v  $MNT/${repo} -o $MNT/${repo}; 
+done
+
 ```
 
 Okay, now that we have a copy, let’s disable those Internet repos.  
@@ -112,6 +125,7 @@ To run the pypi server, I use this command:
 ```
 # pypi-server --disable-fallback -i 127.0.0.1 -p 5050 -v --log-file /var/log/pypi.log $MNT/python/packages
 ```
+The `--disable-fallback` will block requests that don't find an answer in the offline index from attmepting to go out to the internet.
 
 To put a front end that support TLS connections, I use nginx with this config. The server on port 80 is actually used for my rpm repo.
 
@@ -234,3 +248,11 @@ This is the important part for the server on 443:
 ```
 The `location /` directive takes all the requests for index search and proxies them to pypiserver.  The `location /packages/` directive is the performance boost.  When the client receives the url for the download, nginx will serve the file, not pypiserver.  This happens because the url has a match for the ‘/packages/’ directory. 
 
+Now that you have a shiny new PyPi server setup you will need to make pip use it.  You will need to create a file named `.pip/pip.conf` in your home directory with this in it. Replace values as needed.
+```
+[global]
+index-url = https://pypi.local
+cert = /opt/fwac/meeting02/myCA.pem
+```
+
+Maybe I will come back and give more explanation on setting up a little CA and issueing certificates. But for now that's all I have. You can reference the [offline playook](https://github.com/fwac/fwac/blob/master/meeting02/ansible/offline.yml) and the [shell scripts](https://github.com/fwac/fwac/blob/master/meeting02/bin/) for info.
