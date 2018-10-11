@@ -4,9 +4,10 @@
   tasks:
   - name: copy dock script
     copy:
-      src: /opt/fwac/meeting02/bin/dock.sh
+      src: dock.sh
       dest: /usr/local/bin/lab
       mode: 0755
+    tags: ['script']
 
   - name: install ca package
     yum:
