@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<title>[FWAC] Ansible Club</title>
+
+<xmp theme="cyborg" style="display:none;">
+# Meeting02
+
+Meeting02 will cover some basics for installing and running Ansible playbooks. We will breifly look at simple inventories, variables, templates, and playbooks. 
+
+## Preparation
+
+Since you are here, you have already figured out most of the prep. The only thing left is to create your environment. Running the command below will create a docker container with the name you define. You can use this envrinment to run the rest of the labs.
+
+```
+lab make_up_name
+```
+You should see a mesage like the one below. If it doesn't say "new container" then you might want to pick another name.
+```
+[root@fwac ansible]# lab make_up_name
+
+Created new container named make_up_name
+
+[root@make_up_name make_up_name]#
+
+```
+You are now ready to run your labs. You are already in the docker container and can do whatever you want without causing any damage. You will be in a working directory that is shared to the fwac server so all your work will be saved.
+
+## Lab 1 - Install Ansible
+
+Installing Ansible is easy with the proper setup. We will review the configuration and you will install ansible using one of the two following methods
+```
+yum -y install ansible
+```
+or
+```
+pip install ansible
+```
+
+## Lab 2 - Inventory
+
+We are going to start with super simple inventory and then add a little as we go. `vi inventory` and add the content below to the file, then `:wq` to save. 
+
+```
+[fwac]
+10.0.0.1
+```
+That's about as simple as it gets. `fwac` is a server group, with a single server `10.0.0.1` as a member. We can now create a playbook to reference this group.
+
+## Lab 3 - Playbook
+
+
+
+</xmp>
+
+<script src="/v/0.2/strapdown.js"></script>
+</html>

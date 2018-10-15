@@ -9,6 +9,17 @@
       mode: 0755
     tags: ['script']
 
+  - name: install nginx
+    yum:
+      name: nginx
+      state: present
+
+  - name: copy index.html
+    copy: 
+      src: index.html
+      dest: /usr/share/nginx/html/index.html
+    tags: ['index']
+
   - name: install ca package
     yum:
       name: ca-certificates
