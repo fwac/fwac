@@ -1,6 +1,0 @@
----
-- hosts: fwac
-  tasks:
-  - lineinfile: 
-      path: /etc/hosts
-      line: "172.17.0.4  scott3"

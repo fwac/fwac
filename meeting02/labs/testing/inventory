@@ -1,0 +1,6 @@
+[fwac]
+10.0.0.1
+
+[fwac:vars]
+myip=11.11.11.11
+myhost=elevens

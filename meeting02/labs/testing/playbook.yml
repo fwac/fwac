@@ -1,0 +1,20 @@
+---
+- hosts: fwac
+  tasks:
+  - local_action: shell hostname
+    register: host
+    when: myhost is not defined
+  - debug: 
+      var: host
+      verbosity: 2
+  - local_action: shell hostname -i
+    register: ip
+    when: myip is not defined
+  - debug:
+      var: ip
+      verbosity: 2
+  - lineinfile:
+      path: /etc/hosts
+      regexp: "^{{ myip|default(ip.stdout) }}"
+      line: "{{ myip|default(ip.stdout) }}	{{ myhost|default(host.stdout) }}"
+      state: present
