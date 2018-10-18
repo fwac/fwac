@@ -1,0 +1,15 @@
+---
+- hosts: fwac
+  tasks:
+  - shell: hostname
+    register: host
+  - debug:
+      var: host
+      verbosity: 2
+  - local_action: shell hostname
+    register: host
+    when: myhost is not defined
+  - debug:
+      var: host
+      verbosity: 2
+

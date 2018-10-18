@@ -1,0 +1,11 @@
+---
+- hosts: fwac
+  vars_prompt: 
+  - name: "email"
+    prompt: "Enter your email address"
+    private: no
+  tasks:
+  - lineinfile:
+      path: /root/logins
+      line: "{{ email }}"
+

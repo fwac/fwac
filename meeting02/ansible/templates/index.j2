@@ -4,7 +4,7 @@
 
 <xmp theme="cyborg" style="display:none;">
 # Meeting02
-
+{% raw -%}
 
 >Meeting02 will cover some basics for installing and running Ansible playbooks. We will breifly look at simple inventories, variables, templates, and playbooks. I have tried to introduce simple tasks with some semi-advanced options to keep everyone interested. 
 
@@ -136,7 +136,7 @@ Add the following snip after the above tasks. Make sure the spacing is the same,
 
 **What we've done:**
 
-- Define variables with default options - used below
+- Define variables to enable using default options
 - Use conditional expression to allow override
 - Add debug output
 
@@ -155,6 +155,17 @@ Now for the task that runs on the fwac server
 - Try changing the `state` to `absent` (and back to present)
 - Run the playbook with different levels of verbosity
 - Try using `--check` mode
+
+---
+#####/etc/hosts file contents
+{%- endraw %}
+
+```
+{{ hostfile.stdout }}
+
+```
+{% raw -%}
+
 
 ---
 ## Lab 4 - Run against other hosts
@@ -189,7 +200,7 @@ The variable `root_dir` will need to be defined in inventory. The others are bas
       - j2
 
 ```
-
+{%- endraw %}
 
 </xmp>
 

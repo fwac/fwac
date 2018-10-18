@@ -4,3 +4,9 @@
 [fwac:vars]
 myip=11.11.11.11
 myhost=elevens
+
+[labs]
+testing
+
+[labs:vars]
+root_dir=/tmp

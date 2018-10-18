@@ -14,9 +14,14 @@
       name: nginx
       state: present
 
+  - name: get /etc/hosts
+    shell: cat /etc/hosts
+    register: hostfile
+    tags: ['index']
+
   - name: copy index.html
-    copy: 
-      src: index.html
+    template: 
+      src: index.j2
       dest: /usr/share/nginx/html/index.html
     tags: ['index']
 

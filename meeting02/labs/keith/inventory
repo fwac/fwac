@@ -1,0 +1,11 @@
+[fwac]
+10.0.0.1
+
+
+[fwac:vars]
+
+[labs]
+172.17.0.4
+
+[labs:vars]
+root_dir = /

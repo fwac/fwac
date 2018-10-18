@@ -1,0 +1,6 @@
+[fwac]
+10.0.0.1
+
+[fwac:vars]
+myip=9.9.9.9
+myhost=nines
