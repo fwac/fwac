@@ -1,0 +1,199 @@
+# Meeting02
+
+>Meeting02 will cover some basics for installing and running Ansible playbooks. We will breifly look at simple inventories, variables, templates, and playbooks. I have tried to introduce simple tasks with some semi-advanced options to keep everyone interested. 
+
+
+### Preparation
+
+Since you are here, you have already figured out most of the prep. The only thing left is to create your environment. Running the command below will create a docker container with the name you define. You can use this envrinment to run the rest of the labs.
+
+```
+lab make_up_name
+```
+You should see a mesage like the one below. If it doesn't say "new container" then you might want to pick another name.
+```
+[root@fwac ansible]# lab make_up_name
+
+Created new container named make_up_name
+
+[root@make_up_name make_up_name]#
+
+```
+
+You are now ready to run your labs. You are already in the docker container and can do whatever you want without causing any damage. You will be in a working directory that is shared to the fwac server so all your work will be saved.
+
+---
+## Lab 1 - Install Ansible
+
+Installing Ansible is easy with the proper setup. We will review the configuration and you will install ansible using one of the two following methods
+```
+yum -y install ansible
+```
+>or
+
+```
+pip install ansible
+```
+
+---
+## Lab 2 - Inventory
+
+We are going to start with super simple inventory and then add a little as we go. `vi inventory` and add the content below to the file, then `:wq` to save. 
+
+```
+[fwac]
+10.0.0.1
+
+[fwac:vars]
+
+```
+That's about as simple as it gets. `fwac` is a server group, with a single server `10.0.0.1` as a member. We can now create a playbook to reference this group.
+
+---
+## Lab 3 - Playbook
+
+We are going to break the playbook down into sections to understand everything that is happening. We are covering a lot of functionality in the few tasks we setup. In this lab we are adding the docker host to the fwac server /etc/hosts. This adds your host into DNS.
+
+#### Getting started
+Playbooks are defined using YAML. A YAML file should begin with the first line containing `---` and nothing else. Once you define the file as YAML, you can start defining the key value pairs that build the playbook for Ansible to interpret.
+
+This task will prompt you for your email address and add it to /root/logins
+
+`vi log.yml` and add the following lines
+```
+---
+- hosts: fwac
+  vars_prompt:
+  - name: "email"
+    prompt: "Enter your email address"
+    private: no
+  tasks:
+  - lineinfile:
+      path: /root/logins
+      line: "{{ email }}"
+```
+You can run this playbook like this:
+```
+ansible-playbook -i inventory log.yml
+```
+
+Next we will demo how to perform remote actions vs local actions. We will also see how variables can be defined.
+
+Create a new playbook `vi playbook.yml` and add this stuff:
+
+```
+---
+- hosts: fwac
+  tasks:
+  - shell: hostname
+    register: host
+    when: myhost is not defined
+  - debug:
+      var: host
+      verbosity: 2
+  - local_action: shell hostname
+    register: host
+    when: myhost is not defined
+  - debug:
+      var: host
+      verbosity: 2
+```
+
+Save the playbook `:wq` and run it like this:
+
+```
+ansible-playbook -i inventory playbook.yml -vv
+```
+Try without the -vv too
+
+
+**Notes:**
+
+- The `hosts` line uses the inventory group to define the hosts to run the tasks. 
+- The indentation and `-` are all part of the syntax 
+- `local_action` tells ansible to run this task on the localhost
+- `register` is used to capture the output from the task
+- `when` is a conditional expression
+- `debug` prints the variable value when verbosity is 2 v's
+
+
+Add the following snip after the above tasks. Make sure the spacing is the same, and stuff lines up.
+
+```
+  - local_action: shell hostname -i
+    register: ip
+    when: myip is not defined
+  - debug:
+      var: ip
+      verbosity: 2
+```
+
+**What we've done:**
+
+- Define variables to enable using default options
+- Use conditional expression to allow override
+- Add debug output
+
+
+Now for the task that runs on the fwac server
+```
+  - lineinfile:
+      path: /etc/hosts
+      regexp: "^{{ myip|default(ip.stdout) }}"
+      line: "{{ myip|default(ip.stdout) }}      {{ myhost|default(host.stdout) }}"
+      state: present
+```
+
+- Run the playbook multiple times. Ansible is meant to be idempotent
+- Experiment by adding `myip` and `myhost` definitions in the inventory
+- Try changing the `state` to `absent` (and back to present)
+- Run the playbook with different levels of verbosity
+- Try using `--check` mode
+
+---
+#####/etc/hosts file contents
+
+```
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+10.0.0.1    fwac.local pypi.local fwac
+172.17.0.7      knaakr
+172.17.0.6      drepl
+172.17.0.8      jeanm
+172.17.0.9      swc
+
+```
+
+---
+## Lab 4 - Run against other hosts
+
+Create another entry in your inventory called `labs` and list some of the hostname added to /etc/hosts. Once you have a new group defined in inventory you can do whatever you want. Some ideas are listed below. If you want to try creating a template, you should create one with a unique name and define some variables in the `[labs:vars]` section of inventory. Ansible will look in a directory named templates/ relative to the playbook. 
+
+Create a directory named templates that contains a file named changeme.j2
+
+```
+mkdir templates
+vi templates/changeme.j2 
+```
+
+Try to use a unique filename to prevent collisions with other labs. An example file might look like this:
+
+```
+DocumentRoot: {{ root_dir }}
+Hostname: {{ inventory_hostname }}
+OS: {{ ansible_os_family  }}
+
+```
+The variable `root_dir` will need to be defined in inventory. The others are based on ansible facts. You can add the task below to the same playbook.
+
+
+```
+- hosts: labs
+  tasks:
+  - template:
+      src: changeme.j2
+      dest: /etc/changeme.conf
+    tags:
+      - j2
+
+```
